@@ -1,0 +1,120 @@
+body
+{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #003057;
+}
+
+.nav-item
+{
+    list-style: none;
+}
+
+.nav-link
+{
+    color: #003057;
+}
+
+.nav-link:hover
+{
+    background-color: #f6f6f4;
+    color: #003057;
+}
+
+.nav .nav-item .nav-link.active
+{
+    color: #003057;
+    border-bottom: 3px solid #c1d600;
+}
+
+.navbar
+{
+    border-top: 3px solid #c1d600;
+}
+
+#container
+{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+}
+
+#container #content
+{
+    flex-grow: 1;
+}
+
+.hero-banner
+{
+    background-image: url("../img/placeholder.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+}
+
+h1,h2,h3,h4,h5
+{
+    font-weight: 700;
+}
+
+.btn-primary
+{
+    color: #ffffff;
+    background-color:#003057;
+    border: none;
+    border-radius: 0%;
+    font-size: .875rem;
+    padding: .75rem;
+    min-width: 7rem;
+}
+
+.btn-primary:hover
+{
+    background-color: #29506f;
+}
+
+.btn-secondary
+{
+    color: #003057;
+    background-color: #c1d600;
+    border: none;
+    border-radius: 0%;
+    font-size: .875rem;
+    padding: .75rem;
+    min-width: 7rem;
+}
+
+.btn-secondary:hover
+{
+    background-color: #d6eb14;
+    color: #003057;
+}
+
+.card,.card-img-top,.card-body
+{
+    border-radius: 0%;
+    border: none;
+}
+
+.card
+{
+    transition: transform 300ms ease 0s;
+}
+
+.card:hover
+{
+    transform: scale(1.03);
+}
+
+.card-body
+{
+    padding-left: 0;
+}
+
+.card-link
+{
+    color: #003057;
+    text-decoration: none;
+}
