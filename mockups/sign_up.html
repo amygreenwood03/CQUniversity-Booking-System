@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CQUniversity Booking System - Sign Up</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,bold">
+</head>
+
+<body>
+    <div id="container">
+        <div id="credentials-pane">
+            <div class="container-fluid py-5">
+                <div class="credentials-img">
+                    <a href="index.html"><img src="img/logo.png" alt="CQUniversity's logo" height="100"></a>
+                </div>
+
+                <div class="row my-4">
+                    <h2>VOLUNTEER SIGN UP</h2>
+                </div>
+
+                <form class="col-md-4 offset-md-4" id="signUpForm">
+                    <div class="form-row my-3 row gx-3" id="nameRow">
+                        <div class="col-6">
+                            <div class="form-group" id="firstNameCol">
+                                <input class="form-control" id="firstName" name="firstName" type="text" placeholder="First name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group" id="lastNameCol">
+                                <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Last name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3" id="emailRow">
+                        <div class="form-group">
+                            <input class="form-control" id="email" name="email" type="text" placeholder="Email address" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row" id="passwordRow">
+                        <div class="form-group">
+                            <input class="form-control" id="password" name="password" type="password" placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <input type="button" class="btn btn-primary my-4" value="SIGN UP" id="submitButton">
+                </form>
+
+                <div class="sign-up-pane mt-4">
+                    <a href="login.html"><button class="btn btn-secondary">LOGIN</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

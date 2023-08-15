@@ -37,6 +37,8 @@ body
     display: -webkit-flex;
     flex-direction: column;
 
+    justify-content: center;
+
     min-height: 100vh;
 }
 
@@ -66,6 +68,7 @@ h1,h2,h3,h4,h5
     border: none;
     border-radius: 0%;
     font-size: .875rem;
+    font-weight: 700;
     padding: .75rem;
     min-width: 7rem;
 }
@@ -75,6 +78,11 @@ h1,h2,h3,h4,h5
     background-color: #29506f;
 }
 
+.btn-primary:active:focus
+{
+    background-color: #4f7392;
+}
+
 .btn-secondary
 {
     color: #003057;
@@ -82,6 +90,7 @@ h1,h2,h3,h4,h5
     border: none;
     border-radius: 0%;
     font-size: .875rem;
+    font-weight: 700;
     padding: .75rem;
     min-width: 7rem;
 }
@@ -89,6 +98,12 @@ h1,h2,h3,h4,h5
 .btn-secondary:hover
 {
     background-color: #d6eb14;
+    color: #003057;
+}
+
+.btn-secondary:active:focus
+{
+    background-color: #e0ee58;
     color: #003057;
 }
 
@@ -117,4 +132,44 @@ h1,h2,h3,h4,h5
 {
     color: #003057;
     text-decoration: none;
+}
+
+#credentials-pane
+{
+    text-align: center;
+    /*transform: translate(0, 50%);*/
+}
+
+.credentials-img
+{
+    text-align: center;
+}
+
+.form-control
+{
+    border-radius: 0%;
+    border-color: #ebebea;
+    padding: .75rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-control:hover
+{
+    border-color: #d7d7d5;
+}
+
+.form-control:focus
+{
+    border-color: #003057;
+    box-shadow: none;
+}
+
+#loginForm, #signUpForm
+{
+    border-bottom: 2px solid #ebebea;
+}
+
+#nameRow
+{
+    display: flex;
 }
