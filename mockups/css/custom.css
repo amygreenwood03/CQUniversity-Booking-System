@@ -270,12 +270,21 @@ p
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.breadcrumb-item a
+.breadcrumb-item a, .alert a
 {
     color: #003057;
+    text-decoration: none;
 }
 
-.breadcrumb-item a:hover
+.breadcrumb-item a:hover, .alert a:hover
 {
     border-bottom: 2px solid #003057;
+}
+
+.alert
+{
+    border: 1px solid #ebebea; 
+    border-radius: 0%;
+    background-color: #f6f6f4;
+    font-family: Arial, Helvetica, sans-serif;
 }
