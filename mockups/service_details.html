@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
-	<script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,bold">
@@ -32,7 +31,7 @@
 
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item mx-3">
+                            <li class="nav-item pe-4">
                                 <strong><a class="nav-link" href="about_us.html">ABOUT US</a></strong>
                             </li>
 
@@ -41,12 +40,14 @@
                             </li>
                         </ul>
 
-                        <ul class="nav-login mt-3">
+                        <div class="nav-login d-flex">
                             <li class="nav-item">
                                 <a href="login.html"><button class="btn btn-primary me-2">USER LOGIN</button></a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="login_staff.html"><button class="btn btn-secondary">STAFF LOGIN</button></a>
                             </li>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -72,13 +73,17 @@
 
         <div id="content">
             <div class="container-fluid my-4 px-5">
-                <div class="row">
+                <div class="row pb-4">
                     <h1>SERVICE NAME</h1>
                 </div>
 
-                <div class="row">
-                    <div class="col-6">
-                        <div class="row py-4">
+                <div class="row g-5">
+                    <div class="col-lg-6 d-lg-none">
+                        <img src="img/placeholder.png" class="img-fluid">
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row pb-4">
                             <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;LOCATION</h5>
                             <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;CATEGORY</h5>
                             <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE</h5>
@@ -94,8 +99,8 @@
                         </div>
                     </div>
                     
-                    <div class="col-6" style="text-align: right;">
-                        <img src="img/placeholder.png" style="width: 90%;">
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img src="img/placeholder.png" class="img-fluid">
                     </div>
                 </div>
             </div>
