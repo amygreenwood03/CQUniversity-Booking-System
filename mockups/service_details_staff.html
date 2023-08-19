@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Service Details - CQUniversity Booking System</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/custom.css"/>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,bold"/>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+
+<body>
+    <div id="site-container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid my-2 mx-5">
+                    <a class="navbar-brand" href="index_staff.html">
+                        <img src="img/logo.png" alt="CQUniversity's logo" height="80"/>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <strong><a class="nav-link active" href="services_staff.html">SERVICES</a></strong>
+                            </li>
+                        </ul>
+
+                        <div class="staff-profile d-flex align-items-center">
+                            <li class="nav-item">
+                                <div class="dropdown-center">
+                                    <button class="btn btn-circle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AG</button>
+
+                                    <ul class="dropdown-menu" id="staffDropdown">
+                                        <li class="dropdown-item py-2">
+                                            <a href="#"><strong>LOGOUT</strong></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>    
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <nav aria-label="breadcrumb">
+            <div class="container-fluid px-5 my-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index_staff.html"><i class="fa fa-home"></i></a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="services_staff.html"><strong>SERVICES</strong></a>
+                    </li>
+
+                    <li class="breadcrumb-item" aria-current="page">
+                        <strong>SERVICE NAME</strong>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div id="content">
+            <div class="container-fluid my-4 px-5">
+                <div class="row pb-4">
+                    <h1>SERVICE NAME</h1>
+                </div>
+
+                <div class="row g-5">
+                    <div class="col-lg-6 d-lg-none">
+                        <img src="img/placeholder.png" class="img-fluid"/>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row pb-4">
+                            <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;LOCATION</h5>
+                            <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;CATEGORY</h5>
+                            <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE</h5>
+                            <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;REGISTERED VOLUNTEERS</h5>
+                        </div>
+
+                        <div class="row py-4" style="border-top: 2px solid #ebebea; border-bottom: 2px solid #ebebea;">
+                            <h4>DESCRIPTION</h4>
+                            <p class="text-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor lorem vel cursus interdum. Suspendisse ex eros, fringilla sed nulla sed, auctor tristique libero. Pellentesque sit amet sagittis elit. Proin in porta mauris. Ut condimentum lacinia libero, in semper augue eleifend ac. Cras volutpat convallis nisl. Integer eu eros turpis. Aliquam consectetur facilisis augue eget luctus.</p>
+                        </div>
+
+                        <div class="row d-flex align-items-center pt-4">
+                            <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">EDIT SERVICE</button></a>
+                            <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">REMOVE SERVICE</button></a>
+                            <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">SEND EMAIL</button></a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img src="img/placeholder.png" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <p>CQUniversity Australia is a trading name of Central Queensland University</p>
+                    <p>This is not an official CQUniversity website. This website is a mockup design made for educational purposes only in unit COIT13230 Application Development Project.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
