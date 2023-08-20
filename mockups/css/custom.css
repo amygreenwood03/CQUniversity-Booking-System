@@ -243,11 +243,16 @@ h1,h2,h3,h4,h5
     border-color: #c1d600;
 }
 
-#resultsDiv
+#resultsDiv, #uploadRow
 {
     background-color: #f6f6f4;
     border-top: 1px solid #ebebea;
     flex-grow: 1;
+}
+
+#uploadRow
+{
+    border: 1px solid #ebebea;
 }
 
 #searchResults .card, #staffRecent .card
@@ -319,4 +324,9 @@ footer
 {
     min-width: 50px;
     transform: translateX(-25px);
+}
+
+#priceRow .form-check-label
+{
+    font-family: Arial, Helvetica, sans-serif;
 }

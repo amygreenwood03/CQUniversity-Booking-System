@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Add Service - CQUniversity Booking System</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/custom.css"/>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,bold"/>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+
+<body>
+    <div id="site-container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid my-2 mx-5">
+                    <a class="navbar-brand" href="index_staff.html">
+                        <img src="img/logo.png" alt="CQUniversity's logo" height="80"/>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <strong><a class="nav-link active" href="services_staff.html">SERVICES</a></strong>
+                            </li>
+                        </ul>
+
+                        <div class="staff-profile d-flex align-items-center">
+                            <li class="nav-item">
+                                <div class="dropdown-center">
+                                    <button class="btn btn-circle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AG</button>
+
+                                    <ul class="dropdown-menu" id="staffDropdown">
+                                        <li class="dropdown-item py-2">
+                                            <a href="#"><strong>LOGOUT</strong></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>    
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <nav aria-label="breadcrumb">
+            <div class="container-fluid px-5 my-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index_staff.html"><i class="fa fa-home"></i></a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="services_staff.html"><strong>SERVICES</strong></a>
+                    </li>
+
+                    <li class="breadcrumb-item" aria-current="page">
+                        <strong>ADD SERVICE</strong>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div id="content">
+            <div class="container-fluid my-4 px-5">
+                <div class="row">
+                    <h1>ADD NEW SERVICE</h1>
+                </div>
+
+                <div class="row g-5 py-4">
+                    <div class="col-lg-6">
+                        <div class="form-row pb-4" id="serviceNameRow">
+                            <div class="form-group">
+                                <input class="form-control" id="name" name="name" type="text" placeholder="Service name" required/>
+                            </div>
+                        </div>
+
+                        <div class="form-row d-md-flex pb-4" id="detailsRow">
+                            <div class="form-group pe-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        LOCATION
+                                    </button>
+    
+                                    <ul class="dropdown-menu checkbox-menu">
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="locations" id="location1">
+                                            <label class="form-check-label" for="location1">&nbsp;Location 1</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="locations" id="location2">
+                                            <label class="form-check-label" for="location2">&nbsp;Location 2</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="locations" id="location3">
+                                            <label class="form-check-label" for="location3">&nbsp;Location 3</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="locations" id="location4">
+                                            <label class="form-check-label" for="location4">&nbsp;Location 4</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        CATEGORY
+                                    </button>
+    
+                                    <ul class="dropdown-menu checkbox-menu">
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="categories" id="category1">
+                                            <label class="form-check-label" for="category1">&nbsp;Category 1</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="categories" id="category2">
+                                            <label class="form-check-label" for="category2">&nbsp;Category 2</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="categories" id="category3">
+                                            <label class="form-check-label" for="category3">&nbsp;Category 3</label>
+                                        </li>
+    
+                                        <li class="dropdown-item py-2">
+                                            <input type="radio" class="form-check-input" name="categories" id="category4">
+                                            <label class="form-check-label" for="category4">&nbsp;Category 4</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row pb-4" id="priceRow">
+                            <h4>PRICE</h4>
+                            <div class="form-group d-md-flex align-items-center" id="priceOptions">
+                                <div class="pe-4">
+                                    <input type="radio" class="form-check-input" name="prices" id="free">
+                                    <label class="form-check-label" for="free">&nbsp;Free</label>
+                                </div>
+
+                                <div class="pe-4">
+                                    <input type="radio" class="form-check-input" name="prices" id="charge">
+                                    <label class="form-check-label" for="charge">&nbsp;Charge</label>
+                                </div>
+
+                                <div>
+                                    <input class="form-control" id="price" name="price" type="text" placeholder="$"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row pb-4" id="descriptionRow">
+                            <div class="form-group">
+                                <textarea class="form-control" id="description" rows="5" placeholder="Enter a description here..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <h4>PROMOTIONAL IMAGES</h4>
+                        </div>
+
+                        <div class="form-row py-4 px-4" id="uploadRow">
+                            <input type="file" id="promoImages" name="promo" multiple>
+                        </div>
+
+                        <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
+                            <a href="services_staff.html" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                            <input type="button" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <p>CQUniversity Australia is a trading name of Central Queensland University</p>
+                    <p>This is not an official CQUniversity website. This website is a mockup design made for educational purposes only in unit COIT13230 Application Development Project.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
