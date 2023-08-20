@@ -243,14 +243,14 @@ h1,h2,h3,h4,h5
     border-color: #c1d600;
 }
 
-#resultsDiv, #uploadRow
+#resultsDiv, #uploadRow, #serviceDetailsRow
 {
     background-color: #f6f6f4;
     border-top: 1px solid #ebebea;
     flex-grow: 1;
 }
 
-#uploadRow
+#uploadRow, #serviceDetailsRow
 {
     border: 1px solid #ebebea;
 }

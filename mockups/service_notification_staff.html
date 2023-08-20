@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Service Details - CQUniversity Booking System</title>
+    <title>Send Email Notification - CQUniversity Booking System</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/custom.css"/>
@@ -65,8 +65,12 @@
                         <a href="services_staff.html"><strong>SERVICES</strong></a>
                     </li>
 
+                    <li class="breadcrumb-item">
+                        <a href="service_details_staff.html"><strong>SERVICE NAME</strong></a>
+                    </li>
+
                     <li class="breadcrumb-item" aria-current="page">
-                        <strong>SERVICE NAME</strong>
+                        <strong>SEND EMAIL</strong>
                     </li>
                 </ol>
             </div>
@@ -74,37 +78,71 @@
 
         <div id="content">
             <div class="container-fluid my-4 px-5">
-                <div class="row pb-4">
-                    <h1>SERVICE NAME</h1>
+                <div class="row">
+                    <h1>SEND AN EMAIL NOTIFICATION</h1>
                 </div>
 
-                <div class="row g-5">
-                    <div class="col-lg-6 d-lg-none">
-                        <img src="img/placeholder.png" class="img-fluid"/>
+                <div class="row g-5 py-4">
+                    <div class="col-lg-6">
+                        <div class="form-row row gx-3" id="contactNameRow">
+                            <h4 class="pb-3">CONTACT INFORMATION</h4>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" id="firstName" name="firstName" type="text" placeholder="First name" required/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Last name" required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row py-4" id="phoneRow">
+                            <div class="form-group">
+                                <input class="form-control" id="phone" name="phone" type="text" placeholder="Phone number" required/>
+                            </div>
+                        </div>
+
+                        <div class="row py-4 mt-1" style="border-top: 2px solid #ebebea;">
+                            <h4 class="pb-3">AVAILABILITIES</h4>
+                            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time/s</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Insert date here</td>
+                                        <td>Insert time here</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="row pb-4">
+                        <div class="row">
+                            <h4>SERVICE NAME</h4>
+                        </div>
+
+                        <div class="form-row py-4 px-4" id="serviceDetailsRow">
                             <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;LOCATION</h5>
                             <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;CATEGORY</h5>
                             <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE</h5>
                             <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;REGISTERED VOLUNTEERS</h5>
                         </div>
 
-                        <div class="row py-4" style="border-top: 2px solid #ebebea; border-bottom: 2px solid #ebebea;">
-                            <h4>DESCRIPTION</h4>
-                            <p class="text-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor lorem vel cursus interdum. Suspendisse ex eros, fringilla sed nulla sed, auctor tristique libero. Pellentesque sit amet sagittis elit. Proin in porta mauris. Ut condimentum lacinia libero, in semper augue eleifend ac. Cras volutpat convallis nisl. Integer eu eros turpis. Aliquam consectetur facilisis augue eget luctus.</p>
+                        <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
+                            <a href="service_details_staff.html" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                            <input type="button" class="btn btn-primary" value="SAVE" id="submitButton"/>
                         </div>
-
-                        <div class="row d-flex align-items-center pt-4">
-                            <a href="service_edit_staff.html" style="max-width: fit-content;"><button class="btn btn-primary">EDIT SERVICE</button></a>
-                            <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">REMOVE SERVICE</button></a>
-                            <a href="service_notification_staff.html" style="max-width: fit-content;"><button class="btn btn-primary">SEND EMAIL</button></a>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <img src="img/placeholder.png" class="img-fluid"/>
                     </div>
                 </div>
             </div>
