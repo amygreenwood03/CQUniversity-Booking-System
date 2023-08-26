@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{servicesController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>SERVICES</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>FIND A SERVICE</h1>
+                    </div>
+
+                    <div class="row py-4">
+                        <div class="col-lg-8">
+                            <div class="row d-flex align-items-center" id="searchFilters">
+                                <div class="dropdown">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        LOCATION
+                                    </button>
+
+                                    <ul class="dropdown-menu checkbox-menu">
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="location1Box">
+                                            <label class="form-check-label" for="location1Box">&nbsp;Location 1</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="location2Box">
+                                            <label class="form-check-label" for="location2Box">&nbsp;Location 2</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="location3Box">
+                                            <label class="form-check-label" for="location3Box">&nbsp;Location 3</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="location4Box">
+                                            <label class="form-check-label" for="location4Box">&nbsp;Location 4</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        CATEGORY
+                                    </button>
+
+                                    <ul class="dropdown-menu checkbox-menu">
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="category1Box">
+                                            <label class="form-check-label" for="category1Box">&nbsp;Category 1</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="category2Box">
+                                            <label class="form-check-label" for="category2Box">&nbsp;Category 2</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="category3Box">
+                                            <label class="form-check-label" for="category3Box">&nbsp;Category 3</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="category4Box">
+                                            <label class="form-check-label" for="category4Box">&nbsp;Category 4</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        SERVICE TYPE
+                                    </button>
+
+                                    <ul class="dropdown-menu checkbox-menu">
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="service1Box">
+                                            <label class="form-check-label" for="service1Box">&nbsp;Service 1</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="service2Box">
+                                            <label class="form-check-label" for="service2Box">&nbsp;Service 2</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="service3Box">
+                                            <label class="form-check-label" for="service3Box">&nbsp;Service 3</label>
+                                        </li>
+
+                                        <li class="dropdown-item py-2">
+                                            <input type="checkbox" class="form-check-input" id="service4Box">
+                                            <label class="form-check-label" for="service4Box">&nbsp;Service 4</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <span class="search-btn">
+                                    <i class="fas fa-search fa-lg"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container-fluid px-5 py-4" id="resultsDiv">
+                    <div class="row">
+                        <p>#{servicesController.servicesList.size} services</p>
+                    </div>
+
+                    <div class="row g-4" id="searchResults">
+                        <ui:repeat value="#{servicesController.servicesList}" var="s">
+                            <div class="col-lg-3">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <a href="#" class="stretched-link card-link"><h4 class="card-title">#{s.serviceName}</h4></a>
+                                        <div class="card-text mt-4">
+                                            <p>#{s.location}</p> <!--make these capitals-->
+                                            <p>#{s.category}</p>
+                                            <p>$#{s.price}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

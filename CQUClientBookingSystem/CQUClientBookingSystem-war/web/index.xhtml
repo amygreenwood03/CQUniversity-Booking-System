@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{homeController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid hero-banner py-5">
+                    <div class="hero-content mx-5 py-5">
+                        <h1>VOLUNTEER TO HELP UNIVERSITY STUDENTS</h1>
+                        <strong><p>SEARCH THROUGH A RANGE OF FREE OR CHEAP SERVICES OFFERED BY CQU STUDENTS</p></strong>
+                        <a href="#"><button class="btn btn-primary mt-4">SEARCH SERVICES</button></a>
+                    </div>
+                </div>
+                
+                <div class="container-fluid my-5 px-5">
+                    <h3>SERVICE CATEGORIES</h3>
+                    
+                    <div class="row my-4">
+                        <ui:repeat value="#{homeController.categoryList}" var="c">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <img src="img/placeholder.png" class="card-img-top"/>
+
+                                    <div class="card-body">
+                                        <a href="#" class="stretched-link card-link"><h4>#{c.name}</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
