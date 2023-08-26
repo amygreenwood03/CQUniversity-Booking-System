@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{aboutController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>ABOUT US</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+                
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row pb-4">
+                        <h1>ABOUT US</h1>
+                    </div>
+
+                    <div class="row g-5">
+                        <div class="col-lg-6 d-lg-none">
+                            <img src="img/placeholder.png" class="img-fluid"/>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row pb-4">
+                                <h4>HEADING 1</h4>
+                                <p class="text-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor lorem vel cursus interdum. Suspendisse ex eros, fringilla sed nulla sed, auctor tristique libero. Pellentesque sit amet sagittis elit. Proin in porta mauris. Ut condimentum lacinia libero, in semper augue eleifend ac. Cras volutpat convallis nisl. Integer eu eros turpis. Aliquam consectetur facilisis augue eget luctus.</p>
+                            </div>
+
+                            <div class="row">
+                                <h4>HEADING 2</h4>
+                                <p class="text-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor lorem vel cursus interdum. Suspendisse ex eros, fringilla sed nulla sed, auctor tristique libero. Pellentesque sit amet sagittis elit. Proin in porta mauris. Ut condimentum lacinia libero, in semper augue eleifend ac. Cras volutpat convallis nisl. Integer eu eros turpis. Aliquam consectetur facilisis augue eget luctus.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="img/placeholder.png" class="img-fluid"/>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
