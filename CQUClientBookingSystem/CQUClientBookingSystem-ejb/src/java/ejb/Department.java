@@ -17,7 +17,9 @@ public class Department implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="DEPT_ID")
     private Long departmentId;
+    @Column(name="DEPT_NAME")
     private String departmentName;
     @OneToMany(mappedBy = "dept")
     private ArrayList<Category> categories;
@@ -27,6 +29,10 @@ public class Department implements Serializable {
     // Constructors
     public Department() {
         
+    }
+    
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
     }
     
     public Department(String departmentName, ArrayList<Category> categories, ArrayList<Staff> staffList) {

@@ -17,7 +17,9 @@ public class Category implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="CAT_ID")
     private Long cat_id;
+    @Column(name="CAT_NAME")
     private String categoryName;
     @ManyToOne
     @JoinColumn(name="DEPT_ID")
@@ -29,10 +31,14 @@ public class Category implements Serializable {
     public Category() {
         
     }
-    
-    public Category(String categoryName, Department department, ArrayList<Service> services) {
+    public Category(String categoryName, Department department) {
         this.categoryName = categoryName;
         this.dept = department;
+    }
+    
+    public Category(String categoryName, Department dept, ArrayList<Service> services) {
+        this.categoryName = categoryName;
+        this.dept = dept;
         this.services = services;
     }
     

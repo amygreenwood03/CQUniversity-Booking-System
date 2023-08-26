@@ -16,11 +16,16 @@ public class Service implements Serializable {
 
    // Attributes
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="SERV_ID")
     private Long serviceId;
+    @Column(name="SERV_NAME")
     private String serviceName;
+    @Column(name="SERV_DESC")
     private String serviceDescription;
+    @Column(name="SERV_PRICE")
     private Double servicePrice;
+    @Column(name="IMAGE_URL")
     private String imageUrl;
     @ManyToOne
     @JoinColumn(name="CAT_ID")
@@ -39,6 +44,15 @@ public class Service implements Serializable {
         this.servicePrice = servicePrice;
         this.imageUrl = imageUrl;
         this.category = category;
+    }
+    
+    public Service(String serviceName, String serviceDescription, Double servicePrice, String imageUrl, Category category, ArrayList<ServiceAtLocation> salList) {
+        this.serviceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.servicePrice = servicePrice;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.salList = salList;
     }
     
     // Getters & Setters

@@ -17,8 +17,11 @@ public class Location implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="LOC_ID")
     private Long locationId;
+    @Column(name="LOC_NAME")
     private String locationName;
+    @Column(name="LOC_ADDR")
     private String locationAddress;
     @OneToMany(mappedBy = "location")
     private ArrayList<ServiceAtLocation> salList;
@@ -26,6 +29,11 @@ public class Location implements Serializable {
     // Constructors
     public Location() {
         
+    }
+    
+    public Location(String locationName, String locationAddress) {
+        this.locationName = locationName;
+        this.locationAddress = locationAddress;
     }
     
     public Location(String locationName, String locationAddress, ArrayList<ServiceAtLocation> salList) {

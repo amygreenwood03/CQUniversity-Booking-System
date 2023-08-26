@@ -16,6 +16,7 @@ public class Login implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="LOGIN_ID")
     private Long loginId;
     @OneToOne
     @JoinColumns({
@@ -24,6 +25,7 @@ public class Login implements Serializable {
         @JoinColumn(name="USER_TYPE")
     })
     private Users user;
+    @Column(name="SALT")
     private String salt;
 
     // Constructors

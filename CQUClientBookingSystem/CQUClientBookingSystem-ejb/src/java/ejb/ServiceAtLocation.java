@@ -17,12 +17,13 @@ public class ServiceAtLocation implements Serializable {
     // Attribues
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="SAL_ID")
     private Long salId;
     @ManyToOne
-    @JoinColumn(name="SERVICE_ID")
+    @JoinColumn(name="SERV_ID")
     private Service service;
     @ManyToOne
-    @JoinColumn(name="LOCATION_ID")
+    @JoinColumn(name="LOC_ID")
     private Location location;
     @OneToMany(mappedBy = "sal")
     private ArrayList<Registration> regList;
@@ -30,6 +31,11 @@ public class ServiceAtLocation implements Serializable {
     // Constructors
     public ServiceAtLocation() {
         
+    }
+    
+    public ServiceAtLocation(Service service, Location location) {
+        this.service = service;
+        this.location = location;
     }
     
     public ServiceAtLocation(Service service, Location location, ArrayList<Registration> regList) {

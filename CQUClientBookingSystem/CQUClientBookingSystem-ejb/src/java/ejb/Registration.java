@@ -16,6 +16,7 @@ public class Registration implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="REG_ID")
     private Long regId;
     @ManyToOne
     @JoinColumn(name="SAL_ID")

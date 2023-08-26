@@ -18,18 +18,22 @@ public class Users implements Serializable {
     
     // Attributes
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    @Column(name="NAME")
     protected String fullName;
+    @Column(name="PHONE")
     @Pattern(regexp = "^[0-9]{10}$",
             message = "{invalid.phonenumber}")
     protected String phone;
+    @Column(name="EMAIL")
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
             + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
             + "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9]"
             + "(?:[a-z0-9-]*[a-z0-9])?",
             message = "{invalid.email}")
     protected String email;
+    @Column(name="PASSWORD")
     protected String password;
     
     // Constructors
