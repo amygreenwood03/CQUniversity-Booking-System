@@ -24,8 +24,8 @@ public class Volunteer extends Users {
         
     }
     
-    public Volunteer(String fullName, String phone, String emailAddress, String password, ArrayList<Registration> regList) {
-        super(fullName, phone, emailAddress, password);
+    public Volunteer(String fullName, String phone, String emailAddress, ArrayList<Registration> regList) {
+        super(fullName, phone, emailAddress);
         this.regList = regList;
     }
 

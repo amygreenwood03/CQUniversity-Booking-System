@@ -33,19 +33,16 @@ public class Users implements Serializable {
             + "(?:[a-z0-9-]*[a-z0-9])?",
             message = "{invalid.email}")
     protected String email;
-    @Column(name="PASSWORD")
-    protected String password;
     
     // Constructors
     public Users() {
         
     }
     
-    public Users(String fullName, String phone, String emailAddress, String password) {
+    public Users(String fullName, String phone, String emailAddress) {
         this.fullName = fullName;
         this.phone = phone;
         this.email = emailAddress;
-        this.password = password;
     }
     
     // Getters & Setters

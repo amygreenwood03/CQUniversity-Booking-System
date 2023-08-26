@@ -21,10 +21,11 @@ public class Login implements Serializable {
     @OneToOne
     @JoinColumns({
         @JoinColumn(name="EMAIL"),
-        @JoinColumn(name="PASSWORD"),
         @JoinColumn(name="USER_TYPE")
     })
     private Users user;
+    @Column(name="PASSWORD")
+    protected String password;
     @Column(name="SALT")
     private String salt;
 
@@ -33,9 +34,10 @@ public class Login implements Serializable {
         
     }
     
-    public Login(Users user, String salt){
+    public Login(Users user, String password, String salt){
         this.user = user;
         this.salt = salt;
+        this.password = password;
     }
     
     // Getters & Setters
@@ -53,6 +55,14 @@ public class Login implements Serializable {
      
      public void setUser(Users user) {
          this.user = user;
+     }
+     
+     public String getPassword() {
+         return password;
+     }
+     
+     public void setPassword(String password) {
+         this.password = password;
      }
      
      public String getSalt() {
