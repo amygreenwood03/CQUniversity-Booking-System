@@ -13,7 +13,7 @@
                 #{homeController.PAGE_NAME} - CQUniversity Booking System
             </ui:define>
             
-            <ui:define name="content">
+            <ui:define name="content" rendered="#{empty user or (not empty user and user.userType == "volunteer")}">
                 <div class="container-fluid hero-banner py-5">
                     <div class="hero-content mx-5 py-5">
                         <h1>VOLUNTEER TO HELP UNIVERSITY STUDENTS</h1>
@@ -33,6 +33,35 @@
 
                                     <div class="card-body">
                                         <a href="#" class="stretched-link card-link"><h4>#{c.name}</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+            
+            <ui:define name="content" rendered="#{not empty user and user.userType == "staff"}">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>WELCOME #{user.firstName}!</h1>
+                    </div>
+
+                    <div class="row py-4">
+                        <h3>RECENTLY UPDATED</h3>
+                    </div>
+
+                    <div class="row g-4 pb-4" id="staffRecent">
+                        <ui:repeat value="#{homeController.recentServicesList}" var="s">
+                            <div class="col-lg-3">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <a href="#" class="stretched-link card-link"><h4 class="card-title">s.name</h4></a>
+                                        <div class="card-text mt-4">
+                                            <p>s.location</p>
+                                            <p>s.category</p>
+                                            <p>s.price</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
