@@ -8,10 +8,10 @@
         
     </h:head>
     <h:body>
-        <!--<f:metadata>
-            <f:viewParam name="categoryId" value="#{servicesController.categoryFilter}"/>
-            <f:viewAction action="#{servicesController.init}"/>
-        </f:metadata>-->
+        <f:metadata>
+            <f:viewParam name="categoryId" value="#{servicesController.fromHomeId}"/>
+            <f:viewAction action="#{servicesController.init()}"/>
+        </f:metadata>
         
         <ui:composition template="common_layout.xhtml">
             <ui:define name="title">
@@ -23,7 +23,7 @@
                     <div class="container-fluid px-5 my-4">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html"><i class="fa fa-home"></i></a>
+                                <a href="index.faces"><i class="fa fa-home"></i></a>
                             </li>
 
                             <li class="breadcrumb-item" aria-current="page">
@@ -101,7 +101,11 @@
                             <div class="col-lg-3">
                                 <div class="card px-3">
                                     <div class="card-body">
-                                        <a href="#" class="stretched-link card-link"><h4 class="card-title">#{sal.service.serviceName}</h4></a>
+                                        <h4 class="card-title">
+                                            <h:link outcome="service_details" class="stretched-link card-link" value="#{sal.service.serviceName}">
+                                                <f:param name="salId" value="#{sal.salId}"/>
+                                            </h:link>
+                                        </h4>
                                         <div class="card-text mt-4">
                                             <p>#{sal.location}</p> <!--make these capitals-->
                                             <p>#{sal.service.category.categoryName}</p>

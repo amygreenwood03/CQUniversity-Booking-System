@@ -37,6 +37,8 @@ public class ServicesController
     private List<Service> servicesList, selectedServicesList = new ArrayList<>(); //to store all services & services selected in filter respectively
     private List<ServiceAtLocation> salList = new ArrayList<>(); //to store search results since we want them split by location
     
+    private Long fromHomeId;
+    
     private final String PAGE_NAME = "Services Search";
     
     public ServicesController() 
@@ -51,6 +53,17 @@ public class ServicesController
         servicesList = serviceEJB.findServices();
         
         refreshSalList();
+        
+        if(fromHomeId != null)
+        {
+            for(int i = 0; i < categoriesList.size(); i++)
+            {
+                if(categoriesList.get(i).getId() == fromHomeId)
+                    selectedCategoriesList.add(categoriesList.get(i));
+            }
+            
+            search();
+        }
     }
     
     public void search()
@@ -178,4 +191,14 @@ public class ServicesController
     {
         return PAGE_NAME;
     } 
+
+    public Long getFromHomeId() 
+    {
+        return fromHomeId;
+    }
+
+    public void setFromHomeId(Long fromHomeId) 
+    {
+        this.fromHomeId = fromHomeId;
+    }
 }

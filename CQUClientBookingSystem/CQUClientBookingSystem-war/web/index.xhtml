@@ -18,7 +18,7 @@
                     <div class="hero-content mx-5 py-5">
                         <h1>VOLUNTEER TO HELP UNIVERSITY STUDENTS</h1>
                         <strong><p>SEARCH THROUGH A RANGE OF FREE OR CHEAP SERVICES OFFERED BY CQU STUDENTS</p></strong>
-                        <a href="#"><button class="btn btn-primary mt-4">SEARCH SERVICES</button></a>
+                        <a href="services.faces"><button class="btn btn-primary mt-4">SEARCH SERVICES</button></a>
                     </div>
                 </div>
                 
@@ -32,7 +32,11 @@
                                     <img src="img/placeholder.png" class="card-img-top"/>
 
                                     <div class="card-body">
-                                        <a class="stretched-link card-link"><h:link outcome="services"><f:param name="categoryId" value="#{c.id}"></f:param><h4>#{c.categoryName}</h4></h:link></a>
+                                        <h4>
+                                            <h:link outcome="services" class="stretched-link card-link" value="#{c.categoryName}">
+                                                <f:param name="categoryId" value="#{c.id}"></f:param>
+                                            </h:link>
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
