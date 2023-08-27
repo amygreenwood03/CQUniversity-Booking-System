@@ -56,4 +56,9 @@ public class DepartmentEJB implements DepartmentLocal, DepartmentRemote {
         return em.merge(dept);
     }
 
+    @Override
+    public Department findDeptByName(String deptName) {
+        return em.find(Department.class, deptName);
+    }
+
 }

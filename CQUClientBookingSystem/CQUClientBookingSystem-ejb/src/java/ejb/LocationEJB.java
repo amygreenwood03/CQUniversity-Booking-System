@@ -56,4 +56,9 @@ public class LocationEJB implements LocationLocal, LocationRemote {
         return em.merge(loc);
     }
 
+    @Override
+    public Location findLocationByName(String name) {
+        return em.find(Location.class, name);
+    }
+
 }

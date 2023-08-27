@@ -18,6 +18,8 @@ public interface DepartmentLocal {
     
     Department findDeptById(Long id);
     
+    Department findDeptByName(String deptName);
+    
     Department createDept(Department dept);
     
     void deleteDept(Department dept);

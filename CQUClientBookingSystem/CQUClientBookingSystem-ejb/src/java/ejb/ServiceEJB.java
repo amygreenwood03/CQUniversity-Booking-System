@@ -55,4 +55,9 @@ public class ServiceEJB implements ServiceLocal, ServiceRemote {
     public Service updateService(Service service) {
         return em.merge(service);
     }
+
+    @Override
+    public Service findServiceByName(String name) {
+        return em.find(Service.class, name);
+    }
 }

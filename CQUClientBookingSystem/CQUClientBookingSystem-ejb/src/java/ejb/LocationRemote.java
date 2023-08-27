@@ -18,6 +18,8 @@ public interface LocationRemote {
     
     Location findLocationById(Long id);
     
+    Location findLocationByName(String name);
+    
     Location createLocation(Location loc);
     
     void deleteLocation(Location loc);

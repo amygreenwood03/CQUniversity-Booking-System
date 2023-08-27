@@ -18,6 +18,8 @@ public interface ServiceLocal {
     
     Service findServiceById(Long id);
     
+    Service findServiceByName(String name);
+    
     Service createService(Service service);
     
     void deleteService(Service service);

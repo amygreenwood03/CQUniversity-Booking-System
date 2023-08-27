@@ -20,10 +20,16 @@ public class ServiceAtLocation implements Serializable {
     @Column(name="SAL_ID")
     private Long salId;
     @ManyToOne
-    @JoinColumn(name="SERV_ID")
+    @JoinColumns({
+        @JoinColumn(name="SERV_ID"),
+        @JoinColumn(name="SERV_NAME")
+    })
     private Service service;
     @ManyToOne
-    @JoinColumn(name="LOC_ID")
+    @JoinColumns({
+        @JoinColumn(name="LOC_ID"),
+        @JoinColumn(name="LOC_NAME")
+    })
     private Location location;
     @OneToMany(mappedBy = "sal")
     private ArrayList<Registration> regList;

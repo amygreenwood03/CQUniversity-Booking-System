@@ -18,6 +18,8 @@ public interface CategoryLocal {
     
     Category findCategoryById(Long id);
     
+    Category findCategoryByName(String catName);
+    
     Category createCategory(Category category);
     
     void deleteCategory(Category category);

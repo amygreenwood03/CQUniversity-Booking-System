@@ -55,4 +55,9 @@ public class CategoryEJB implements CategoryLocal, CategoryRemote {
     public Category updateCategory(Category category) {
         return em.merge(category);
     }
+
+    @Override
+    public Category findCategoryByName(String catName) {
+        return em.find(Category.class, catName);
+    }
 }
