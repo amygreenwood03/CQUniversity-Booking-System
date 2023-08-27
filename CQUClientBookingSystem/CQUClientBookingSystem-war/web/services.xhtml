@@ -8,6 +8,11 @@
         
     </h:head>
     <h:body>
+        <f:metadata>
+            <f:viewParam name="categoryId" value="#{servicesController.categoryFilter}"/>
+            <f:viewAction action="#{servicesController.init}"/>
+        </f:metadata>
+        
         <ui:composition template="common_layout.xhtml">
             <ui:define name="title">
                 #{servicesController.PAGE_NAME} - CQUniversity Booking System
