@@ -42,7 +42,7 @@
                                 </li>
                             </ul>
 
-                            <div class="nav-login d-flex" rendered="#{empty user}">
+                            <div class="nav-login d-flex">
                                 <li class="nav-item">
                                     <a href="#"><button class="btn btn-primary me-2">USER LOGIN</button></a>
                                 </li>
@@ -51,7 +51,7 @@
                                 </li>
                             </div>
                             
-                            <div class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user and user.userType == "volunteer"}">
+                            <!--<div class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user and user.userType == "volunteer"}">
                                 <li class="nav-item">
                                     <div class="dropdown-center">
                                         <button class="btn btn-circle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">#{user.firstName.charAt(0)} #{user.lastName.charAt(0)}</button>
@@ -80,7 +80,7 @@
                                         </ul>
                                     </div>
                                 </li>    
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </nav>

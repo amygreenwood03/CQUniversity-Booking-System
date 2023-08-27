@@ -13,7 +13,7 @@
                 #{homeController.PAGE_NAME} - CQUniversity Booking System
             </ui:define>
             
-            <ui:define name="content" rendered="#{empty user or (not empty user and user.userType == "volunteer")}">
+            <ui:define name="content">
                 <div class="container-fluid hero-banner py-5">
                     <div class="hero-content mx-5 py-5">
                         <h1>VOLUNTEER TO HELP UNIVERSITY STUDENTS</h1>
@@ -45,7 +45,7 @@
                 </div>
             </ui:define>
             
-            <ui:define name="content" rendered="#{not empty user and user.userType == "staff"}">
+            <!--<ui:define name="content" rendered="#{not empty user and user.userType == "staff"}">
                 <div class="container-fluid my-4 px-5">
                     <div class="row">
                         <h1>WELCOME #{user.firstName}!</h1>
@@ -72,7 +72,7 @@
                         </ui:repeat>
                     </div>
                 </div>
-            </ui:define>
+            </ui:define>-->
         </ui:composition>
     </h:body>
 </html>
