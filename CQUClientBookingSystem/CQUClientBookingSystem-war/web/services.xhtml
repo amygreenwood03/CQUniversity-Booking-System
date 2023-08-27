@@ -8,10 +8,10 @@
         
     </h:head>
     <h:body>
-        <f:metadata>
+        <!--<f:metadata>
             <f:viewParam name="categoryId" value="#{servicesController.categoryFilter}"/>
             <f:viewAction action="#{servicesController.init}"/>
-        </f:metadata>
+        </f:metadata>-->
         
         <ui:composition template="common_layout.xhtml">
             <ui:define name="title">
@@ -42,114 +42,70 @@
 
                     <div class="row py-4">
                         <div class="col-lg-8">
-                            <div class="row d-flex align-items-center" id="searchFilters">
-                                <div class="dropdown">
-                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        LOCATION
-                                    </button>
+                            <h:form>
+                                <div class="row d-flex align-items-center" id="searchFilters">
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            LOCATION
+                                        </button>
 
-                                    <ul class="dropdown-menu checkbox-menu">
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="location1Box">
-                                            <label class="form-check-label" for="location1Box">&nbsp;Location 1</label>
-                                        </li>
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesController.selectedLocationsList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesController.locationsList}" var="l" itemValue="#{l}" itemLabel="&nbsp;#{l.locationName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
 
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="location2Box">
-                                            <label class="form-check-label" for="location2Box">&nbsp;Location 2</label>
-                                        </li>
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            CATEGORY
+                                        </button>
 
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="location3Box">
-                                            <label class="form-check-label" for="location3Box">&nbsp;Location 3</label>
-                                        </li>
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesController.selectedCategoriesList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesController.categoriesList}" var="c" itemValue="#{c}" itemLabel="&nbsp;#{c.categoryName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
 
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="location4Box">
-                                            <label class="form-check-label" for="location4Box">&nbsp;Location 4</label>
-                                        </li>
-                                    </ul>
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            SERVICE TYPE
+                                        </button>
+
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesController.selectedServicesList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesController.servicesList}" var="s" itemValue="#{s}" itemLabel="&nbsp;#{s.serviceName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
+
+                                    <span class="search-btn">
+                                        <h:commandLink action="#{servicesController.search()}">
+                                            <i class="fas fa-search fa-lg"></i>
+                                        </h:commandLink>
+                                    </span>
                                 </div>
-
-                                <div class="dropdown">
-                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        CATEGORY
-                                    </button>
-
-                                    <ul class="dropdown-menu checkbox-menu">
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="category1Box">
-                                            <label class="form-check-label" for="category1Box">&nbsp;Category 1</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="category2Box">
-                                            <label class="form-check-label" for="category2Box">&nbsp;Category 2</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="category3Box">
-                                            <label class="form-check-label" for="category3Box">&nbsp;Category 3</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="category4Box">
-                                            <label class="form-check-label" for="category4Box">&nbsp;Category 4</label>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="dropdown">
-                                    <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        SERVICE TYPE
-                                    </button>
-
-                                    <ul class="dropdown-menu checkbox-menu">
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="service1Box">
-                                            <label class="form-check-label" for="service1Box">&nbsp;Service 1</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="service2Box">
-                                            <label class="form-check-label" for="service2Box">&nbsp;Service 2</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="service3Box">
-                                            <label class="form-check-label" for="service3Box">&nbsp;Service 3</label>
-                                        </li>
-
-                                        <li class="dropdown-item py-2">
-                                            <input type="checkbox" class="form-check-input" id="service4Box">
-                                            <label class="form-check-label" for="service4Box">&nbsp;Service 4</label>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <span class="search-btn">
-                                    <i class="fas fa-search fa-lg"></i>
-                                </span>
-                            </div>
+                            </h:form>
                         </div>
                     </div>
                 </div>
                 
                 <div class="container-fluid px-5 py-4" id="resultsDiv">
                     <div class="row">
-                        <p>#{servicesController.servicesList.size} services</p>
+                        <p>#{servicesController.salList.size()} services</p>
                     </div>
 
                     <div class="row g-4" id="searchResults">
-                        <ui:repeat value="#{servicesController.servicesList}" var="s">
+                        <ui:repeat value="#{servicesController.salList}" var="sal">
                             <div class="col-lg-3">
                                 <div class="card px-3">
                                     <div class="card-body">
-                                        <a href="#" class="stretched-link card-link"><h4 class="card-title">#{s.serviceName}</h4></a>
+                                        <a href="#" class="stretched-link card-link"><h4 class="card-title">#{sal.service.serviceName}</h4></a>
                                         <div class="card-text mt-4">
-                                            <p>#{s.location}</p> <!--make these capitals-->
-                                            <p>#{s.category}</p>
-                                            <p>$#{s.price}</p>
+                                            <p>#{sal.location}</p> <!--make these capitals-->
+                                            <p>#{sal.service.category.categoryName}</p>
+                                            <p>#{sal.service.servicePrice eq 0.0 ? "FREE" : "$#{sal.service.servicePrice}"}</p>
                                         </div>
                                     </div>
                                 </div>
