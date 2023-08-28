@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="serviceId" value="#{detailsController.salId}"/>
+            <f:viewAction action="#{detailsController.init()}"/>
+        </f:metadata>
+        
+        <ui:composition template="guest_layout.xhtml">
+            <ui:define name="title">
+                #{detailsController.pageName} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="services.faces"><strong>SERVICES</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>#{detailsController.pageName}</strong> <!--translate to caps-->
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row pb-4">
+                        <h1>#{detailsController.sal.service.serviceName}</h1>
+                    </div>
+
+                    <div class="row g-5">
+                        <div class="col-lg-6 d-lg-none">
+                            <img src="img/#{detailsController.sal.service.imageUrl}" class="img-fluid"/>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row pb-4">
+                                <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsController.sal.location.locationName}</h5>
+                                <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsController.sal.service.category.categoryName}</h5>
+                                <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{detailsController.sal.service.servicePrice eq 0.0 ? "FREE" : "$#{sal.service.servicePrice}"}</h5>
+                            </div>
+
+                            <div class="row py-4" style="border-top: 2px solid #ebebea; border-bottom: 2px solid #ebebea;">
+                                <h4>DESCRIPTION</h4>
+                                <p class="text-body">#{detailsController.sal.service.description}</p>
+                            </div>
+
+                            <div class="row pt-4">
+                                <div class="alert">Interested in volunteering? <a href="login.faces"><strong>Login</strong></a> to receive notifications.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="img/#{detailsController.sal.service.imageUrl}" class="img-fluid"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

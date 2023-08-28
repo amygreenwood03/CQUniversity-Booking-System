@@ -38,6 +38,11 @@ public class LoginEJB implements LoginLocal, LoginRemote {
     public Login findLoginById(long id) {
         return em.find(Login.class, id);
     }
+    
+    @Override
+    public Login findLoginByEmail(String email) {
+        return em.find(Login.class, email);
+    }
 
     @Override
     public Login createLogin(Login login) {
@@ -54,10 +59,5 @@ public class LoginEJB implements LoginLocal, LoginRemote {
     @Override
     public Login updateLogin(Login login) {
         return em.merge(login);
-    }
-
-    @Override
-    public Login findLoginByEmail(String email) {
-        return em.find(Login.class, email);
     }
 }

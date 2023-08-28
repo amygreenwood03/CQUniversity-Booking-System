@@ -13,8 +13,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @NamedQuery(
-    name="findAllUsers",
-        query="SELECT * FROM Users")
+    name="findAllUsers", query="SELECT * FROM Users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="USER_TYPE")
 public class Users implements Serializable {

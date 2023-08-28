@@ -12,8 +12,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @NamedQuery(
-    name="findAllLogins",
-        query="SELECT * FROM Login")
+    name="findAllLogins",query="SELECT * FROM Login")
 public class Login implements Serializable {
 
     // Attributes
@@ -23,6 +22,7 @@ public class Login implements Serializable {
     private Long loginId;
     @OneToOne
     @JoinColumns({
+        @JoinColumn(name="ID"),
         @JoinColumn(name="EMAIL"),
         @JoinColumn(name="USER_TYPE")
     })
