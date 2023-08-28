@@ -1,14 +1,14 @@
 USE app_dev_database;
 
 -- Insert Departments
-INSERT INTO Department (department_name)
+INSERT INTO Department (DEPT_NAME)
 VALUES
     ('Allied Health'),
     ('Nursing'),
     ('Trades');
     
 -- Insert Categories
-INSERT INTO Category (category_name, department_id)
+INSERT INTO Category (CAT_NAME, DEPT_ID)
 VALUES
     ('Chiropractic', 1),
     ('Physiotherapy', 1),
@@ -17,7 +17,7 @@ VALUES
     ('Beauty', 3);
     
 -- Insert into Services table
-INSERT INTO Services (service_name, service_description, category_id)
+INSERT INTO Services (SERV_NAME, SERV_DESC, CAT_ID)
 VALUES
     ('Spinal Manipulation', 'Used to relieve pressure on joints, reduce inflammation and improve nerve function.', 1),
     ('Thompson Drop-Table Technique', 'Uses a specially designed table so the patient can be “dropped” a fraction of an inch as the practitioner applied a quick thrust to complete the adjustment.', 1),
@@ -32,7 +32,7 @@ VALUES
     ('Makeup Techniques', 'Assist students learning to apply makeup like the professionals.', 5);
 
 -- Insert into Location table
-INSERT INTO Location (location_name, location_address)
+INSERT INTO Location (LOC_NAME, LOC_ADDR)
 VALUES
     ('Townsville', '538 Flinders Street, Townsville, QLD, 4810'),
     ('Rockhampton North', '554-700 Yaamba Road, Norman Gardens, QLD, 4710'),
@@ -41,34 +41,45 @@ VALUES
     ('Rockhampton City', '114-190 Canning Street, The Range, QLD, 4700'),
     ('Brisbane', '160 Ann Street, Brisbane, QLD, 4000');
     
--- Insert into Login table
-INSERT INTO Login (email, password, user_type)
+-- Insert into User table
+INSERT INTO USER (NAME, EMAIL, PHONE, USER_TYPE)
 VALUES
-    ('kahlia.heimann@cqumail.com', 'T8XNT09KJcik', 'Staff'),
-    ('amy.greenwood@cqumail.com', 'PhahYBHT179W', 'Staff'),
-    ('aidan.petre@cqumail.com', '4Tski4itt0uX', 'Staff'),
-    ('sangin.kim@cqumail.com', 'cRU3XTLYaHom', 'Staff'),
-    ('Darkdespair81@gmail.com', 'qnNe4YM2hguG', 'Vol'),
-    ('Techchessgirl51@hotmail.com', '4KvgP6CAdTeQ', 'Vol'),
-    ('kaidenalenko@gmail.com', '4as05nni4Ed4', 'Vol');
+    ('Kahlia Heimann', 'kahlia.heimann@cqumail.com', 0475937465, 'STAFF'),
+    ('Amy Greenwood', 'amy.greenwood@cqumail.com', 0475937745, 'STAFF'),
+    ('Aidan Petre', 'aidan.petre@cqumail.com', 0475937998, 'STAFF'),
+    ('Sangin Kim', 'sangin.kim@cqumail.com', 0475937545, 'STAFF'),
+    ('Fiona Hinds', 'Darkdespair81@gmail.com', 0475900865, 'VOL'),
+    ('Samantha Traynor', 'Techchessgirl51@hotmail.com', 0475933245, 'VOL'),
+    ('Kaiden Alenko', 'kaidenalenko@gmail.com', 0498037998, 'VOL');
+    
+-- Insert into Login table
+INSERT INTO Login (EMAIL, PASSWORD)
+VALUES
+    ('kahlia.heimann@cqumail.com', 'T8XNT09KJcik'),
+    ('amy.greenwood@cqumail.com', 'PhahYBHT179W'),
+    ('aidan.petre@cqumail.com', '4Tski4itt0uX'),
+    ('sangin.kim@cqumail.com', 'cRU3XTLYaHom'),
+    ('Darkdespair81@gmail.com', 'qnNe4YM2hguG'),
+    ('Techchessgirl51@hotmail.com', '4KvgP6CAdTeQ'),
+    ('kaidenalenko@gmail.com', '4as05nni4Ed4');
     
 -- Insert into Staff table
-INSERT INTO Staff (staff_name, email, staff_phone, department_id)
+INSERT INTO Staff (USER_ID, DEPT_ID)
 VALUES
-	('Kahlia Heimann', 'kahlia.heimann@cqumail.com', 0475937465, 3),
-    ('Amy Greenwood', 'amy.greenwood@cqumail.com', 0475937745, 1),
-    ('Aidan Petre', 'aidan.petre@cqumail.com', 0475937998, 2),
-    ('Sangin Kim', 'sangin.kim@cqumail.com', 0475937545, 3);
+	(1, 3),
+    (2, 1),
+    (3, 2),
+    (4, 3);
 
 -- Insert into Volunteer table
-INSERT INTO Volunteer (volunteer_name, email, volunteer_phone)
+INSERT INTO Volunteer (USER_ID)
 VALUES
-	('Fiona Hinds', 'Darkdespair81@gmail.com', 0475900865),
-    ('Samantha Traynor', 'Techchessgirl51@hotmail.com', 0475933245),
-    ('Kaiden Alenko', 'kaidenalenko@gmail.com', 0498037998);
+	(1),
+    (2),
+    (3);
 
 -- Insert into service_at_location table
-INSERT INTO Services_at_location (service_id, location_id)
+INSERT INTO Services_at_location (SERV_ID, LOC_ID)
 VALUES 
 	(6, 1),
     (7, 1),
@@ -89,7 +100,7 @@ VALUES
     (2, 6);
     
 -- Insert into registration table
-INSERT INTO Registration (sal_id, volunteer_id)
+INSERT INTO Registration (SAL_ID, USER_ID)
 VALUES 
 	(5, 1),
     (6, 1),
