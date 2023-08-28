@@ -24,6 +24,8 @@ public class Category implements Serializable {
     private Long cat_id;
     @Column(name="CAT_NAME")
     private String categoryName;
+    @Column(name="IMAGE_URL")
+    private String imageUrl;
     @ManyToOne
     @JoinColumn(name="DEPT_ID")
     private Department dept;
@@ -60,6 +62,14 @@ public class Category implements Serializable {
     
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
     
     public Department getDepartment() {
