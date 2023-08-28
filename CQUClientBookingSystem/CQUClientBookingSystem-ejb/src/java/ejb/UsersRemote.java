@@ -22,6 +22,10 @@ public interface UsersRemote {
     
     Volunteer findVolById(Long id);
     
+    Staff findStaffByEmail(String email);
+    
+    Volunteer findVolByEmail(String email);
+    
     Staff createStaff(Staff staff);
     
     Volunteer createVolunteer(Volunteer volunteer);

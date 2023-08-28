@@ -83,4 +83,14 @@ public class UsersEJB implements UsersLocal, UsersRemote {
     public Volunteer updateVolunteer(Volunteer volunteer) {
         return em.merge(volunteer);
     }
+
+    @Override
+    public Staff findStaffByEmail(String email) {
+        return em.find(Staff.class, email);
+    }
+
+    @Override
+    public Volunteer findVolByEmail(String email) {
+        return em.find(Volunteer.class, email);
+    }
 }

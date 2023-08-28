@@ -18,6 +18,8 @@ public interface LoginRemote {
     
     Login findLoginById(long id);
     
+    Login findLoginByEmail(String email);
+    
     Login createLogin(Login login);
     
     void deleteLogin(Login login);

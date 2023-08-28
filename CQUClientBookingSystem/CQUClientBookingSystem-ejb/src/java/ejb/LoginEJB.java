@@ -55,4 +55,9 @@ public class LoginEJB implements LoginLocal, LoginRemote {
     public Login updateLogin(Login login) {
         return em.merge(login);
     }
+
+    @Override
+    public Login findLoginByEmail(String email) {
+        return em.find(Login.class, email);
+    }
 }
