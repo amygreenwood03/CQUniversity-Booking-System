@@ -11,6 +11,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllLogins",
+        query="SELECT * FROM Login")
 public class Login implements Serializable {
 
     // Attributes

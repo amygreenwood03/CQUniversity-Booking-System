@@ -12,6 +12,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllSALs",
+        query="SELECT * FROM ServiceAtLocation")
 public class ServiceAtLocation implements Serializable {
 
     // Attribues

@@ -12,6 +12,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllLocations",
+        query="SELECT * FROM Location")
 public class Location implements Serializable {
 
     // Attributes

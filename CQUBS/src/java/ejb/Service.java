@@ -12,6 +12,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllServices",
+        query="SELECT * FROM Service")
 public class Service implements Serializable {
 
    // Attributes

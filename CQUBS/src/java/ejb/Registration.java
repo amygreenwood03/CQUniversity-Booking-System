@@ -11,6 +11,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllRegistrations",
+        query="SELECT * FROM Registration")
 public class Registration implements Serializable {
 
     // Attributes

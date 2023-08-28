@@ -11,6 +11,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllVolunteers",
+        query="SELECT * FROM Volunteers")
 @DiscriminatorValue("VOL")
 @Table(name="VOLUNTEER")
 public class Volunteer extends Users {

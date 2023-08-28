@@ -12,6 +12,9 @@ import java.util.List;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllCategories",
+        query="SELECT * FROM Category")
 public class Category implements Serializable {
 
     // Attributes

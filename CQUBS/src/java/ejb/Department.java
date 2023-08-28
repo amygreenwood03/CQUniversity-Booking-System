@@ -12,6 +12,9 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
+@NamedQuery(
+    name="findAllDepartments",
+        query="SELECT * FROM Department")
 public class Department implements Serializable {
 
     // Attributes

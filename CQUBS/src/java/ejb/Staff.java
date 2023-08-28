@@ -10,6 +10,9 @@ import jakarta.persistence.*;
  * * @author HeimannK@Entity
  */
 @Entity
+@NamedQuery(
+    name="findAllStaff",
+        query="SELECT * FROM Staff")
 @DiscriminatorValue("STAFF")
 @Table(name="STAFF")
 public class Staff extends Users {
