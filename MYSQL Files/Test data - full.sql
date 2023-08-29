@@ -23,7 +23,7 @@ VALUES
     ('Thompson Drop-Table Technique', 'Uses a specially designed table so the patient can be “dropped” a fraction of an inch as the practitioner applied a quick thrust to complete the adjustment.',  0, "img/chiro.png", 1),
     ('Massage', 'Massage techniques to assist in the release of tension and unknot muscles and tendons.',  0, "img/physio-massage.png", 2),
     ('Manual Therapy', 'Uses a range of techniques such as massage, passive range of motion exercises and stretching to release pain from knotted muscles.',  0, "img/physio-rom.png", 2),
-    ('Electrical Stimulation', 'Uses electrical stimulation to reduce pain and stiffness.',  0, "img/physio_stim.png", 2),
+    ('Electrical Stimulation', 'Uses electrical stimulation to reduce pain and stiffness.',  0, "img/physio-stim.png", 2),
     ('Observation and monitoring skills', 'Allow nursing students to practice their observation and monitoring skills.',  0, "img/nursing-obs.png", 3),
     ('Blood Collections', 'Assist students learning and practicing to collect blood.',  0, "img/nursing-blood.png", 3),
     ('Cutting hair', 'Assist students learning how to perform different hair cuts.',  0, "img/hair-cut.png", 4),
