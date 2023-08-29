@@ -10,8 +10,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 
 /**
- *
- * @author Amy
+ * This controller fetches input data from the volunteer login page.
+ * String username as email address of an account, String password as raw password String input
+ * SHA512 Encryption is used for password hash. Salt data is saved on database as a Hexadecimal String.
+ * User email and password hash/salt will soon be fetched from users class instead.
  */
 
 @Named(value = "loginController")
@@ -71,6 +73,7 @@ public class LoginController implements Serializable
                 navResult = "index.faces";
             }
             else {
+                //password doesn't match, return to login page
                 username = "";
                 password = "";
                 navResult = "login.faces";
