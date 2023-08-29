@@ -35,16 +35,22 @@ public class Users implements Serializable {
             + "(?:[a-z0-9-]*[a-z0-9])?",
             message = "{invalid.email}")
     protected String email;
+    @Column(name="PASSWORD")
+    protected String password;
+    @Column(name="SALT")
+    protected String salt;
     
     // Constructors
     public Users() {
         
     }
     
-    public Users(String fullName, String phone, String emailAddress) {
+    public Users(String fullName, String phone, String email, String password, String salt) {
         this.fullName = fullName;
         this.phone = phone;
-        this.email = emailAddress;
+        this.email = email;
+        this.password = password;
+        this.salt = salt;
     }
     
     // Getters & Setters
@@ -79,6 +85,14 @@ public class Users implements Serializable {
     
     public void setEmail(String emailAddress) {
         this.email = emailAddress;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

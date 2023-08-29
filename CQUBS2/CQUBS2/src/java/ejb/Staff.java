@@ -27,8 +27,8 @@ public class Staff extends Users {
         
     }
     
-    public Staff(String fullName, String phone, String emailAddress, Department department) {
-        super(fullName, phone, emailAddress);
+    public Staff(String fullName, String phone, String email, String password, String salt, Department department) {
+        super(fullName, phone, email, password, salt);
         this.department = department;
     }
     

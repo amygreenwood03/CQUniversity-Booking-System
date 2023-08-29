@@ -27,9 +27,8 @@ public class Volunteer extends Users {
         
     }
     
-    public Volunteer(String fullName, String phone, String emailAddress, List<Registration> regList) {
-        super(fullName, phone, emailAddress);
-        this.regList = regList;
+    public Volunteer(String fullName, String phone, String email, String password, String salt) {
+        super(fullName, phone, email, password, salt);
     }
 
    // Getters & Setters
