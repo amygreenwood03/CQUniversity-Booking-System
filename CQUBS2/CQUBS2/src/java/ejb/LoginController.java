@@ -23,8 +23,8 @@ public class LoginController implements Serializable
     @EJB
     private UsersEJB usersEJB;
     
-    @EJB
-    private LoginEJB loginEJB;
+    //@EJB
+    //private LoginEJB loginEJB;
     
     private final String PAGE_NAME = "Volunteer Login";
     
@@ -39,7 +39,8 @@ public class LoginController implements Serializable
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         //Does the user with the email address exist?
-        Login userAccount = loginEJB.findLoginByEmail(username);
+        //Login userAccount = loginEJB.findLoginByEmail(username);
+        Volunteer userAccount = usersEJB.findVolByEmail(username);
         if(userAccount == null)
             //No user found, wrong login 
             navResult = "login.faces";
@@ -64,7 +65,7 @@ public class LoginController implements Serializable
             
             //Check if password hash matches
             if(passwordHash.equals(userAccount.getPassword())) {   
-                Users user = usersEJB.findVolByEmail(username);
+                Volunteer user = usersEJB.findVolByEmail(username);
                 username = "";
                 password = "";
                     
