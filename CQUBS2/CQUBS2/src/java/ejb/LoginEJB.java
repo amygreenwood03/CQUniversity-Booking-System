@@ -18,8 +18,8 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-@Remote(LoginRemote.class)
-public class LoginEJB implements LoginLocal, LoginRemote {
+//@Remote(LoginRemote.class)
+public class LoginEJB{
 
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
@@ -29,35 +29,35 @@ public class LoginEJB implements LoginLocal, LoginRemote {
     SessionContext ctx;
 
     // Public methods
-    @Override
+    //@Override
     public List<Login> findLogins() {
         TypedQuery query = em.createNamedQuery("findAllLogins", Login.class);
         return query.getResultList();
     }
 
-    @Override
+    //@Override
     public Login findLoginById(long id) {
         return em.find(Login.class, id);
     }
     
-    @Override
+    //@Override
     public Login findLoginByEmail(String email) {
         return em.find(Login.class, email);
     }
 
-    @Override
+    //@Override
     public Login createLogin(Login login) {
         em.persist(login);
         System.out.println(ctx.getCallerPrincipal().getName());
         return login;
     }
 
-    @Override
+    //@Override
     public void deleteLogin(Login login) {
         em.remove(em.merge(login));
     }
 
-    @Override
+    //@Override
     public Login updateLogin(Login login) {
         return em.merge(login);
     }

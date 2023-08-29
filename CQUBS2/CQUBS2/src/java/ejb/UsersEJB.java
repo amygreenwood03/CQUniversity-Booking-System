@@ -18,8 +18,8 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-@Remote(UsersRemote.class)
-public class UsersEJB implements UsersLocal, UsersRemote {
+//@Remote(UsersRemote.class)
+public class UsersEJB{
 
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
@@ -29,68 +29,68 @@ public class UsersEJB implements UsersLocal, UsersRemote {
     SessionContext ctx;
     
     // Public methods
-    @Override
+    //@Override
     public List<Staff> findStaff() {
         TypedQuery<Staff> query = em.createNamedQuery("findAllStaff", Staff.class);
         return query.getResultList();
     }
 
-    @Override
+    //@Override
     public List<Volunteer> findVolunteer() {
         TypedQuery<Volunteer> query = em.createNamedQuery("findAllVolunteers", Volunteer.class);
         return query.getResultList();
     }
 
-    @Override
+    //@Override
     public Staff findStaffById(Long id) {
         return em.find(Staff.class, id);
     }
 
-    @Override
+    //@Override
     public Volunteer findVolById(Long id) {
         return em.find(Volunteer.class, id);
     }
 
-    @Override
+    //@Override
     public Staff createStaff(Staff staff) {
         em.persist(staff);
         System.out.println(ctx.getCallerPrincipal().getName());
         return staff;
     }
 
-    @Override
+    //@Override
     public Volunteer createVolunteer(Volunteer volunteer) {
         em.persist(volunteer);
         System.out.println(ctx.getCallerPrincipal().getName());
         return volunteer;
     }
 
-    @Override
+    //@Override
     public void deleteStaff(Staff staff) {
         em.remove(em.merge(staff));
     }
 
-    @Override
+    //@Override
     public void deleteVolunteer(Volunteer volunteer) {
         em.remove(em.merge(volunteer));
     }
 
-    @Override
+    //@Override
     public Staff updateStaff(Staff staff) {
         return em.merge(staff);
     }
 
-    @Override
+    //@Override
     public Volunteer updateVolunteer(Volunteer volunteer) {
         return em.merge(volunteer);
     }
 
-    @Override
+    //@Override
     public Staff findStaffByEmail(String email) {
         return em.find(Staff.class, email);
     }
 
-    @Override
+    //@Override
     public Volunteer findVolByEmail(String email) {
         return em.find(Volunteer.class, email);
     }
