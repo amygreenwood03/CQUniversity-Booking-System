@@ -28,74 +28,56 @@ public class LoginController implements Serializable
     
     private String username,password = "";
     
-    public LoginController() 
-    {
+    public LoginController() {
+        
     }
     
-    public String login()
-    {
+    public String login() throws NoSuchAlgorithmException {
         String navResult = "";
-        
         FacesContext ctx = FacesContext.getCurrentInstance();
         
+        //Does the user with the email address exist?
         Login userAccount = loginEJB.findLoginByEmail(username);
-        
         if(userAccount == null)
+            //No user found, wrong login 
             navResult = "login.faces";
-        else
-        {
-            try
-            {
-                MessageDigest digest = MessageDigest.getInstance("SHA-512");
-                digest.update(userAccount.getSalt().getBytes(StandardCharsets.UTF_8));
-                digest.update(password.getBytes(StandardCharsets.UTF_8));
-                
-                byte[] hash = digest.digest();
-                
-                String passwordHash = bytesToHex(hash);
-                
-                if(passwordHash.equals(userAccount.getPassword()))
-                {   
-                    Users user = usersEJB.findVolByEmail(username);
-                    
-                    username = "";
-                    password = "";
-                    
-                    ctx.getExternalContext().getSessionMap().put("user", user);
-                    
-                    navResult = "index.faces";
-                }
-                else
-                {
-                    username = "";
-                    password = "";
-                    navResult = "login.faces";
-                }
+        else {
+            //Import salt data from DB
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            String passwordSalt = userAccount.getSalt();
+            byte[] byteSalt = new byte[passwordSalt.length()/2];
+            for(int i=0; i<byteSalt.length; i++) {
+                int index = i*2;
+                int j = Integer.parseInt(passwordSalt.substring(index, index + 2), 16);
+                byteSalt[i] = (byte) j;
             }
-            catch(NoSuchAlgorithmException e)
-            {
-
+            
+            //Convert input String to byte array and encrypt with salt
+            byte[] pwDigest = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i<pwDigest.length; i++) {
+                sb.append(Integer.toString((pwDigest[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            String passwordHash = sb.toString();
+            
+            //Check if password hash matches
+            if(passwordHash.equals(userAccount.getPassword())) {   
+                Users user = usersEJB.findVolByEmail(username);
+                username = "";
+                password = "";
+                    
+                ctx.getExternalContext().getSessionMap().put("user", user);
+                
+                navResult = "index.faces";
+            }
+            else {
+                username = "";
+                password = "";
+                navResult = "login.faces";
             }
         }
         
         return navResult;
-    }
-    
-    private static String bytesToHex(byte[] hash)
-    {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        
-        for(int i = 0; i < hash.length; i++)
-        {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            
-            if(hex.length() == 1)
-                hexString.append('0');
-            
-            hexString.append(hex);
-        }
-        
-        return hexString.toString();
     }
 
     public String getUsername() 
