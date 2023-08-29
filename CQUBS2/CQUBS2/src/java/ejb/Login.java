@@ -8,8 +8,11 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 
 /**
- * * @author HeimannK
+ * This class is planned to be discarded.
+ * All data related to password hash, password salt and email address will be fetched from Users class in the future. 
+ * Please do not refer to this class in future updates. Kept only for backup purposes.
  */
+
 @Entity
 @NamedQuery(
     name="findAllLogins",query="SELECT l FROM Login l")
