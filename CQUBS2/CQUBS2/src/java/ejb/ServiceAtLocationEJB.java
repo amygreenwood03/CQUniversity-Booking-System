@@ -39,7 +39,28 @@ public class ServiceAtLocationEJB{
     public ServiceAtLocation findSALById(Long id) {
         return em.find(ServiceAtLocation.class, id);
     }
-
+    
+    public List<ServiceAtLocation> findSALsByLocation(Location location)
+    {
+        TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByLocation", ServiceAtLocation.class);
+        query.setParameter("lid", location.getLocationId());
+        return query.getResultList();
+    }
+    
+    public List<ServiceAtLocation> findSALsByCategory(Category category)
+    {
+        TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByCategory", ServiceAtLocation.class);
+        query.setParameter("cid", category.getCat_id());
+        return query.getResultList();
+    }
+    
+    public List<ServiceAtLocation> findSALsByService(Service service)
+    {
+        TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByService", ServiceAtLocation.class);
+        query.setParameter("sid", service.getServiceId());
+        return query.getResultList();
+    }
+    
     //@Override
     public ServiceAtLocation createSAL(ServiceAtLocation sal) {
         em.persist(sal);

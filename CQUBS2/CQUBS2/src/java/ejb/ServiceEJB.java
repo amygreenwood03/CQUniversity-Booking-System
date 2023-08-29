@@ -39,6 +39,13 @@ public class ServiceEJB{
     public Service findServiceById(Long id) {
         return em.find(Service.class, id);
     }
+    
+    public List<Service> findServicesByCategory(Category category)
+    {
+        TypedQuery<Service> query = em.createNamedQuery("findServicesByCategory", Service.class);
+        query.setParameter("cid", category.getCat_id());
+        return query.getResultList();
+    }
 
     //@Override
     public Service createService(Service service) {

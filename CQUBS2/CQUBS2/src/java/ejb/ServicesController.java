@@ -76,44 +76,82 @@ public class ServicesController implements Serializable
     
     public void search()
     {
-        /*salList = salEJB.findSALs();
+        salList = salEJB.findSALs();
         
         List<ServiceAtLocation> results = new ArrayList<>();
         
         if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty())
         {
-            for(int i = 0; i < salList.size(); i++)
-                results.add(salList.get(i));
-            
             if(!selectedLocationsList.isEmpty())
             {
-               for(int i = 0; i < results.size(); i++)
-               {
-                   if(!selectedLocationsList.contains(results.get(i).getLocation()))
-                       results.remove(i);
-               }
+                for(int i = 0; i < selectedLocationsList.size(); i++)
+                    results.addAll(salEJB.findSALsByLocation(selectedLocationsList.get(i)));
             }
-
+            
             if(!selectedCategoriesList.isEmpty())
-            {
-                for(int i = 0; i < results.size(); i++)
+            {   
+                if(results.isEmpty())
                 {
-                    if(!selectedCategoriesList.contains(results.get(i).getService().getCategory()))
-                        results.remove(i);
+                    for(int i = 0; i < selectedCategoriesList.size(); i++)
+                        results.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
+                }
+                else
+                {
+                    List<ServiceAtLocation> sals = new ArrayList<>();
+                    List<ServiceAtLocation> list = new ArrayList<>();
+                    
+                    for(int i = 0; i < selectedCategoriesList.size(); i++)
+                        sals.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
+                    
+                    for(int i = 0; i < results.size(); i++)
+                    {
+                        for(int j = 0; j < sals.size(); j++)
+                        {
+                            if(results.get(i).getSalId() == sals.get(j).getSalId())
+                            {
+                                list.add(results.get(i));
+                                break;
+                            }
+                        }
+                    }
+                    
+                    results = list;
                 }
             }
-
+            
             if(!selectedServicesList.isEmpty())
             {
-                for(int i = 0; i < results.size(); i++)
+                if(results.isEmpty())
                 {
-                    if(!selectedServicesList.contains(results.get(i).getService()))
-                        results.remove(i);
+                    for(int i = 0; i < selectedServicesList.size(); i++)
+                        results.addAll(salEJB.findSALsByService(selectedServicesList.get(i)));
+                }
+                else
+                {
+                    List<ServiceAtLocation> sals = new ArrayList<>();
+                    List<ServiceAtLocation> list = new ArrayList<>();
+                    
+                    for(int i = 0; i < selectedServicesList.size(); i++)
+                        sals.addAll(salEJB.findSALsByService(selectedServicesList.get(i)));
+                    
+                    for(int i = 0; i < results.size(); i++)
+                    {
+                        for(int j = 0; j < sals.size(); j++)
+                        {
+                            if(results.get(i).getSalId() == sals.get(j).getSalId())
+                            {
+                                list.add(results.get(i));
+                                break;
+                            }
+                        }
+                    }
+                    
+                    results = list;
                 }
             }
+            
+            salList = results;
         }
-        
-        salList = results;*/
     }
     
     /*public void refreshSalList()
