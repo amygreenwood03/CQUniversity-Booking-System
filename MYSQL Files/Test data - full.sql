@@ -42,15 +42,15 @@ VALUES
     ('Brisbane', '160 Ann Street, Brisbane, QLD, 4000');
     
 -- Insert into User table
-INSERT INTO USER (NAME, EMAIL, PHONE, USER_TYPE)
+INSERT INTO USER (NAME, EMAIL, PHONE, USER_TYPE, PASSWORD)
 VALUES
-    ('Kahlia Heimann', 'kahlia.heimann@cqumail.com', 0475937465, 'STAFF'),
-    ('Amy Greenwood', 'amy.greenwood@cqumail.com', 0475937745, 'STAFF'),
-    ('Aidan Petre', 'aidan.petre@cqumail.com', 0475937998, 'STAFF'),
-    ('Sangin Kim', 'sangin.kim@cqumail.com', 0475937545, 'STAFF'),
-    ('Fiona Hinds', 'Darkdespair81@gmail.com', 0475900865, 'VOL'),
-    ('Samantha Traynor', 'Techchessgirl51@hotmail.com', 0475933245, 'VOL'),
-    ('Kaiden Alenko', 'kaidenalenko@gmail.com', 0498037998, 'VOL');
+    ('Kahlia Heimann', 'kahlia.heimann@cqumail.com', 0475937465, 'STAFF', 'T8XNT09KJcik'),
+    ('Amy Greenwood', 'amy.greenwood@cqumail.com', 0475937745, 'STAFF', 'PhahYBHT179W'),
+    ('Aidan Petre', 'aidan.petre@cqumail.com', 0475937998, 'STAFF', '4Tski4itt0uX'),
+    ('Sangin Kim', 'sangin.kim@cqumail.com', 0475937545, 'STAFF', 'cRU3XTLYaHom'),
+    ('Fiona Hinds', 'Darkdespair81@gmail.com', 0475900865, 'VOL', 'qnNe4YM2hguG'),
+    ('Samantha Traynor', 'Techchessgirl51@hotmail.com', 0475933245, 'VOL', '4KvgP6CAdTeQ'),
+    ('Kaiden Alenko', 'kaidenalenko@gmail.com', 0498037998, 'VOL', '4as05nni4Ed4');
     
 -- Insert into Login table
 INSERT INTO Login (EMAIL, PASSWORD)
