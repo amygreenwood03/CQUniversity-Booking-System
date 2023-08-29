@@ -29,12 +29,12 @@
                         <ui:repeat value="#{homeController.categoryList}" var="c">
                             <div class="col-lg-3">
                                 <div class="card">
-                                    <img src="img/placeholder.png" class="card-img-top"/>
+                                    <img src="#{c.imageUrl}" class="card-img-top"/>
 
                                     <div class="card-body">
                                         <h4>
                                             <h:link outcome="services" class="stretched-link card-link" value="#{c.categoryName}">
-                                                <f:param name="categoryId" value="#{c.id}"></f:param>
+                                                <f:param name="categoryId" value="#{c.cat_id}"></f:param>
                                             </h:link>
                                         </h4>
                                     </div>

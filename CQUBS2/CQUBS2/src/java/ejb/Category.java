@@ -24,6 +24,8 @@ public class Category implements Serializable {
     private Long cat_id;
     @Column(name="CAT_NAME")
     private String categoryName;
+    @Column(name="IMAGE_URL")
+    private String imageUrl;
     @ManyToOne
     @JoinColumn(name="DEPT_ID")
     private Department dept;
@@ -39,42 +41,63 @@ public class Category implements Serializable {
         this.dept = department;
     }
     
-    public Category(String categoryName, Department dept, List<Service> services) {
+    public Category(String categoryName, Department dept, List<Service> services, String imageUrl) {
         this.categoryName = categoryName;
         this.dept = dept;
         this.services = services;
+        this.imageUrl = imageUrl;
     }
     
     // Getters & Setters
-    public Long getId() {
+
+    public Long getCat_id() 
+    {
         return cat_id;
     }
 
-    public void setId(Long id) {
-        this.cat_id = id;
+    public void setCat_id(Long cat_id) 
+    {
+        this.cat_id = cat_id;
+    }
+
+    public Department getDept() 
+    {
+        return dept;
+    }
+
+    public void setDept(Department dept) 
+    {
+        this.dept = dept;
     }
     
-    public String getCategoryName() {
+    
+    public String getCategoryName() 
+    {
         return categoryName;
     }
     
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(String categoryName) 
+    {
         this.categoryName = categoryName;
     }
-    
-    public Department getDepartment() {
-        return dept;
+
+    public String getImageUrl() 
+    {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) 
+    {
+        this.imageUrl = imageUrl;
     }
     
-    public void setDepartment(Department department) {
-        this.dept = department;
-    }
-    
-    public List<Service> getServices() {
+    public List<Service> getServices() 
+    {
         return services;
     }
     
-    public void setServices(List<Service> services) {
+    public void setServices(List<Service> services) 
+    {
         this.services = services;
     }
 

@@ -54,7 +54,7 @@ public class ServicesController implements Serializable
         {
             for(int i = 0; i < categoriesList.size(); i++)
             {
-                if(categoriesList.get(i).getId() == fromHomeId)
+                if(categoriesList.get(i).getCat_id() == fromHomeId)
                     selectedCategoriesList.add(categoriesList.get(i));
             }
             
