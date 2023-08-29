@@ -23,14 +23,14 @@ public class ServiceAtLocation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="SAL_ID")
     private Long salId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     /*@JoinColumns({
         @JoinColumn(name="SERV_ID"),
         @JoinColumn(name="SERV_NAME")
     })*/
     @JoinColumn(name = "SERV_ID")
     private Service service;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     /*@JoinColumns({
         @JoinColumn(name="LOC_ID"),
         @JoinColumn(name="LOC_NAME")

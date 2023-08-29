@@ -109,7 +109,7 @@
                                         <div class="card-text mt-4">
                                             <p>#{sal.location.locationName}</p> <!--make these capitals-->
                                             <p>#{sal.service.category.categoryName}</p>
-                                            <p>#{sal.service.servicePrice}</p>
+                                            <p>#{servicesController.renderPrice(sal.service.servicePrice)}</p>
                                         </div>
                                     </div>
                                 </div>

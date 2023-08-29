@@ -26,6 +26,9 @@ public class ServicesController implements Serializable
     @EJB
     private ServiceEJB serviceEJB;
     
+    @EJB
+    private ServiceAtLocationEJB salEJB;
+    
     private List<Location> locationsList, selectedLocationsList = new ArrayList<>(); //to store all locations & locations selected in filter respectively
     private List<Category> categoriesList, selectedCategoriesList = new ArrayList<>(); //to store all categories & categories selected in filter respectively
     private List<Service> servicesList, selectedServicesList = new ArrayList<>(); //to store all services & services selected in filter respectively
@@ -39,14 +42,13 @@ public class ServicesController implements Serializable
     {
     }
     
-    @PostConstruct
     public void init()
     {
         locationsList = locationEJB.findLocations();
         categoriesList = categoryEJB.findCategories();
         servicesList = serviceEJB.findServices();
-        
-        refreshSalList();
+        salList = salEJB.findSALs();
+        //refreshSalList();
         
         if(fromHomeId != null)
         {
@@ -60,9 +62,21 @@ public class ServicesController implements Serializable
         }
     }
     
+    public String renderPrice(double price)
+    {
+        String priceAsString = "";
+        
+        if(price > 0.0)
+            priceAsString = "$" + price;
+        else
+            priceAsString = "FREE";
+        
+        return priceAsString;
+    }
+    
     public void search()
     {
-        refreshSalList();
+        /*salList = salEJB.findSALs();
         
         List<ServiceAtLocation> results = new ArrayList<>();
         
@@ -99,17 +113,18 @@ public class ServicesController implements Serializable
             }
         }
         
-        salList = results;
+        salList = results;*/
     }
     
-    public void refreshSalList()
+    /*public void refreshSalList()
     {
         for(int i = 0; i < servicesList.size(); i++)
         {
+            salList.addAll(servicesList.get(i).getSalList());
             for(int j = 0; j < servicesList.get(i).getSalList().size(); j++)
                 salList.add(servicesList.get(i).getSalList().get(j));
         }
-    }
+    }*/
 
     public List<Location> getLocationsList() 
     {
