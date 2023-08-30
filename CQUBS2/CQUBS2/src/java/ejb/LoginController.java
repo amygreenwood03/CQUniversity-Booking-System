@@ -18,18 +18,11 @@ import java.security.MessageDigest;
 
 @Named(value = "loginController")
 @SessionScoped
-public class LoginController implements Serializable
-{
+public class LoginController implements Serializable {
     @EJB
     private UsersEJB usersEJB;
-    
-    //@EJB
-    //private LoginEJB loginEJB;
-    
     private final String PAGE_NAME = "Volunteer Login";
-    
     private String username,password = "";
-    
     public LoginController() {
         
     }
@@ -39,8 +32,7 @@ public class LoginController implements Serializable
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         //Does the user with the email address exist?
-        //Login userAccount = loginEJB.findLoginByEmail(username);
-        Volunteer userAccount = usersEJB.findVolByEmail(username);
+        Users userAccount = usersEJB.findVolByEmail(username);
         if(userAccount == null)
             //No user found, wrong login 
             navResult = "login.faces";
@@ -65,7 +57,7 @@ public class LoginController implements Serializable
             
             //Check if password hash matches
             if(passwordHash.equals(userAccount.getPassword())) {   
-                Volunteer user = usersEJB.findVolByEmail(username);
+                Users user = usersEJB.findVolByEmail(username);
                 username = "";
                 password = "";
                     
@@ -80,7 +72,6 @@ public class LoginController implements Serializable
                 navResult = "login.faces";
             }
         }
-        
         return navResult;
     }
 
