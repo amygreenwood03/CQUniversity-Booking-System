@@ -59,6 +59,7 @@ public class LoginController implements Serializable {
                 int j = Integer.parseInt(passwordSalt.substring(index, index + 2), 16);
                 byteSalt[i] = (byte) j;
             }
+            digest.update(byteSalt);
             
             //Convert input String to byte array and encrypt with salt
             byte[] pwDigest = digest.digest(password.getBytes(StandardCharsets.UTF_8));
