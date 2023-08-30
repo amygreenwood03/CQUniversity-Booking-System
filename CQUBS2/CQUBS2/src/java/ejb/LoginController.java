@@ -40,9 +40,7 @@ public class LoginController implements Serializable {
         }
         else {
             //Check if it is Staff account or volunteer account
-            String passwordSalt, passwordHashStored, userClass = "";
-                
-            userClass = "volunteer";
+            String passwordSalt, passwordHashStored = "";
             passwordSalt = volunteerAccount.getSalt();
             passwordHashStored = volunteerAccount.getPassword();
             //Import salt data from DB
