@@ -40,12 +40,14 @@ public class LoginController implements Serializable {
         }
         else {
             //Check if it is Staff account or volunteer account
-            String passwordSalt, passwordHashStored = "";
+            String passwordSalt, passwordHashStored, userClass = "";
             if(staffAccount != null) {
+                userClass = "staff";
                 passwordSalt = staffAccount.getSalt();
                 passwordHashStored = staffAccount.getPassword();
             }
             else {
+                userClass = "volunteer";
                 passwordSalt = volunteerAccount.getSalt();
                 passwordHashStored = volunteerAccount.getPassword();
             }
@@ -67,11 +69,15 @@ public class LoginController implements Serializable {
             String passwordHash = sb.toString();
             
             //Check if password hash matches
-            if(passwordHash.equals(passwordHashStored)) {   
-                Users user = usersEJB.findVolByEmail(username);
+            if(passwordHash.equals(passwordHashStored)) {
                 username = "";
                 password = "";
-                ctx.getExternalContext().getSessionMap().put("user", user);
+                if(userClass.equals("staff")) {
+                    ctx.getExternalContext().getSessionMap().put("user", staffAccount);
+                }
+                else {
+                    ctx.getExternalContext().getSessionMap().put("user", volunteerAccount);
+                }
                 navResult = "index.faces";
             }
             else {
