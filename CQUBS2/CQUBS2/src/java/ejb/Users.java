@@ -22,8 +22,10 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
-    @Column(name="NAME")
-    protected String fullName;
+    @Column(name="FIRST_NAME")
+    protected String firstName;
+    @Column(name="LAST NAME")
+    protected String lastName;
     @Column(name="PHONE")
     @Pattern(regexp = "^[0-9]{10}$",
             message = "{invalid.phonenumber}")
@@ -45,8 +47,9 @@ public class Users implements Serializable {
         
     }
     
-    public Users(String fullName, String phone, String email, String password, String salt) {
-        this.fullName = fullName;
+    public Users(String firstName, String lastName, String phone, String email, String password, String salt) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phone = phone;
         this.email = email;
         this.password = password;
@@ -63,12 +66,20 @@ public class Users implements Serializable {
         this.id = id;
     }
     
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
     
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
     public String getPhone() {

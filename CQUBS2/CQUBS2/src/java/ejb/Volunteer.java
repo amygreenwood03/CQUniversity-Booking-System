@@ -27,8 +27,8 @@ public class Volunteer extends Users {
         
     }
     
-    public Volunteer(String fullName, String phone, String email, String password, String salt) {
-        super(fullName, phone, email, password, salt);
+    public Volunteer(String firstName, String lastName, String phone, String email, String password, String salt) {
+        super(firstName, lastName, phone, email, password, salt);
     }
 
    // Getters & Setters
