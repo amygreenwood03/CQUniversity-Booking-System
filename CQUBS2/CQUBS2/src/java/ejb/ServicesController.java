@@ -58,6 +58,7 @@ public class ServicesController implements Serializable
                     selectedCategoriesList.add(categoriesList.get(i));
             }
             
+            fromHomeId = null;
             search();
         }
     }
