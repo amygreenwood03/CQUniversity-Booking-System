@@ -87,11 +87,15 @@ public class UsersEJB{
 
     //@Override
     public Staff findStaffByEmail(String email) {
-        return em.find(Staff.class, email);
+        TypedQuery<Staff> query = em.createNamedQuery("findStaffByEmail", Staff.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
     }
 
     //@Override
     public Volunteer findVolByEmail(String email) {
-        return em.find(Volunteer.class, email);
+        TypedQuery<Volunteer> query = em.createNamedQuery("findVolByEmail", Volunteer.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
     }
 }

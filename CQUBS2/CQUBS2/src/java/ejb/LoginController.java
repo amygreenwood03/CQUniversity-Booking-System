@@ -33,24 +33,18 @@ public class LoginController implements Serializable {
         
         //Does the user with the email address exist?
         Volunteer volunteerAccount = usersEJB.findVolByEmail(username);
-        Staff staffAccount = usersEJB.findStaffByEmail(username);
-        if(volunteerAccount == null && staffAccount == null) {
+
+        if (volunteerAccount == null){
             //No user found, wrong login 
             navResult = "login.faces";
         }
         else {
             //Check if it is Staff account or volunteer account
             String passwordSalt, passwordHashStored, userClass = "";
-            if(staffAccount != null) {
-                userClass = "staff";
-                passwordSalt = staffAccount.getSalt();
-                passwordHashStored = staffAccount.getPassword();
-            }
-            else {
-                userClass = "volunteer";
-                passwordSalt = volunteerAccount.getSalt();
-                passwordHashStored = volunteerAccount.getPassword();
-            }
+                
+            userClass = "volunteer";
+            passwordSalt = volunteerAccount.getSalt();
+            passwordHashStored = volunteerAccount.getPassword();
             //Import salt data from DB
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             byte[] byteSalt = new byte[passwordSalt.length()/2];
@@ -73,12 +67,9 @@ public class LoginController implements Serializable {
             if(passwordHash.equals(passwordHashStored)) {
                 username = "";
                 password = "";
-                if(userClass.equals("staff")) {
-                    ctx.getExternalContext().getSessionMap().put("user", staffAccount);
-                }
-                else {
-                    ctx.getExternalContext().getSessionMap().put("user", volunteerAccount);
-                }
+
+                ctx.getExternalContext().getSessionMap().put("user", volunteerAccount);
+
                 navResult = "index.faces";
             }
             else {

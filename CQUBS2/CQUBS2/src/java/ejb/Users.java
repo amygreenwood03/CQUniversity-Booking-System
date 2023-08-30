@@ -14,6 +14,11 @@ import jakarta.persistence.*;
 @Entity
 @NamedQuery(
     name="findAllUsers", query="SELECT u FROM Users u")
+@NamedQuery(
+    name="findVolByEmail", query="SELECT v FROM Volunteer v WHERE v.email = :email")
+@NamedQuery(
+    name="findStaffByEmail", query="SELECT s FROM Staff s WHERE s.email = :email")
+@Table(name = "User")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="USER_TYPE")
 public class Users implements Serializable {
@@ -21,10 +26,11 @@ public class Users implements Serializable {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="USER_ID")
     protected Long id;
     @Column(name="FIRST_NAME")
     protected String firstName;
-    @Column(name="LAST NAME")
+    @Column(name="LAST_NAME")
     protected String lastName;
     @Column(name="PHONE")
     @Pattern(regexp = "^[0-9]{10}$",
