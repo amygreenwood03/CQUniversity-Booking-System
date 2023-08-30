@@ -32,14 +32,25 @@ public class LoginController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         //Does the user with the email address exist?
-        Users userAccount = usersEJB.findVolByEmail(username);
-        if(userAccount == null)
+        Volunteer volunteerAccount = usersEJB.findVolByEmail(username);
+        Staff staffAccount = usersEJB.findStaffByEmail(username);
+        if(volunteerAccount == null && staffAccount == null) {
             //No user found, wrong login 
             navResult = "login.faces";
+        }
         else {
+            //Check if it is Staff account or volunteer account
+            String passwordSalt, passwordHashStored = "";
+            if(staffAccount != null) {
+                passwordSalt = staffAccount.getSalt();
+                passwordHashStored = staffAccount.getPassword();
+            }
+            else {
+                passwordSalt = volunteerAccount.getSalt();
+                passwordHashStored = volunteerAccount.getPassword();
+            }
             //Import salt data from DB
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            String passwordSalt = userAccount.getSalt();
             byte[] byteSalt = new byte[passwordSalt.length()/2];
             for(int i=0; i<byteSalt.length; i++) {
                 int index = i*2;
@@ -56,13 +67,11 @@ public class LoginController implements Serializable {
             String passwordHash = sb.toString();
             
             //Check if password hash matches
-            if(passwordHash.equals(userAccount.getPassword())) {   
+            if(passwordHash.equals(passwordHashStored)) {   
                 Users user = usersEJB.findVolByEmail(username);
                 username = "";
                 password = "";
-                    
                 ctx.getExternalContext().getSessionMap().put("user", user);
-                
                 navResult = "index.faces";
             }
             else {
