@@ -34,32 +34,32 @@
                         <div class="form-row my-3 row gx-3" id="nameRow">
                             <div class="col-6">
                                 <div class="form-group" id="firstNameCol">
-                                    <h:inputText class="form-control" id="firstName" value="#{signUpController.user.firstName}" a:placeholder="First name" required/>
+                                    <h:inputText class="form-control" id="firstName" value="#{signUpController.firstName}" a:placeholder="First name"/>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group" id="lastNameCol">
-                                    <h:inputText class="form-control" id="lastName" value="#{signUpController.user.lastName}" a:placeholder="Last name" required/>
+                                    <h:inputText class="form-control" id="lastName" value="#{signUpController.lastName}" a:placeholder="Last name"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-row mb-3" id="emailRow">
                             <div class="form-group">
-                                <h:inputText class="form-control" id="email" value="#{signUpController.user.emailAddress}" a:placeholder="Email address" required/>
+                                <h:inputText class="form-control" id="email" value="#{signUpController.emailAddress}" a:placeholder="Email address"/>
                             </div>
                         </div>
                         
                         <div class="form-row mb-3" id="phoneRow">
                             <div class="form-group">
-                                <h:inputText class="form-control" id="phone" value="#{signUpController.user.phoneNumber}" a:placeholder="Phone number" required/>
+                                <h:inputText class="form-control" id="phone" value="#{signUpController.phoneNumber}" a:placeholder="Phone number"/>
                             </div>
                         </div>
 
                         <div class="form-row" id="passwordRow">
                             <div class="form-group">
-                                <h:inputSecret class="form-control" id="password" value="#{signUpController.password}" a:placeholder="Password" required/>
+                                <h:inputSecret class="form-control" id="password" value="#{signUpController.password}" a:placeholder="Password"/>
                             </div>
                         </div>
 
