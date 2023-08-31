@@ -61,9 +61,20 @@
                                 <p class="text-body">#{detailsController.sal.service.serviceDescription}</p>
                             </div>
 
-                            <div class="row pt-4">
+                            <h:panelGroup layout="block" class="row pt-4" rendered="#{empty user}">
                                 <div class="alert">Interested in volunteering? <a href="login.faces"><strong>Login</strong></a> to receive notifications.</div>
-                            </div>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup layout="block" class="row pt-4" rendered="#{not empty user and not detailsController.registrationStatus(user)}">
+                                <h5 class="pb-2">INTERESTED?</h5>
+                                <h:form>
+                                    <h:commandButton action="#{detailsController.register()}" class="btn btn-primary mx-2" style="width: fit-content;" value="REGISTER"/>
+                                </h:form>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup layout="block" class="row pt-4" rendered="#{not empty user and detailsController.registrationStatus(user)}">
+                                <div class="alert">You are currently registered to this service. To unregister, visit your <a href="profile.faces"><strong>profile</strong></a>.</div>
+                            </h:panelGroup>
                         </div>
 
                         <div class="col-lg-6 d-none d-lg-block">

@@ -103,13 +103,13 @@ h1,h2,h3,h4,h5
     min-width: 7rem;
 }
 
-.btn-secondary:hover
+.btn-secondary:hover, .btn-circle:hover
 {
     background-color: #d6eb14;
     color: #003057;
 }
 
-.btn-secondary:active:focus
+.btn-secondary:active:focus, .btn-circle:active:focus, .btn-circle:focus
 {
     background-color: #e0ee58;
     color: #003057;
@@ -243,14 +243,19 @@ h1,h2,h3,h4,h5
     border-color: #c1d600;
 }
 
-#resultsDiv
+#resultsDiv, #uploadRow, #serviceDetailsRow
 {
     background-color: #f6f6f4;
     border-top: 1px solid #ebebea;
     flex-grow: 1;
 }
 
-#searchResults .card
+#uploadRow, #serviceDetailsRow
+{
+    border: 1px solid #ebebea;
+}
+
+#searchResults .card, #staffRecent .card
 {
     border: 1px solid #ebebea;
 }
@@ -260,7 +265,7 @@ h1,h2,h3,h4,h5
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-#searchResults .card:hover
+#searchResults .card:hover, #staffRecent .card:hover
 {
     border-color: #74746d;
 }
@@ -270,13 +275,13 @@ p
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.breadcrumb-item a, .alert a
+.breadcrumb-item a, .alert a, #staffDropdown .dropdown-item a
 {
     color: #003057;
     text-decoration: none;
 }
 
-.breadcrumb-item a:hover, .alert a:hover
+.breadcrumb-item a:hover, .alert a:hover, #staffDropdown .dropdown-item a:hover
 {
     border-bottom: 2px solid #003057;
 }
@@ -300,4 +305,28 @@ footer
     padding-right: 3rem;
     padding-bottom: 1rem;
     padding-top: 2rem;
+}
+
+.btn-circle
+{
+    color: #003057;
+    background-color: #c1d600;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: .75rem;
+}
+
+.dropdown-center #staffDropdown
+{
+    min-width: 50px;
+    transform: translateX(-25px);
+}
+
+#priceRow .form-check-label
+{
+    font-family: Arial, Helvetica, sans-serif;
 }

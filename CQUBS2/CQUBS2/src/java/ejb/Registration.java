@@ -25,7 +25,7 @@ public class Registration implements Serializable {
     @JoinColumn(name="SAL_ID")
     private ServiceAtLocation sal;
     @ManyToOne
-    @JoinColumn(name="ID")
+    @JoinColumn(name="USER_ID")
     private Volunteer volunteer;
     
     // Constructors

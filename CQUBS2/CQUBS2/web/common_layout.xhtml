@@ -40,16 +40,45 @@
                                 <li class="nav-item">
                                     <strong><a class="nav-link #{view.viewId eq '/services.xhtml' ? 'active' : ''}" href="services.faces">SERVICES</a></strong>
                                 </li>
+                                
+                                <h:panelGroup rendered="#{not empty user}">
+                                    <li class="nav-item d-lg-none">
+                                        <strong><a class="nav-link" href="profile.faces">PROFILE</a></strong>
+                                    </li>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{not empty user}">
+                                    <li class="nav-item d-lg-none">
+                                        <strong><a class="nav-link" href="#">LOGOUT</a></strong>
+                                    </li>
+                                </h:panelGroup>
                             </ul>
 
-                            <div class="nav-login d-flex">
+                            <h:panelGroup layout="block" class="nav-login d-flex" rendered="#{empty user}">
                                 <li class="nav-item">
                                     <a href="login.faces"><button class="btn btn-primary me-2">USER LOGIN</button></a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#"><button class="btn btn-secondary">STAFF LOGIN</button></a>
                                 </li>
-                            </div>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup layout="block" class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user}">
+                                <li class="nav-item">
+                                    <div class="dropdown-center">
+                                        <button class="btn btn-circle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">#{user.firstName.charAt(0)}#{user.lastName.charAt(0)}</button>
+
+                                        <ul class="dropdown-menu" id="staffDropdown">
+                                            <li class="dropdown-item py-2">
+                                                <a href="profile.faces"><strong>PROFILE</strong></a>
+                                            </li>
+                                            <li class="dropdown-item py-2">
+                                                <a href="#"><strong>LOGOUT</strong></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </h:panelGroup>
                         </div>
                     </div>
                 </nav>

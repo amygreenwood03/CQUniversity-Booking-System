@@ -47,6 +47,37 @@ public class DetailsController implements Serializable
         
         return priceAsString;
     }
+    
+    public void register()
+    {
+        //volunteer registration implementation
+        //1 : will register user to particular sal
+        //2 : will refresh user session variable to account for new entry in regList
+        //3 : will return user to refreshed details page
+    }
+    
+    public boolean registrationStatus(Volunteer user)
+    {
+        //will be used to check if user is currently registered or not to a specific sal
+        //will return true if so, & UI won't display register button
+        //will return false if not, & UI will display register button
+        
+        boolean isRegistered = false;
+        
+        if(user.getRegList() != null && !user.getRegList().isEmpty())
+        {
+            for(int i = 0; i < user.getRegList().size(); i++)
+            {
+                if(salId == user.getRegList().get(i).getSAL().getSalId())
+                {
+                    isRegistered = true;
+                    break;
+                }
+            }
+        }
+        
+        return isRegistered;
+    }
 
     public ServiceAtLocation getSal() 
     {
