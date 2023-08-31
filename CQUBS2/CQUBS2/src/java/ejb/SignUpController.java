@@ -12,6 +12,11 @@ import java.security.MessageDigest;
 @Named(value = "signUpController")
 @SessionScoped
 public class SignUpController implements Serializable {
+    @EJB
+    private UsersEJB usersEJB;
+    private final String PAGE_NAME = "Volunteer Signup";
+    private String firstName, lastName, phone, email, password = ""; 
+    
     public SignUpController() {
         
     }
