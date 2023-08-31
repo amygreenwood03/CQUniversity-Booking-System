@@ -85,11 +85,9 @@ public class LoginController implements Serializable {
         return navResult;
     }
     
-    public String logout()
-    {
+    public String logout() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().clear();
-        
         return "index.faces";
     }
 

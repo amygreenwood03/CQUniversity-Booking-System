@@ -30,13 +30,12 @@ public class SignUpController implements Serializable {
     public String signupVolunteer() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
-        Volunteer vol;
         
         //Is the email assigned to existing account?
         try {
-            vol = usersEJB.findVolByEmail(emailAddress);
+            user = usersEJB.findVolByEmail(emailAddress);
         } catch (Exception e) {
-            vol = null;
+            user = null;
         }
         
         //No users found with the address
@@ -62,12 +61,14 @@ public class SignUpController implements Serializable {
                 saltString += st;
             }
             
-            vol.setEmail(emailAddress);
-            vol.setFirstName(firstName);
-            vol.setLastName(lastName);
-            vol.setPhone(phoneNumber);
-            vol.setPassword(passwordHash);
-            vol.setSalt(saltString);
+            user.setEmail(emailAddress);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setPhone(phoneNumber);
+            user.setPassword(passwordHash);
+            user.setSalt(saltString);
+            usersEJB.createVolunteer(user);
+            navResult = "index.faces";
         }
         //User already exists
         else {
@@ -76,7 +77,7 @@ public class SignUpController implements Serializable {
             phoneNumber = "";
             emailAddress = ""; 
             password = "";
-            navResult = "sign_up";
+            navResult = "sign_up.faces";
         }
         return navResult;
     }
