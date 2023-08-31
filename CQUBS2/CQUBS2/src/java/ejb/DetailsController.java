@@ -3,6 +3,7 @@ package ejb;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,9 @@ public class DetailsController implements Serializable
 {
     @EJB
     private ServiceAtLocationEJB salEJB;
+    
+    @EJB
+    private RegistrationEJB regEJB;
     
     private ServiceAtLocation sal = new ServiceAtLocation();
     
@@ -48,12 +52,22 @@ public class DetailsController implements Serializable
         return priceAsString;
     }
     
-    public void register()
+    public String register(Volunteer user)
     {
         //volunteer registration implementation
         //1 : will register user to particular sal
         //2 : will refresh user session variable to account for new entry in regList
         //3 : will return user to refreshed details page
+        
+        Registration reg = new Registration();
+        reg.setSAL(sal);
+        
+        reg = regEJB.createRegistration(reg, user);
+        
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.getExternalContext().getSessionMap().put("user", reg.getVolunteer());
+        
+        return "service_details.faces";
     }
     
     public boolean registrationStatus(Volunteer user)
@@ -64,7 +78,21 @@ public class DetailsController implements Serializable
         
         boolean isRegistered = false;
         
-        if(user.getRegList() != null && !user.getRegList().isEmpty())
+        List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
+        
+        if(regList != null && !regList.isEmpty())
+        {
+            for(int i = 0; i < regList.size(); i++)
+            {
+                if(salId == regList.get(i).getSAL().getSalId())
+                {
+                    isRegistered = true;
+                    break;
+                }
+            }
+        }
+        
+        /*if(user.getRegList() != null && !user.getRegList().isEmpty())
         {
             for(int i = 0; i < user.getRegList().size(); i++)
             {
@@ -74,7 +102,7 @@ public class DetailsController implements Serializable
                     break;
                 }
             }
-        }
+        }*/
         
         return isRegistered;
     }

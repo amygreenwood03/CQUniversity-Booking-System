@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{profileController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>YOUR PROFILE</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>USER PROFILE</h1>
+                    </div>
+                </div>
+
+                <div class="container-fluid px-5 py-4" id="profileDiv">
+                    <div class="row g-4" id="profileinfo">
+                        <div class="col-lg-8" id="userdetails">
+                            <h3>Name</h3>
+                            <p>#{user.firstName} #{user.lastName}</p>
+                            
+                            <h3>E-mail</h3>
+                            <p>#{user.email}</p>
+                            
+                            <h3>Mobile Number</h3>
+                            <p>#{user.phone}</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4" id="subscribedServices">
+                        <h2>SUBSCRIBED SERVICES</h2>
+                        
+                        <h:dataTable value="#{profileController.getRegList(user)}" var="r" class="table table-bordered">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Service Name"/>
+                                </f:facet>
+                                <h:outputText value="#{r.SAL.service.serviceName}"/>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Location"/>
+                                </f:facet>
+                                <h:outputText value="#{r.SAL.location.locationName}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    
+                    <div class="row d-flex align-items-center pt-4">
+                        <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

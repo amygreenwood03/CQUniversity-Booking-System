@@ -49,7 +49,7 @@
 
                                 <h:panelGroup rendered="#{not empty user}">
                                     <li class="nav-item d-lg-none">
-                                        <strong><a class="nav-link" href="#">LOGOUT</a></strong>
+                                        <h:form><strong><h:commandLink action="#{loginController.logout()}" class="nav-link" value="LOGOUT"/></strong></h:form>
                                     </li>
                                 </h:panelGroup>
                             </ul>
@@ -73,7 +73,7 @@
                                                 <a href="profile.faces"><strong>PROFILE</strong></a>
                                             </li>
                                             <li class="dropdown-item py-2">
-                                                <a href="#"><strong>LOGOUT</strong></a>
+                                                <h:form><strong><h:commandLink action="#{loginController.logout()}" value="LOGOUT"/></strong></h:form>
                                             </li>
                                         </ul>
                                     </div>

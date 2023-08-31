@@ -14,11 +14,12 @@ import jakarta.persistence.*;
 @NamedQuery(
     name="findAllRegistrations",
         query="SELECT r FROM Registration r")
+@NamedQuery(name = "findRegistrationsByVolunteer", query = "SELECT r FROM Registration r WHERE r.volunteer.id = :vid")
 public class Registration implements Serializable {
 
     // Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="REG_ID")
     private Long regId;
     @ManyToOne

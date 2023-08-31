@@ -18,8 +18,8 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-@Remote(RegistrationRemote.class)
-public class RegistrationEJB implements RegistrationLocal, RegistrationRemote {
+//@Remote(RegistrationRemote.class)
+public class RegistrationEJB {
 
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
@@ -29,30 +29,40 @@ public class RegistrationEJB implements RegistrationLocal, RegistrationRemote {
     SessionContext ctx;
 
     // Public methods
-    @Override
+    //@Override
     public List<Registration> findRegistrations() {
         TypedQuery<Registration> query = em.createNamedQuery("findAllRegistrations", Registration.class);
         return query.getResultList();
     }
 
-    @Override
+    //@Override
     public Registration findRegById(Long id) {
         return em.find(Registration.class, id);
     }
 
-    @Override
-    public Registration createRegistration(Registration reg) {
+    //@Override
+    public Registration createRegistration(Registration reg, Volunteer vol) {
+        vol = em.find(Volunteer.class, vol.getId());
+        
+        reg.setVolunteer(vol);
         em.persist(reg);
         System.out.println(ctx.getCallerPrincipal().getName());
         return reg;
     }
+    
+    public List<Registration> findRegistrationsByVolunteer(Volunteer vol)
+    {
+        TypedQuery<Registration> query = em.createNamedQuery("findRegistrationsByVolunteer", Registration.class);
+        query.setParameter("vid", vol.getId());
+        return query.getResultList();
+    }
 
-    @Override
+    //@Override
     public void deleteRegistration(Registration reg) {
         em.remove(em.merge(reg));
     }
 
-    @Override
+    //@Override
     public Registration updateRegistration(Registration reg) {
         return em.merge(reg);
     }
