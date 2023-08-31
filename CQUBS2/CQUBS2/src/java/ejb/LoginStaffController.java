@@ -15,7 +15,7 @@ import java.security.MessageDigest;
  * SHA512 Encryption is used for password hash. Salt data is saved on database as a Hexadecimal String.
  */
 
-@Named(value = "loginController")
+@Named(value = "loginStaffController")
 @SessionScoped
 public class LoginStaffController implements Serializable {
     @EJB
