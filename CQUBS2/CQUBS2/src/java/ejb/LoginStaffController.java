@@ -10,19 +10,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 
 /**
- * This controller fetches input data from the volunteer login page.
+ * This controller fetches input data from the staff login page.
  * String username as email address of an account, String password as raw password String input
  * SHA512 Encryption is used for password hash. Salt data is saved on database as a Hexadecimal String.
  */
 
 @Named(value = "loginController")
 @SessionScoped
-public class LoginController implements Serializable {
+public class LoginStaffController implements Serializable {
     @EJB
     private UsersEJB usersEJB;
-    private final String PAGE_NAME = "Volunteer Login";
+    private final String PAGE_NAME = "Staff Login";
     private String username,password = "";
-    public LoginController() {
+    public LoginStaffController() {
         
     }
     
@@ -31,17 +31,17 @@ public class LoginController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         //Does the user with the email address exist?
-        Volunteer volunteerAccount = usersEJB.findVolByEmail(username);
+        Staff staffAccount = usersEJB.findStaffByEmail(username);
 
-        if (volunteerAccount == null){
+        if (staffAccount == null){
             //No user found, wrong login 
-            navResult = "login.faces";
+            navResult = "login_staff.faces";
         }
         else {
             //Check if it is Staff account or volunteer account
             String passwordSalt, passwordHashStored = "";
-            passwordSalt = volunteerAccount.getSalt();
-            passwordHashStored = volunteerAccount.getPassword();
+            passwordSalt = staffAccount.getSalt();
+            passwordHashStored = staffAccount.getPassword();
             //Import salt data from DB
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             byte[] byteSalt = new byte[passwordSalt.length()/2];
@@ -65,7 +65,7 @@ public class LoginController implements Serializable {
                 username = "";
                 password = "";
 
-                ctx.getExternalContext().getSessionMap().put("user", volunteerAccount);
+                ctx.getExternalContext().getSessionMap().put("user", staffAccount);
 
                 navResult = "index.faces";
             }
@@ -73,7 +73,7 @@ public class LoginController implements Serializable {
                 //password doesn't match, return to login page
                 username = "";
                 password = "";
-                navResult = "login.faces";
+                navResult = "login_staff.faces";
             }
         }
         return navResult;
