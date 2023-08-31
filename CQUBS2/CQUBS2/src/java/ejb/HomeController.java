@@ -9,44 +9,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Amy
+ * This is a controller for index.xhtml page.
  */
 
 @Named(value = "homeController")
 @SessionScoped
-public class HomeController implements Serializable
-{
+public class HomeController implements Serializable {
     @EJB
     private CategoryEJB categoryEJB;
-    
     private List<Category> categoryList = new ArrayList<>();
-    
     private final String PAGE_NAME = "Home";
     
-    public HomeController() 
-    {
+    public HomeController() {
 
     }
     
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         categoryList = categoryEJB.findCategories();
     }
 
-    public List<Category> getCategoryList() 
-    {
+    public List<Category> getCategoryList() {
         return categoryList;
     }
 
-    public void setCategoryList(List<Category> categoryList) 
-    {
+    public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
     }
 
-    public String getPAGE_NAME() 
-    {
+    public String getPAGE_NAME() {
         return PAGE_NAME;
     } 
 }

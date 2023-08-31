@@ -5,8 +5,7 @@ import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
 /**
- *
- * @author Amy
+ * This controller controls "About Us" page.
  */
 
 @Named(value = "aboutController")
@@ -15,8 +14,7 @@ public class AboutController implements Serializable
 {
     private final String PAGE_NAME = "About Us";
     
-    public AboutController() 
-    {
+    public AboutController() {
         
     }
 

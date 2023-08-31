@@ -7,16 +7,12 @@ package ejb;
 import java.io.Serializable;
 import jakarta.persistence.*;
 
-/**
- * * @author HeimannK
- */
 @Entity
 @NamedQuery(
     name="findAllRegistrations",
         query="SELECT r FROM Registration r")
 @NamedQuery(name = "findRegistrationsByVolunteer", query = "SELECT r FROM Registration r WHERE r.volunteer.id = :vid")
 public class Registration implements Serializable {
-
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,5 +84,4 @@ public class Registration implements Serializable {
     public String toString() {
         return "cquclientbookingsystem.ejb.Registration[ id=" + regId + " ]";
     }
-    
 }
