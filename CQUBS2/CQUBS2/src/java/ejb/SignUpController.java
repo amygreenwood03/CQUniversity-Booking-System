@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 
-@Named(value = "loginStaffController")
+@Named(value = "signUpController")
 @SessionScoped
 public class SignUpController implements Serializable {
     public SignUpController() {
