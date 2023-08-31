@@ -29,9 +29,15 @@ public class LoginStaffController implements Serializable {
     public String login() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
+        Staff staffAccount;
         
         //Does the user with the email address exist?
-        Staff staffAccount = usersEJB.findStaffByEmail(username);
+        try {
+            staffAccount = usersEJB.findStaffByEmail(username);
+        } 
+        catch (Exception e) {
+            staffAccount = null;
+        }
 
         if (staffAccount == null){
             //No user found, wrong login 

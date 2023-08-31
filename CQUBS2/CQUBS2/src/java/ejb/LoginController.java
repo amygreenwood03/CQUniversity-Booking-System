@@ -29,9 +29,15 @@ public class LoginController implements Serializable {
     public String login() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
+        Volunteer volunteerAccount;
         
         //Does the user with the email address exist?
-        Volunteer volunteerAccount = usersEJB.findVolByEmail(username);
+        try {
+            volunteerAccount = usersEJB.findVolByEmail(username);
+        } 
+        catch(Exception e) {
+            volunteerAccount = null;
+        }
 
         if (volunteerAccount == null){
             //No user found, wrong login 
