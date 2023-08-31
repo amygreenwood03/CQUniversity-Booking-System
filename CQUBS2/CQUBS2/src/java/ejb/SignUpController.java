@@ -61,14 +61,20 @@ public class SignUpController implements Serializable {
                 saltString += st;
             }
             
-            user.setEmail(emailAddress);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setPhone(phoneNumber);
-            user.setPassword(passwordHash);
-            user.setSalt(saltString);
-            usersEJB.createVolunteer(user);
-            navResult = "index.faces";
+            //Everything filled out?
+            if(!firstName.equals("") && !lastName.equals("") && !emailAddress.equals("") && !phoneNumber.equals("")) {
+                user.setEmail(emailAddress);
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setPhone(phoneNumber);
+                user.setPassword(passwordHash);
+                user.setSalt(saltString);
+                usersEJB.createVolunteer(user);
+                navResult = "index.faces";
+            }
+            else {
+                navResult = "sign_up.faces";
+            }
         }
         //User already exists
         else {
