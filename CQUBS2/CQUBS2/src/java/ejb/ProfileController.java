@@ -7,8 +7,6 @@ import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This controller manages profile.xhtml, the page where users can manage their user account profiles.
@@ -24,9 +22,6 @@ public class ProfileController implements Serializable {
     private UsersEJB userEJB;
     
     private Volunteer volunteer;
-    
-    //private List<Map<Long, Boolean>> selectedRegList = new ArrayList<>();
-    //private List<Registration> editableRegList, removeRegList = new ArrayList<>();
     
     private List<RegEntry> entryList = new ArrayList<>();
     private List<Registration> removeRegList = new ArrayList<>();
@@ -75,43 +70,6 @@ public class ProfileController implements Serializable {
         entryList.clear();
         return "profile.faces";
     }
-    
-    /*public void onChange(Registration reg)
-    {
-        if(getBooleanForReg(reg))
-        {
-            System.out.println("RegId: " + reg.getRegId() + " added to remove");
-            removeRegList.add(reg);
-        }
-        else
-        {
-            for(int i = 0; i < removeRegList.size(); i++)
-            {
-                if(removeRegList.get(i).getRegId() == reg.getRegId())
-                {
-                    System.out.println("RegId: " + reg.getRegId() + " removed from remove");
-                    removeRegList.remove(i);
-                    break;
-                }
-            }
-        }
-    }
-    
-    public boolean getBooleanForReg(Registration reg)
-    {
-        boolean bool = false;
-        
-        for(int i = 0; i < selectedRegList.size(); i++)
-        {
-            if(selectedRegList.get(i).containsKey(reg.getRegId()))
-            {
-                bool = selectedRegList.get(i).get(reg.getRegId());
-                break;
-            }
-        }
-        
-        return bool;
-    }*/
     
     public List<Registration> getRegList(Volunteer user) {
         List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
