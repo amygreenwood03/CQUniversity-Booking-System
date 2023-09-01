@@ -48,7 +48,8 @@ public class ServicesController implements Serializable
         categoriesList = categoryEJB.findCategories();
         servicesList = serviceEJB.findServices();
         salList = salEJB.findSALs();
-        //refreshSalList();
+        
+        selectedCategoriesList.clear();
         
         if(fromHomeId != null)
         {
