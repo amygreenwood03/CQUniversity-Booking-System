@@ -59,6 +59,7 @@ public class RegistrationEJB {
 
     //@Override
     public void deleteRegistration(Registration reg) {
+        reg = em.find(Registration.class, reg.getRegId());
         em.remove(em.merge(reg));
     }
 

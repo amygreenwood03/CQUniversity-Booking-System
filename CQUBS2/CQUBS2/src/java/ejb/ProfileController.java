@@ -3,8 +3,12 @@ package ejb;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This controller manages profile.xhtml, the page where users can manage their user account profiles.
@@ -15,18 +19,178 @@ import java.io.Serializable;
 public class ProfileController implements Serializable {
     @EJB
     private RegistrationEJB regEJB;
-    private final String PAGE_NAME = "Your Profile";
+    
+    @EJB
+    private UsersEJB userEJB;
+    
+    private Volunteer volunteer;
+    
+    //private List<Map<Long, Boolean>> selectedRegList = new ArrayList<>();
+    //private List<Registration> editableRegList, removeRegList = new ArrayList<>();
+    
+    private List<RegEntry> entryList = new ArrayList<>();
+    private List<Registration> removeRegList = new ArrayList<>();
+    
+    private final String PROFILE_NAME = "Your Profile";
+    private final String EDIT_NAME = "Edit Your Profile";
     
     public ProfileController() {
         
     }
+  
+    public void init(Volunteer user)
+    {
+        volunteer = userEJB.findVolById(user.getId());
+        removeRegList.clear();
+        entryList.clear();
+        
+        List<Registration> regList = getRegList(volunteer);
+        
+        if(regList != null && !regList.isEmpty())
+        {
+            for(int i = 0; i < regList.size(); i++)
+                entryList.add(new RegEntry(regList.get(i), false));
+        }
+    }
+    
+    public String edit()
+    {
+        for(int i = 0; i < entryList.size(); i++)
+        {
+            if(entryList.get(i).isSelected)
+                removeRegList.add(entryList.get(i).getReg());
+        }
+        
+        if(!removeRegList.isEmpty())
+        {
+            for(int i = 0; i < removeRegList.size(); i++)
+                regEJB.deleteRegistration(removeRegList.get(i));
+        }
+        
+        Volunteer vol = userEJB.updateVolunteer(volunteer);
+        
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.getExternalContext().getSessionMap().put("user", volunteer);
+        
+        entryList.clear();
+        return "profile.faces";
+    }
+    
+    /*public void onChange(Registration reg)
+    {
+        if(getBooleanForReg(reg))
+        {
+            System.out.println("RegId: " + reg.getRegId() + " added to remove");
+            removeRegList.add(reg);
+        }
+        else
+        {
+            for(int i = 0; i < removeRegList.size(); i++)
+            {
+                if(removeRegList.get(i).getRegId() == reg.getRegId())
+                {
+                    System.out.println("RegId: " + reg.getRegId() + " removed from remove");
+                    removeRegList.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+    
+    public boolean getBooleanForReg(Registration reg)
+    {
+        boolean bool = false;
+        
+        for(int i = 0; i < selectedRegList.size(); i++)
+        {
+            if(selectedRegList.get(i).containsKey(reg.getRegId()))
+            {
+                bool = selectedRegList.get(i).get(reg.getRegId());
+                break;
+            }
+        }
+        
+        return bool;
+    }*/
     
     public List<Registration> getRegList(Volunteer user) {
         List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
         return regList;
     }
 
-    public String getPAGE_NAME() {
-        return PAGE_NAME;
+    public String getPROFILE_NAME() {
+        return PROFILE_NAME;
+    }
+    
+    public String getEDIT_NAME()
+    {
+        return EDIT_NAME;
+    }
+
+    public Volunteer getVolunteer() 
+    {
+        return volunteer;
+    }
+
+    public void setVolunteer(Volunteer volunteer) 
+    {
+        this.volunteer = volunteer;
+    }
+
+    public List<Registration> getRemoveRegList() 
+    {
+        return removeRegList;
+    }
+
+    public void setRemoveRegList(List<Registration> removeRegList) 
+    {
+        this.removeRegList = removeRegList;
+    }
+
+    public List<RegEntry> getEntryList() 
+    {
+        return entryList;
+    }
+
+    public void setEntryList(List<RegEntry> entryList)
+    {
+        this.entryList = entryList;
+    }
+
+    public class RegEntry
+    {
+        private Registration reg;
+        private boolean isSelected;
+        
+        public RegEntry()
+        {
+            
+        }
+        
+        public RegEntry(Registration reg, boolean isSelected)
+        {
+            this.reg = reg;
+            this.isSelected = isSelected;
+        }
+
+        public Registration getReg() 
+        {
+            return reg;
+        }
+
+        public void setReg(Registration reg) 
+        {
+            this.reg = reg;
+        }
+
+        public boolean getIsSelected() 
+        {
+            return isSelected;
+        }
+
+        public void setIsSelected(boolean isSelected) 
+        {
+            this.isSelected = isSelected;
+        }
     }
 }

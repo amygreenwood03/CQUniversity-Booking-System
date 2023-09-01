@@ -82,7 +82,13 @@ public class UsersEJB{
 
     //@Override
     public Volunteer updateVolunteer(Volunteer volunteer) {
-        return em.merge(volunteer);
+        Volunteer vol = em.find(Volunteer.class, volunteer.getId());
+        vol.setFirstName(volunteer.getFirstName());
+        vol.setLastName(volunteer.getLastName());
+        vol.setEmail(volunteer.getEmail());
+        vol.setPhone(volunteer.getPhone());
+        
+        return em.merge(vol);
     }
 
     //@Override

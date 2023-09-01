@@ -25,7 +25,7 @@ public class Users implements Serializable {
     
     // Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="USER_ID")
     protected Long id;
     @Column(name="FIRST_NAME")

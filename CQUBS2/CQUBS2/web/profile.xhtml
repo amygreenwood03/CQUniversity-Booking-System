@@ -10,7 +10,7 @@
     <h:body>
         <ui:composition template="common_layout.xhtml">
             <ui:define name="title">
-                #{profileController.PAGE_NAME} - CQUniversity Booking System
+                #{profileController.PROFILE_NAME} - CQUniversity Booking System
             </ui:define>
             
             <ui:define name="breadcrumbs">
@@ -32,7 +32,7 @@
             <ui:define name="content">
                 <div class="container-fluid my-4 px-5">
                     <div class="row">
-                        <h1>USER PROFILE</h1>
+                        <h1>YOUR PROFILE</h1>
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@
                     </div>
                     
                     <div class="row d-flex align-items-center pt-4">
-                        <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
+                        <a href="profile_edit.faces" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
                     </div>
                 </div>
             </ui:define>
