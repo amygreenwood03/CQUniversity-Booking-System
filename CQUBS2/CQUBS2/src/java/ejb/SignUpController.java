@@ -72,7 +72,7 @@ public class SignUpController implements Serializable {
                 user.setPassword(passwordHash);
                 user.setSalt(saltString);
                 usersEJB.createVolunteer(user);
-                ctx.getExternalContext().getSessionMap().put("user", user);
+                ctx.getExternalContext().getSessionMap().put("user", usersEJB.findVolByEmail(emailAddress));
                 
                 firstName = "";
                 lastName = "";
