@@ -22,7 +22,6 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="USER_TYPE")
 public class Users implements Serializable {
-    
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +46,7 @@ public class Users implements Serializable {
     protected String password;
     @Column(name="SALT")
     protected String salt;
+    @Column(name="USER_TYPE") protected String usertype;
     
     // Constructors
     public Users() {
@@ -144,5 +144,4 @@ public class Users implements Serializable {
     public String toString() {
         return "cquclientbookingsystem.ejb.Person[ id=" + id + " ]";
     }
-    
 }

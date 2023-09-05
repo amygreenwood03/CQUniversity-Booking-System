@@ -9,14 +9,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
- * @author Amy
+ * This class controls Service Details page for users and guests.
+ * Page "service_details.xhtml"
  */
 
 @Named(value = "detailsController")
 @SessionScoped
-public class DetailsController implements Serializable
-{
+public class DetailsController implements Serializable {
     @EJB
     private ServiceAtLocationEJB salEJB;
     
@@ -24,26 +23,20 @@ public class DetailsController implements Serializable
     private RegistrationEJB regEJB;
     
     private ServiceAtLocation sal = new ServiceAtLocation();
-    
     private Long salId = 0L;
-    
     private String pageName = "";
     
-    public DetailsController() 
-    {
+    public DetailsController() {
+        
     }
     
-    public void init()
-    {
+    public void init() {
         sal = salEJB.findSALById(salId);
-        
         pageName = sal.getService().getServiceName();
     }
     
-    public String renderPrice(double price)
-    {
+    public String renderPrice(double price) {
         String priceAsString = "";
-        
         if(price > 0.0)
             priceAsString = "$" + price;
         else
@@ -52,13 +45,13 @@ public class DetailsController implements Serializable
         return priceAsString;
     }
     
-    public String register(Volunteer user)
-    {
-        //volunteer registration implementation
-        //1 : will register user to particular sal
-        //2 : will refresh user session variable to account for new entry in regList
-        //3 : will return user to refreshed details page
-        
+    public String register(Volunteer user) {
+        /**
+         * volunteer registration implementation
+         * 1 : will register user to particular sal
+         * 2 : will refresh user session variable to account for new entry in regList
+         * 3 : will return user to refreshed details page
+         */
         Registration reg = new Registration();
         reg.setSAL(sal);
         
@@ -70,29 +63,26 @@ public class DetailsController implements Serializable
         return "service_details.faces";
     }
     
-    public boolean registrationStatus(Volunteer user)
-    {
-        //will be used to check if user is currently registered or not to a specific sal
-        //will return true if so, & UI won't display register button
-        //will return false if not, & UI will display register button
-        
+    public boolean registrationStatus(Volunteer user) {
+        /**
+         * will be used to check if user is currently registered or not to a specific sal
+         * will return true if so, & UI won't display register button
+         * will return false if not, & UI will display register button
+         */        
         boolean isRegistered = false;
-        
         List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
         
-        if(regList != null && !regList.isEmpty())
-        {
-            for(int i = 0; i < regList.size(); i++)
-            {
-                if(salId == regList.get(i).getSAL().getSalId())
-                {
+        if(regList != null && !regList.isEmpty()) {
+            for(int i = 0; i < regList.size(); i++) {
+                if(salId == regList.get(i).getSAL().getSalId()) {
                     isRegistered = true;
                     break;
                 }
             }
         }
         
-        /*if(user.getRegList() != null && !user.getRegList().isEmpty())
+        /*
+        if(user.getRegList() != null && !user.getRegList().isEmpty())
         {
             for(int i = 0; i < user.getRegList().size(); i++)
             {
@@ -135,7 +125,5 @@ public class DetailsController implements Serializable
     public void setPageName(String pageName) 
     {
         this.pageName = pageName;
-    }
-    
-    
+    }    
 }

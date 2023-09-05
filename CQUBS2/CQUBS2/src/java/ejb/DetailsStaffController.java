@@ -6,38 +6,31 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 
 /**
- *
- * @author Amy
+ * This class controls Service Details page for users and guests.
+ * Page "service_details_staff.xhtml"
  */
 
 @Named(value = "detailsStaffController")
 @SessionScoped
-public class DetailsStaffController implements Serializable
-{
+public class DetailsStaffController implements Serializable {
     @EJB
     private ServiceAtLocationEJB salEJB;
     
     private ServiceAtLocation sal = new ServiceAtLocation();
-    
     private Long salId = 0L;
-    
     private String pageName = "";
     
-    public DetailsStaffController() 
-    {
+    public DetailsStaffController() {
+        
     }
     
-    public void init()
-    {
+    public void init() {
         sal = salEJB.findSALById(salId);
-        
         pageName = sal.getService().getServiceName();
     }
     
-    public String renderPrice(double price)
-    {
+    public String renderPrice(double price) {
         String priceAsString = "";
-        
         if(price > 0.0)
             priceAsString = "$" + price;
         else
@@ -46,8 +39,7 @@ public class DetailsStaffController implements Serializable
         return priceAsString;
     }
 
-    public ServiceAtLocation getSal() 
-    {
+    public ServiceAtLocation getSal() {
         return sal;
     }
 

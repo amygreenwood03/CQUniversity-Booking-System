@@ -33,14 +33,14 @@ public class SignUpController implements Serializable {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        //Is the email assigned to existing account?
+        // Is the email assigned to existing account?
         try {
             user = usersEJB.findVolByEmail(emailAddress);
         } catch (Exception e) {
             user = null;
         }
         
-        //No users found with the address
+        // No users found with the address
         if(user == null) {
             //Encrypt raw password with hash and salt
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -57,14 +57,14 @@ public class SignUpController implements Serializable {
             }
             String passwordHash = sb.toString();
             
-            //Convert salt bytes to HEX String
+            // Convert salt bytes to HEX String
             for(byte b : salt) {
                 String st = String.format("%02X", b);
                 saltString += st;
             }
             
             //Everything filled out?
-            if(!firstName.equals("") && !lastName.equals("") && !phoneNumber.equals("") && isValidEmailAddress(emailAddress)) {
+            if(verifyFirstName(firstName) && verifyLastName(lastName) && !phoneNumber.equals("") && isValidEmailAddress(emailAddress)) {
                 user.setEmail(emailAddress);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
@@ -82,10 +82,11 @@ public class SignUpController implements Serializable {
                 navResult = "index.faces";
             }
             else {
+                // Entry problem!
                 navResult = "sign_up.faces";
             }
         }
-        //User already exists
+        // User already exists
         else {
             firstName = "";
             lastName = "";
@@ -97,7 +98,7 @@ public class SignUpController implements Serializable {
         return navResult;
     }
     
-    //Email check function - Default functionality  provided by Jakarta EE Package
+    // Email check function - Default functionality  provided by Jakarta EE Package
     public static boolean isValidEmailAddress(String email) {
         boolean result = true;
         try {
@@ -108,6 +109,16 @@ public class SignUpController implements Serializable {
             result = false;
         }
         return result;
+    }
+    
+    // First name verification - Only 1 uppercase in front and then lower case only (example - "Thomas", "Miku")
+    public static boolean verifyFirstName(String firstName) {
+        return firstName.matches("[A-Z][a-z]*");
+    }
+    
+    // Last name verification - English Alphabets only, no numbers (Multiple uppercase allowed | example - "McKenzie", "McLean", "Pearce", "Hatsune")
+    public static boolean verifyLastName(String lastName) {
+        return lastName.matches("[A-Z]+([a-zA-Z]+)*");
     }
     
     public String getPAGE_NAME() {
