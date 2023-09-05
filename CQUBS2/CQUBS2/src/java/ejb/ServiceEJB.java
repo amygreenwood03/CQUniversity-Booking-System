@@ -46,6 +46,13 @@ public class ServiceEJB{
         query.setParameter("cid", category.getCat_id());
         return query.getResultList();
     }
+    
+    public List<Service> findServicesByDepartment(Department department)
+    {
+        TypedQuery<Service> query = em.createNamedQuery("findServicesByDepartment", Service.class);
+        query.setParameter("did", department.getDepartmentId());
+        return query.getResultList();
+    }
 
     //@Override
     public Service createService(Service service) {

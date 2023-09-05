@@ -23,7 +23,7 @@
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid my-2 mx-5">
-                        <a class="navbar-brand" href="index.faces">
+                        <a class="navbar-brand" href="#{empty user or (user['class'].simpleName eq 'Volunteer') ? 'index.faces' : 'index_staff.faces'}">
                             <img src="img/logo.png" alt="CQUniversity's logo" height="80"/>
                         </a>
 
@@ -33,13 +33,23 @@
 
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav mx-auto">
-                                <li class="nav-item pe-4">
-                                    <strong><a class="nav-link #{view.viewId eq '/about_us.xhtml' ? 'active' : ''}" href="about_us.faces">ABOUT US</a></strong>
-                                </li>
+                                <h:panelGroup rendered="#{empty user or (not empty user and user['class'].simpleName eq 'Volunteer')}">
+                                    <li class="nav-item pe-4">
+                                        <strong><a class="nav-link #{view.viewId eq '/about_us.xhtml' ? 'active' : ''}" href="about_us.faces">ABOUT US</a></strong>
+                                    </li>
+                                </h:panelGroup>
 
-                                <li class="nav-item">
-                                    <strong><a class="nav-link #{view.viewId eq '/services.xhtml' ? 'active' : ''}" href="services.faces">SERVICES</a></strong>
-                                </li>
+                                <h:panelGroup rendered="#{empty user or (not empty user and user['class'].simpleName eq 'Volunteer')}">
+                                    <li class="nav-item">
+                                        <strong><a class="nav-link #{view.viewId eq '/services.xhtml' or '/service_details.xhtml' ? 'active' : ''}" href="services.faces">SERVICES</a></strong>
+                                    </li>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Staff'}">
+                                    <li class="nav-item">
+                                        <strong><a class="nav-link #{view.viewId eq '/services_staff.xhtml' or '/service_details_staff.xhtml' ? 'active' : ''}" href="services_staff.faces">SERVICES</a></strong>
+                                    </li>
+                                </h:panelGroup>
                                 
                                 <h:panelGroup rendered="#{not empty user}">
                                     <li class="nav-item d-lg-none">

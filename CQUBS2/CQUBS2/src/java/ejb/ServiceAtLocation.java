@@ -18,6 +18,7 @@ import jakarta.persistence.*;
 @NamedQuery(name = "findSALsByLocation", query = "SELECT s FROM ServiceAtLocation s WHERE s.location.locationId = :lid")
 @NamedQuery(name = "findSALsByCategory", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.category.cat_id = :cid")
 @NamedQuery(name = "findSALsByService", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.serviceId = :sid")
+@NamedQuery(name = "findSALsByDepartment", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.category.dept.departmentId = :did")
 @Table(name = "services_at_location")
 public class ServiceAtLocation implements Serializable {
 

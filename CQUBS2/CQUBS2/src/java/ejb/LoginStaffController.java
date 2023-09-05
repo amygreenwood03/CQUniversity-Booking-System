@@ -73,7 +73,7 @@ public class LoginStaffController implements Serializable {
 
                 ctx.getExternalContext().getSessionMap().put("user", staffAccount);
 
-                navResult = "index.faces";
+                navResult = "index_staff.faces";
             }
             else {
                 //password doesn't match, return to login page

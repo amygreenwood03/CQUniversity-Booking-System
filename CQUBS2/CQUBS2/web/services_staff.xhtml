@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="serviceId" value="#{servicesStaffController.fromHomeId}"/>
+            <f:viewAction action="#{servicesStaffController.init(user)}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{user.department.departmentName} #{servicesStaffController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="staff/index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>SERVICES</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>#{user.department.departmentName} SERVICES</h1>
+                    </div>
+
+                    <div class="row py-4">
+                        <div class="col-lg-8">
+                            <h:form>
+                                <div class="row d-flex align-items-center" id="searchFilters">
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            LOCATION
+                                        </button>
+
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesStaffController.selectedLocationsList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesStaffController.locationsList}" var="l" itemValue="#{l}" itemLabel="&nbsp;#{l.locationName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            CATEGORY
+                                        </button>
+
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesStaffController.selectedCategoriesList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesStaffController.categoriesList}" var="c" itemValue="#{c}" itemLabel="&nbsp;#{c.categoryName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            SERVICE TYPE
+                                        </button>
+
+                                        <ul class="dropdown-menu checkbox-menu">
+                                            <h:selectManyCheckbox value="#{servicesStaffController.selectedServicesList}" layout="pageDirection">
+                                                <f:selectItems value="#{servicesStaffController.servicesList}" var="s" itemValue="#{s}" itemLabel="&nbsp;#{s.serviceName}"/>
+                                            </h:selectManyCheckbox>
+                                        </ul>
+                                    </div>
+
+                                    <span class="search-btn">
+                                        <h:commandLink action="#{servicesStaffController.search(user)}">
+                                            <i class="fas fa-search fa-lg"></i>
+                                        </h:commandLink>
+                                    </span>
+                                </div>
+                                
+                                <div class="row d-flex align-items-center pt-4">
+                                    <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">ADD SERVICE</button></a>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container-fluid px-5 py-4" id="resultsDiv">
+                    <div class="row">
+                        <p>#{servicesStaffController.salList.size()} services</p>
+                    </div>
+
+                    <div class="row g-4" id="searchResults">
+                        <ui:repeat value="#{servicesStaffController.salList}" var="sal">
+                            <div class="col-lg-3">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <h:link outcome="service_details_staff" class="stretched-link card-link" value="#{sal.service.serviceName}">
+                                                <f:param name="salId" value="#{sal.salId}"/>
+                                            </h:link>
+                                        </h4>
+                                        <div class="card-text mt-4">
+                                            <p>#{sal.location.locationName}</p> <!--make these capitals-->
+                                            <p>#{sal.service.category.categoryName}</p>
+                                            <p>#{servicesStaffController.renderPrice(sal.service.servicePrice)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

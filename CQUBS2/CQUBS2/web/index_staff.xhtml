@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{homeStaffController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>WELCOME #{user.firstName}!</h1>
+                    </div>
+
+                    <div class="row py-4">
+                        <h3>RECENTLY UPDATED</h3>
+                    </div>
+                    
+                    <div class="row g-4 pb-4" id="staffRecent">
+                        <ui:repeat value="#{homeStaffController.recentServicesList}" var="s">
+                            <div class="col-lg-3">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <h4>
+                                            <h:link outcome="services_staff" class="stretched-link card-link" value="#{s.serviceName}">
+                                                <f:param name="serviceId" value="#{s.serviceId}"></f:param>
+                                            </h:link>
+                                        </h4>
+                              
+                                        <div class="card-text mt-4">
+                                            <p>#{s.category.categoryName}</p>
+                                            <p>#{homeStaffController.renderPrice(s.servicePrice)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

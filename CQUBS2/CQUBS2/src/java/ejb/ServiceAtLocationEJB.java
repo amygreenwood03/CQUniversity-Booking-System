@@ -61,6 +61,13 @@ public class ServiceAtLocationEJB{
         return query.getResultList();
     }
     
+    public List<ServiceAtLocation> findSALsByDepartment(Department department)
+    {
+        TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByDepartment", ServiceAtLocation.class);
+        query.setParameter("did", department.getDepartmentId());
+        return query.getResultList();
+    }
+    
     //@Override
     public ServiceAtLocation createSAL(ServiceAtLocation sal) {
         em.persist(sal);

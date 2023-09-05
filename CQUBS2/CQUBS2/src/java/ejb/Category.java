@@ -15,6 +15,7 @@ import java.util.List;
 @NamedQuery(
     name="findAllCategories",
         query="SELECT c FROM Category c")
+@NamedQuery(name = "findCategoriesByDepartment", query = "SELECT c FROM Category c WHERE c.dept.departmentId = :did")
 public class Category implements Serializable {
 
     // Attributes

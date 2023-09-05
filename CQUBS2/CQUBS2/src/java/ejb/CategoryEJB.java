@@ -39,6 +39,13 @@ public class CategoryEJB{
     public Category findCategoryById(Long id) {
         return em.find(Category.class, id);
     }
+    
+    public List<Category> findCategoriesByDepartment(Department department)
+    {
+        TypedQuery<Category> query = em.createNamedQuery("findCategoriesByDepartment", Category.class);
+        query.setParameter("did", department.getDepartmentId());
+        return query.getResultList();
+    }
 
     //@Override
     public Category createCategory(Category category) {
