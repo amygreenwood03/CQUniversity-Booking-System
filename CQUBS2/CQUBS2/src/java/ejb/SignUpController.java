@@ -4,6 +4,8 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -62,7 +64,7 @@ public class SignUpController implements Serializable {
             }
             
             //Everything filled out?
-            if(!firstName.equals("") && !lastName.equals("") && !emailAddress.equals("") && !phoneNumber.equals("")) {
+            if(!firstName.equals("") && !lastName.equals("") && !phoneNumber.equals("") && isValidEmailAddress(emailAddress)) {
                 user.setEmail(emailAddress);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
@@ -70,6 +72,13 @@ public class SignUpController implements Serializable {
                 user.setPassword(passwordHash);
                 user.setSalt(saltString);
                 usersEJB.createVolunteer(user);
+                ctx.getExternalContext().getSessionMap().put("user", user);
+                
+                firstName = "";
+                lastName = "";
+                phoneNumber = "";
+                emailAddress = "";
+                password = "";
                 navResult = "index.faces";
             }
             else {
@@ -83,9 +92,22 @@ public class SignUpController implements Serializable {
             phoneNumber = "";
             emailAddress = ""; 
             password = "";
-            navResult = "sign_up.faces";
+            navResult = "login.faces";
         }
         return navResult;
+    }
+    
+    //Email check function - Default functionality  provided by Jakarta EE Package
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } 
+        catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
     
     public String getPAGE_NAME() {
