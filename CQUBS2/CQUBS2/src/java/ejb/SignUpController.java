@@ -29,6 +29,7 @@ public class SignUpController implements Serializable {
         
     }
     
+    //Important! - Currently not being activated by sign_up.xhtml, please check.
     public String signupVolunteer() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();

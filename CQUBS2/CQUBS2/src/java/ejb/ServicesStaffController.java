@@ -8,14 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Amy
+ * Controller for staff side service list
  */
 
 @Named(value = "servicesStaffController")
 @SessionScoped
-public class ServicesStaffController implements Serializable
-{
+public class ServicesStaffController implements Serializable {
     @EJB
     private LocationEJB locationEJB;
     
@@ -37,28 +35,23 @@ public class ServicesStaffController implements Serializable
     
     private final String PAGE_NAME = "Services Search";
     
-    public ServicesStaffController() 
-    {
+    public ServicesStaffController() {
+        
     }
     
-    public void init(Staff user)
-    {
+    public void init(Staff user) {
         locationsList = locationEJB.findLocations();
         categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
         servicesList = serviceEJB.findServicesByDepartment(user.getDepartment());
-        
         salList = salEJB.findSALsByDepartment(user.getDepartment());
         
         selectedServicesList.clear();
         
-        if(fromHomeId != null)
-        {
-            for(int i = 0; i < servicesList.size(); i++)
-            {
+        if(fromHomeId != null) {
+            for(int i = 0; i < servicesList.size(); i++) {
                 if(servicesList.get(i).getServiceId() == fromHomeId)
                     selectedServicesList.add(servicesList.get(i));
             }
-            
             fromHomeId = null;
             search(user);
         }
@@ -76,28 +69,21 @@ public class ServicesStaffController implements Serializable
         return priceAsString;
     }
     
-    public void search(Staff user)
-    {
+    public void search(Staff user) {
         salList = salEJB.findSALsByDepartment(user.getDepartment());
-        
         List<ServiceAtLocation> results = new ArrayList<>();
         
-        if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty())
-        {
-            if(!selectedLocationsList.isEmpty())
-            {
+        if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty()) {
+            if(!selectedLocationsList.isEmpty()) {
                 for(int i = 0; i < selectedLocationsList.size(); i++)
                     results.addAll(salEJB.findSALsByLocation(selectedLocationsList.get(i)));
                 
                 List<ServiceAtLocation> sals = salList;
                 List<ServiceAtLocation> list = new ArrayList<>();
                 
-                for(int i = 0; i < results.size(); i++)
-                {
-                    for(int j = 0; j < sals.size(); j++)
-                    {
-                        if(results.get(i).getSalId() == sals.get(j).getSalId())
-                        {
+                for(int i = 0; i < results.size(); i++) {
+                    for(int j = 0; j < sals.size(); j++) {
+                        if(results.get(i).getSalId() == sals.get(j).getSalId()) {
                             list.add(results.get(i));
                             break;
                         }
@@ -107,27 +93,21 @@ public class ServicesStaffController implements Serializable
                 results = list;
             }
             
-            if(!selectedCategoriesList.isEmpty())
-            {   
-                if(results.isEmpty())
-                {
+            if(!selectedCategoriesList.isEmpty()) {   
+                if(results.isEmpty()) {
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
                         results.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
                 }
-                else
-                {
+                else {
                     List<ServiceAtLocation> sals = new ArrayList<>();
                     List<ServiceAtLocation> list = new ArrayList<>();
                     
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
                         sals.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
                     
-                    for(int i = 0; i < results.size(); i++)
-                    {
-                        for(int j = 0; j < sals.size(); j++)
-                        {
-                            if(results.get(i).getSalId() == sals.get(j).getSalId())
-                            {
+                    for(int i = 0; i < results.size(); i++) {
+                        for(int j = 0; j < sals.size(); j++) {
+                            if(results.get(i).getSalId() == sals.get(j).getSalId()) {
                                 list.add(results.get(i));
                                 break;
                             }

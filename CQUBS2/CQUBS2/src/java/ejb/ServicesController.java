@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Amy
+ * Controller for Guest/User side service list
  */
 
 @Named(value = "servicesController")
 @SessionScoped
-public class ServicesController implements Serializable
-{
+public class ServicesController implements Serializable {
     @EJB
     private LocationEJB locationEJB;
     
@@ -42,8 +40,7 @@ public class ServicesController implements Serializable
     {
     }
     
-    public void init()
-    {
+    public void init() {
         locationsList = locationEJB.findLocations();
         categoriesList = categoryEJB.findCategories();
         servicesList = serviceEJB.findServices();
@@ -51,10 +48,8 @@ public class ServicesController implements Serializable
         
         selectedCategoriesList.clear();
         
-        if(fromHomeId != null)
-        {
-            for(int i = 0; i < categoriesList.size(); i++)
-            {
+        if(fromHomeId != null) {
+            for(int i = 0; i < categoriesList.size(); i++) {
                 if(categoriesList.get(i).getCat_id() == fromHomeId)
                     selectedCategoriesList.add(categoriesList.get(i));
             }
@@ -64,10 +59,8 @@ public class ServicesController implements Serializable
         }
     }
     
-    public String renderPrice(double price)
-    {
+    public String renderPrice(double price) {
         String priceAsString = "";
-        
         if(price > 0.0)
             priceAsString = "$" + price;
         else
@@ -76,24 +69,18 @@ public class ServicesController implements Serializable
         return priceAsString;
     }
     
-    public void search()
-    {
+    public void search() {
         salList = salEJB.findSALs();
-        
         List<ServiceAtLocation> results = new ArrayList<>();
         
-        if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty())
-        {
-            if(!selectedLocationsList.isEmpty())
-            {
+        if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty()) {
+            if(!selectedLocationsList.isEmpty()) {
                 for(int i = 0; i < selectedLocationsList.size(); i++)
                     results.addAll(salEJB.findSALsByLocation(selectedLocationsList.get(i)));
             }
             
-            if(!selectedCategoriesList.isEmpty())
-            {   
-                if(results.isEmpty())
-                {
+            if(!selectedCategoriesList.isEmpty()) {   
+                if(results.isEmpty()) {
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
                         results.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
                 }
