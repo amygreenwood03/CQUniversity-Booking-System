@@ -37,11 +37,11 @@ public class HomeStaffController implements Serializable
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
         
         List<Service> servicesList = serviceEJB.findServicesByDepartment(user.getDepartment());
-        
+
         recentServicesList = servicesList;
-        
+
         /*recentServicesList.clear();
-        
+
         for(int i = servicesList.size() - 1; i >= servicesList.size() - 4; i--)
             recentServicesList.add(servicesList.get(i));*/
     }
@@ -56,6 +56,11 @@ public class HomeStaffController implements Serializable
             priceAsString = "FREE";
         
         return priceAsString;
+    }
+    
+    public String redirect()
+    {
+        return "index.faces";
     }
 
     public List<Service> getRecentServicesList() 

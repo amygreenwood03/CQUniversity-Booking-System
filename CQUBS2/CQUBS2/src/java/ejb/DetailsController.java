@@ -5,6 +5,7 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,8 +32,24 @@ public class DetailsController implements Serializable {
     }
     
     public void init() {
-        sal = salEJB.findSALById(salId);
-        pageName = sal.getService().getServiceName();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        
+        if(salId > 0L)
+        {
+            sal = salEJB.findSALById(salId);
+            pageName = sal.getService().getServiceName();
+        }
+        else
+        {
+            try
+            {
+                ctx.getExternalContext().redirect("services.faces");
+            }
+            catch(IOException e)
+            {
+                
+            }
+        }
     }
     
     public String renderPrice(double price) {

@@ -46,7 +46,7 @@ public class Users implements Serializable {
     protected String password;
     @Column(name="SALT")
     protected String salt;
-    @Column(name="USER_TYPE") protected String usertype;
+    //@Column(name="USER_TYPE") protected String usertype;
     
     // Constructors
     public Users() {
