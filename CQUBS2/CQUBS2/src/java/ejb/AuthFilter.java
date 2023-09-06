@@ -12,22 +12,19 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- *
- * @author Amy
+ * Authentication Filter makes sure that specific user types can obtain access to certain pages only. 
+ * The purpose of this class is to prevent guests or volunteers to access the staff only pages. 
  */
-public class AuthFilter implements Filter 
-{
+public class AuthFilter implements Filter {
     private FilterConfig config;
     
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
-    {
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(false);
         
         String url = request.getRequestURI();
-        
         String context = request.getContextPath();
                 
         String staffHome = context + "/index_staff.faces";
@@ -44,8 +41,7 @@ public class AuthFilter implements Filter
         
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         
-        if(url.matches(".*login.*\\.faces") || url.matches(".*sign_up.*\\.faces"))
-        {
+        if(url.matches(".*login.*\\.faces") || url.matches(".*sign_up.*\\.faces")) {
             if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 response.sendRedirect(staffHome);
             else if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Volunteer"))

@@ -6,6 +6,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
  * This class controls Service Details page for users and guests.
@@ -21,6 +22,7 @@ public class DetailsStaffController implements Serializable {
     private ServiceAtLocation sal = new ServiceAtLocation();
     private Long salId = 0L;
     private String pageName = "";
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     
     public DetailsStaffController() {
         
@@ -29,15 +31,12 @@ public class DetailsStaffController implements Serializable {
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        if(salId > 0L)
-        {
+        if(salId > 0L) {
             sal = salEJB.findSALById(salId);
             pageName = sal.getService().getServiceName();
         }
-        else
-        {
-            try
-            {
+        else {
+            try {
                 ctx.getExternalContext().redirect("services_staff.faces");
             }
             catch(IOException e)
@@ -50,7 +49,7 @@ public class DetailsStaffController implements Serializable {
     public String renderPrice(double price) {
         String priceAsString = "";
         if(price > 0.0)
-            priceAsString = "$" + price;
+            priceAsString = "$" + df.format(price);
         else
             priceAsString = "FREE";
         
