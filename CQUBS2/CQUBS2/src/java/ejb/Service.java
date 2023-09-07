@@ -7,20 +7,20 @@ package ejb;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * * @author HeimannK
  */
 @Entity
-@NamedQuery(
-    name="findAllServices",
-        query="SELECT s FROM Service s")
+@NamedQuery(name="findAllServices", query="SELECT s FROM Service s")
 @NamedQuery(name = "findServicesByCategory", query = "SELECT s FROM Service s WHERE s.category.cat_id = :cid")
 @NamedQuery(name = "findServicesByDepartment", query = "SELECT s FROM Service s WHERE s.category.dept.departmentId = :did")
 @Table(name = "Services")
 public class Service implements Serializable {
 
-   // Attributes
+    // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="SERV_ID")
@@ -38,6 +38,7 @@ public class Service implements Serializable {
     private Category category;
     @OneToMany(mappedBy = "service")
     private List<ServiceAtLocation> salList;
+    //Service date will be added soon
     
     // Constructors
     public Service() {

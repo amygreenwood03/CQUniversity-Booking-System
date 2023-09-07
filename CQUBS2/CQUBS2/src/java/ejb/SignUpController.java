@@ -21,6 +21,7 @@ import java.security.MessageDigest;
 public class SignUpController implements Serializable {
     @EJB
     private UsersEJB usersEJB;
+    
     private Volunteer user;
     private final String PAGE_NAME = "Volunteer Signup";
     private String firstName, lastName, phoneNumber, emailAddress, password = ""; 
@@ -85,6 +86,11 @@ public class SignUpController implements Serializable {
             }
             else {
                 // Entry problem!
+                firstName = "";
+                lastName = "";
+                phoneNumber = "";
+                emailAddress = "";
+                password = "";
                 navResult = "sign_up.faces";
             }
         }

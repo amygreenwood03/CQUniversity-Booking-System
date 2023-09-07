@@ -12,33 +12,22 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
-@NamedQuery(
-    name="findAllSALs",
-        query="SELECT s FROM ServiceAtLocation s")
+@NamedQuery(name="findAllSALs",query="SELECT s FROM ServiceAtLocation s")
 @NamedQuery(name = "findSALsByLocation", query = "SELECT s FROM ServiceAtLocation s WHERE s.location.locationId = :lid")
 @NamedQuery(name = "findSALsByCategory", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.category.cat_id = :cid")
 @NamedQuery(name = "findSALsByService", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.serviceId = :sid")
 @NamedQuery(name = "findSALsByDepartment", query = "SELECT s FROM ServiceAtLocation s WHERE s.service.category.dept.departmentId = :did")
 @Table(name = "services_at_location")
 public class ServiceAtLocation implements Serializable {
-
     // Attribues
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="SAL_ID")
     private Long salId;
     @ManyToOne(fetch = FetchType.EAGER)
-    /*@JoinColumns({
-        @JoinColumn(name="SERV_ID"),
-        @JoinColumn(name="SERV_NAME")
-    })*/
     @JoinColumn(name = "SERV_ID")
     private Service service;
     @ManyToOne(fetch = FetchType.EAGER)
-    /*@JoinColumns({
-        @JoinColumn(name="LOC_ID"),
-        @JoinColumn(name="LOC_NAME")
-    })*/
     @JoinColumn(name = "LOC_ID")
     private Location location;
     @OneToMany(mappedBy = "sal")
