@@ -49,12 +49,12 @@
                             <p>#{user.phone}</p>
                             
                             <h3>Department</h3>
-                            <p>#{profileStaffController.department}</p>
+                            <p>#{user.getDepartment().getDepartmentName()}</p>
                         </div>
                     </div>
                     
                     <div class="row d-flex align-items-center">
-                        <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
+                        <a href="profile_edit_staff.faces" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
                     </div>
                 </div>
             </ui:define>

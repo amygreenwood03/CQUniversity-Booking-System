@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewAction action="#{profileStaffController.init(user)}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{profileStaffController.EDIT_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="profile.faces"><strong>PROFILE</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>EDIT PROFILE</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>EDIT YOUR PROFILE</h1>
+                    </div>
+
+                    <h:form>
+                        <div class="row g-5 py-4">
+                            <div class="col-lg-6">
+                                <div class="form-row pb-4 row gx-3" id="nameRow">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="firstNameCol">
+                                            <h:inputText class="form-control" id="firstName" value="#{profileStaffController.staff.firstName}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="lastNameCol">
+                                            <h:inputText class="form-control" id="lastName" value="#{profileStaffController.staff.lastName}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row pb-4" id="emailRow">
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" id="email" value="#{profileStaffController.staff.email}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-row pb-4" id="phoneRow">
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" id="phone" value="#{profileStaffController.staff.phone}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-row d-flex align-items-center pb-4" id="buttonsRow" style="float: right;">
+                                    <a href="profile.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <h:commandButton action="#{profileStaffController.edit()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
