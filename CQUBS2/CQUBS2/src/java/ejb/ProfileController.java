@@ -33,8 +33,7 @@ public class ProfileController implements Serializable {
         
     }
   
-    public void init(Volunteer user)
-    {
+    public void init(Volunteer user) {
         volunteer = userEJB.findVolById(user.getId());
         removeRegList.clear();
         entryList.clear();
@@ -48,21 +47,18 @@ public class ProfileController implements Serializable {
         }
     }
     
-    public String edit()
-    {
-        for(int i = 0; i < entryList.size(); i++)
-        {
+    public String edit() {
+        for(int i = 0; i < entryList.size(); i++) {
             if(entryList.get(i).isSelected)
                 removeRegList.add(entryList.get(i).getReg());
         }
         
-        if(!removeRegList.isEmpty())
-        {
+        if(!removeRegList.isEmpty()) {
             for(int i = 0; i < removeRegList.size(); i++)
                 regEJB.deleteRegistration(removeRegList.get(i));
         }
         
-        Volunteer vol = userEJB.updateVolunteer(volunteer);
+        userEJB.updateVolunteer(volunteer);
         
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().put("user", volunteer);
@@ -80,74 +76,60 @@ public class ProfileController implements Serializable {
         return PROFILE_NAME;
     }
     
-    public String getEDIT_NAME()
-    {
+    public String getEDIT_NAME() {
         return EDIT_NAME;
     }
 
-    public Volunteer getVolunteer() 
-    {
+    public Volunteer getVolunteer() {
         return volunteer;
     }
 
-    public void setVolunteer(Volunteer volunteer) 
-    {
+    public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
     }
 
-    public List<Registration> getRemoveRegList() 
-    {
+    public List<Registration> getRemoveRegList() {
         return removeRegList;
     }
 
-    public void setRemoveRegList(List<Registration> removeRegList) 
-    {
+    public void setRemoveRegList(List<Registration> removeRegList) {
         this.removeRegList = removeRegList;
     }
 
-    public List<RegEntry> getEntryList() 
-    {
+    public List<RegEntry> getEntryList() {
         return entryList;
     }
 
-    public void setEntryList(List<RegEntry> entryList)
-    {
+    public void setEntryList(List<RegEntry> entryList) {
         this.entryList = entryList;
     }
 
-    public class RegEntry
-    {
+    public class RegEntry {
         private Registration reg;
         private boolean isSelected;
         
-        public RegEntry()
-        {
+        public RegEntry() {
             
         }
         
-        public RegEntry(Registration reg, boolean isSelected)
-        {
+        public RegEntry(Registration reg, boolean isSelected) {
             this.reg = reg;
             this.isSelected = isSelected;
         }
 
-        public Registration getReg() 
-        {
+        public Registration getReg() {
             return reg;
         }
 
-        public void setReg(Registration reg) 
-        {
+        public void setReg(Registration reg) {
             this.reg = reg;
         }
 
-        public boolean getIsSelected() 
-        {
+        public boolean getIsSelected() {
             return isSelected;
         }
 
-        public void setIsSelected(boolean isSelected) 
-        {
+        public void setIsSelected(boolean isSelected) {
             this.isSelected = isSelected;
         }
     }
