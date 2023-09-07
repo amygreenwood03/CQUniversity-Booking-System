@@ -51,15 +51,21 @@
                                     </li>
                                 </h:panelGroup>
                                 
-                                <h:panelGroup rendered="#{not empty user}">
+                                <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Volunteer'}">
                                     <li class="nav-item d-lg-none">
                                         <strong><a class="nav-link" href="profile.faces">PROFILE</a></strong>
                                     </li>
                                 </h:panelGroup>
 
-                                <h:panelGroup rendered="#{not empty user}">
+                                <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Volunteer'}">
                                     <li class="nav-item d-lg-none">
                                         <h:form><strong><h:commandLink action="#{loginController.logout()}" class="nav-link" value="LOGOUT"/></strong></h:form>
+                                    </li>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Staff'}">
+                                    <li class="nav-item d-lg-none">
+                                        <h:form><strong><h:commandLink action="#{loginStaffController.logout()}" class="nav-link" value="LOGOUT"/></strong></h:form>
                                     </li>
                                 </h:panelGroup>
                             </ul>
@@ -73,7 +79,7 @@
                                 </li>
                             </h:panelGroup>
                             
-                            <h:panelGroup layout="block" class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user}">
+                            <h:panelGroup layout="block" class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user and user['class'].simpleName eq 'Volunteer'}">
                                 <li class="nav-item">
                                     <div class="dropdown-center">
                                         <button class="btn btn-circle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">#{user.firstName.charAt(0)}#{user.lastName.charAt(0)}</button>
@@ -84,6 +90,20 @@
                                             </li>
                                             <li class="dropdown-item py-2">
                                                 <h:form><strong><h:commandLink action="#{loginController.logout()}" value="LOGOUT"/></strong></h:form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup layout="block" class="volunteer-profile d-none d-lg-flex align-items-center" rendered="#{not empty user and user['class'].simpleName eq 'Staff'}">
+                                <li class="nav-item">
+                                    <div class="dropdown-center">
+                                        <button class="btn btn-circle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">#{user.firstName.charAt(0)}#{user.lastName.charAt(0)}</button>
+
+                                        <ul class="dropdown-menu" id="staffDropdown">
+                                            <li class="dropdown-item py-2">
+                                                <h:form><strong><h:commandLink action="#{loginStaffController.logout()}" value="LOGOUT"/></strong></h:form>
                                             </li>
                                         </ul>
                                     </div>

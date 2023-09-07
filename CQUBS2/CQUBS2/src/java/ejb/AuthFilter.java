@@ -1,5 +1,6 @@
 package ejb;
 
+import jakarta.faces.application.ResourceHandler;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -39,9 +40,12 @@ public class AuthFilter implements Filter {
         String genEditProfile = context + "/profile_edit.faces";
         String about = context + "/about_us.faces";
         
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        //response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         
-        if(url.matches(".*login.*\\.faces") || url.matches(".*sign_up.*\\.faces")) {
+        if(url.startsWith(request.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER)) {
+            chain.doFilter(request, response);
+        }
+        else if(url.matches(".*login.*\\.faces") || url.matches(".*sign_up.*\\.faces")) {
             if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 response.sendRedirect(staffHome);
             else if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Volunteer"))

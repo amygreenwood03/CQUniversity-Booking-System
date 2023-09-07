@@ -36,9 +36,9 @@
                     </div>
                 </div>
 
-                <div class="container-fluid px-5 py-4" id="profileDiv">
-                    <div class="row g-4" id="profileinfo">
-                        <div class="col-lg-8" id="userdetails">
+                <div class="container-fluid px-5 pb-4" id="profileDiv">
+                    <div class="row g-4 pb-4" id="profileinfo">
+                        <div class="col-lg-6" id="userdetails">
                             <h3>Name</h3>
                             <p>#{user.firstName} #{user.lastName}</p>
                             
@@ -50,27 +50,33 @@
                         </div>
                     </div>
 
-                    <div class="row g-4" id="subscribedServices">
-                        <h2>SUBSCRIBED SERVICES</h2>
-                        
-                        <h:dataTable value="#{profileController.getRegList(user)}" var="r" class="table table-bordered">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Service Name"/>
-                                </f:facet>
-                                <h:outputText value="#{r.SAL.service.serviceName}"/>
-                            </h:column>
-                            
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Location"/>
-                                </f:facet>
-                                <h:outputText value="#{r.SAL.location.locationName}"/>
-                            </h:column>
-                        </h:dataTable>
+                    <div class="row g-4 pb-4" id="subscribedServices">
+                        <div class="col-lg-6">
+                            <h2>SUBSCRIBED SERVICES</h2>
+
+                            <h:dataTable value="#{profileController.getRegList(user)}" var="r" class="table table-bordered" rendered="#{profileController.getRegList(user).size() > 0}">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Service Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{r.SAL.service.serviceName}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Location"/>
+                                    </f:facet>
+                                    <h:outputText value="#{r.SAL.location.locationName}"/>
+                                </h:column>
+                            </h:dataTable>
+
+                            <h:panelGroup layout="block" rendered="#{profileController.getRegList(user).size() eq 0}" class="pt-4">
+                                <div class="alert">You are not currently registered to any service.</div>
+                            </h:panelGroup>
+                        </div>
                     </div>
                     
-                    <div class="row d-flex align-items-center pt-4">
+                    <div class="row d-flex align-items-center">
                         <a href="profile_edit.faces" style="max-width: fit-content;"><button class="btn btn-primary">MANAGE DETAILS</button></a>
                     </div>
                 </div>

@@ -54,7 +54,7 @@ public class SignUpController implements Serializable {
             byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for(int i=0;i<bytes.length;i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(i));
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             String passwordHash = sb.toString();
             
@@ -66,6 +66,7 @@ public class SignUpController implements Serializable {
             
             //Everything filled out?
             if(verifyFirstName(firstName) && verifyLastName(lastName) && !phoneNumber.equals("") && isValidEmailAddress(emailAddress)) {
+                user = new Volunteer();
                 user.setEmail(emailAddress);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
