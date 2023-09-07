@@ -61,5 +61,4 @@ public class DepartmentEJB{
     public Department findDeptByName(String deptName) {
         return em.find(Department.class, deptName);
     }
-
 }

@@ -8,73 +8,59 @@ import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
- *
- * @author Amy
+ * This is a controller for index_staff.xhtml page.
+ * Redirection to home after logging in as staff leads to index_staff page.
  */
 
 @Named(value = "homeStaffController")
 @SessionScoped
-public class HomeStaffController implements Serializable
-{
+public class HomeStaffController implements Serializable {
     @EJB
     private ServiceEJB serviceEJB;
     
     private List<Service> recentServicesList = new ArrayList<>();
-    
     private final String PAGE_NAME = "Staff Home";
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     
-    public HomeStaffController() 
-    {
+    public HomeStaffController() {
+        
     }
     
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
-        
         List<Service> servicesList = serviceEJB.findServicesByDepartment(user.getDepartment());
-
         recentServicesList = servicesList;
-
-        /*recentServicesList.clear();
-
-        for(int i = servicesList.size() - 1; i >= servicesList.size() - 4; i--)
-            recentServicesList.add(servicesList.get(i));*/
     }
     
-    public String renderPrice(double price)
-    {
+    public String renderPrice(double price) {
         String priceAsString = "";
         
         if(price > 0.0)
-            priceAsString = "$" + price;
+            priceAsString = "$" + df.format(price);
         else
             priceAsString = "FREE";
         
         return priceAsString;
     }
     
-    public String redirect()
-    {
+    public String redirect() {
         return "index.faces";
     }
 
-    public List<Service> getRecentServicesList() 
-    {
+    public List<Service> getRecentServicesList() {
         return recentServicesList;
     }
 
-    public void setRecentServicesList(List<Service> recentServicesList) 
-    {
+    public void setRecentServicesList(List<Service> recentServicesList) {
         this.recentServicesList = recentServicesList;
     }
 
-    public String getPAGE_NAME()
-    {
+    public String getPAGE_NAME() {
         return PAGE_NAME;
     }
 }

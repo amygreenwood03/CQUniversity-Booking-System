@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +31,13 @@ public class ServicesController implements Serializable {
     private List<Category> categoriesList, selectedCategoriesList = new ArrayList<>(); //to store all categories & categories selected in filter respectively
     private List<Service> servicesList, selectedServicesList = new ArrayList<>(); //to store all services & services selected in filter respectively
     private List<ServiceAtLocation> salList = new ArrayList<>(); //to store search results since we want them split by location
-    
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //to format service price
     private Long fromHomeId;
     
     private final String PAGE_NAME = "Services Search";
     
-    public ServicesController() 
-    {
+    public ServicesController() {
+        
     }
     
     public void init() {
@@ -61,7 +62,7 @@ public class ServicesController implements Serializable {
     public String renderPrice(double price) {
         String priceAsString = "";
         if(price > 0.0)
-            priceAsString = "$" + price;
+            priceAsString = "$" + df.format(price);
         else
             priceAsString = "FREE";
         
@@ -83,20 +84,16 @@ public class ServicesController implements Serializable {
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
                         results.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
                 }
-                else
-                {
+                else {
                     List<ServiceAtLocation> sals = new ArrayList<>();
                     List<ServiceAtLocation> list = new ArrayList<>();
                     
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
                         sals.addAll(salEJB.findSALsByCategory(selectedCategoriesList.get(i)));
                     
-                    for(int i = 0; i < results.size(); i++)
-                    {
-                        for(int j = 0; j < sals.size(); j++)
-                        {
-                            if(results.get(i).getSalId() == sals.get(j).getSalId())
-                            {
+                    for(int i = 0; i < results.size(); i++) {
+                        for(int j = 0; j < sals.size(); j++) {
+                            if(results.get(i).getSalId() == sals.get(j).getSalId()) {
                                 list.add(results.get(i));
                                 break;
                             }
@@ -107,27 +104,21 @@ public class ServicesController implements Serializable {
                 }
             }
             
-            if(!selectedServicesList.isEmpty())
-            {
-                if(results.isEmpty())
-                {
+            if(!selectedServicesList.isEmpty()) {
+                if(results.isEmpty()) {
                     for(int i = 0; i < selectedServicesList.size(); i++)
                         results.addAll(salEJB.findSALsByService(selectedServicesList.get(i)));
                 }
-                else
-                {
+                else {
                     List<ServiceAtLocation> sals = new ArrayList<>();
                     List<ServiceAtLocation> list = new ArrayList<>();
                     
                     for(int i = 0; i < selectedServicesList.size(); i++)
                         sals.addAll(salEJB.findSALsByService(selectedServicesList.get(i)));
                     
-                    for(int i = 0; i < results.size(); i++)
-                    {
-                        for(int j = 0; j < sals.size(); j++)
-                        {
-                            if(results.get(i).getSalId() == sals.get(j).getSalId())
-                            {
+                    for(int i = 0; i < results.size(); i++) {
+                        for(int j = 0; j < sals.size(); j++) {
+                            if(results.get(i).getSalId() == sals.get(j).getSalId()) {
                                 list.add(results.get(i));
                                 break;
                             }
@@ -142,23 +133,11 @@ public class ServicesController implements Serializable {
         }
     }
     
-    /*public void refreshSalList()
-    {
-        for(int i = 0; i < servicesList.size(); i++)
-        {
-            salList.addAll(servicesList.get(i).getSalList());
-            for(int j = 0; j < servicesList.get(i).getSalList().size(); j++)
-                salList.add(servicesList.get(i).getSalList().get(j));
-        }
-    }*/
-
-    public List<Location> getLocationsList() 
-    {
+    public List<Location> getLocationsList() {
         return locationsList;
     }
 
-    public void setLocationsList(List<Location> locationsList) 
-    {
+    public void setLocationsList(List<Location> locationsList) {
         this.locationsList = locationsList;
     }
 

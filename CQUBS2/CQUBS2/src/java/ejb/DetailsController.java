@@ -20,10 +20,8 @@ import java.util.List;
 public class DetailsController implements Serializable {
     @EJB
     private ServiceAtLocationEJB salEJB;
-    
     @EJB
     private RegistrationEJB regEJB;
-    
     private ServiceAtLocation sal = new ServiceAtLocation();
     private Long salId = 0L;
     private String pageName = "";
@@ -96,49 +94,30 @@ public class DetailsController implements Serializable {
             }
         }
         
-        /*
-        if(user.getRegList() != null && !user.getRegList().isEmpty())
-        {
-            for(int i = 0; i < user.getRegList().size(); i++)
-            {
-                if(salId == user.getRegList().get(i).getSAL().getSalId())
-                {
-                    isRegistered = true;
-                    break;
-                }
-            }
-        }*/
-        
         return isRegistered;
     }
 
-    public ServiceAtLocation getSal() 
-    {
+    public ServiceAtLocation getSal() {
         return sal;
     }
 
-    public void setSal(ServiceAtLocation sal) 
-    {
+    public void setSal(ServiceAtLocation sal) {
         this.sal = sal;
     }
 
-    public Long getSalId() 
-    {
+    public Long getSalId() {
         return salId;
     }
 
-    public void setSalId(Long salId) 
-    {
+    public void setSalId(Long salId) {
         this.salId = salId;
     }
 
-    public String getPageName()
-    {
+    public String getPageName() {
         return pageName;
     }
 
-    public void setPageName(String pageName) 
-    {
+    public void setPageName(String pageName) {
         this.pageName = pageName;
     }    
 }

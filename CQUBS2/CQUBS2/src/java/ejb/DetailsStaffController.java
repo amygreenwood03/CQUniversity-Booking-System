@@ -39,8 +39,7 @@ public class DetailsStaffController implements Serializable {
             try {
                 ctx.getExternalContext().redirect("services_staff.faces");
             }
-            catch(IOException e)
-            {
+            catch(IOException e) {
                 
             }
         }
@@ -55,33 +54,38 @@ public class DetailsStaffController implements Serializable {
         
         return priceAsString;
     }
+    
+    public String serviceEdit() {
+        salEJB.updateSAL(sal);
+        return "service_details.faces?salId=" + salId;
+    }
+    
+    public String serviceDelete() {
+        salEJB.deleteSAL(sal);
+        return "services.faces";
+    }
 
     public ServiceAtLocation getSal() {
         return sal;
     }
 
-    public void setSal(ServiceAtLocation sal) 
-    {
+    public void setSal(ServiceAtLocation sal) {
         this.sal = sal;
     }
 
-    public Long getSalId() 
-    {
+    public Long getSalId() {
         return salId;
     }
 
-    public void setSalId(Long salId) 
-    {
+    public void setSalId(Long salId) {
         this.salId = salId;
     }
 
-    public String getPageName() 
-    {
+    public String getPageName() {
         return pageName;
     }
 
-    public void setPageName(String pageName) 
-    {
+    public void setPageName(String pageName) {
         this.pageName = pageName;
     }
 }
