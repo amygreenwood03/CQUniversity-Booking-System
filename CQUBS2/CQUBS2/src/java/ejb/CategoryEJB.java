@@ -14,11 +14,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 
-/**
- * * @author HeimannK
- */
 @Stateless
-//@Remote(CategoryRemote.class)
 public class CategoryEJB{
     
     // Attributes
@@ -29,13 +25,11 @@ public class CategoryEJB{
     SessionContext ctx;
 
     // Public methods
-    //@Override
     public List<Category> findCategories() {
         TypedQuery<Category> query = em.createNamedQuery("findAllCategories", Category.class);
         return query.getResultList();
     }
 
-    //@Override
     public Category findCategoryById(Long id) {
         return em.find(Category.class, id);
     }
