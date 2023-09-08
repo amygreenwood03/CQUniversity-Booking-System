@@ -63,12 +63,22 @@ public class ServiceEJB{
 
     //@Override
     public void deleteService(Service service) {
-        em.remove(em.merge(service));
+        service = em.find(Service.class, service.getServiceId());
+        service = em.merge(service);
+        em.remove(service);
     }
 
     //@Override
     public Service updateService(Service service) {
-        return em.merge(service);
+        Service updatedService = em.find(Service.class, service.getServiceId());
+        updatedService.setServiceName(service.getServiceName());
+        updatedService.setCategory(service.getCategory());
+        updatedService.setImageUrl(service.getImageUrl());
+        updatedService.setSalList(service.getSalList());
+        updatedService.setServiceDescription(service.getServiceDescription());
+        updatedService.setServicePrice(service.getServicePrice());
+        
+        return em.merge(updatedService);
     }
 
     //@Override

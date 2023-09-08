@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class ServicesStaffController implements Serializable {
     
     private final String PAGE_NAME = "Services Search";
     
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    
     public ServicesStaffController() {
         
     }
@@ -62,7 +65,7 @@ public class ServicesStaffController implements Serializable {
         String priceAsString = "";
         
         if(price > 0.0)
-            priceAsString = "$" + price;
+            priceAsString = "$" + df.format(price);
         else
             priceAsString = "FREE";
         

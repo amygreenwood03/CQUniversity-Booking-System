@@ -21,7 +21,7 @@ import jakarta.persistence.*;
 public class ServiceAtLocation implements Serializable {
     // Attribues
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SAL_ID")
     private Long salId;
     @ManyToOne(fetch = FetchType.EAGER)

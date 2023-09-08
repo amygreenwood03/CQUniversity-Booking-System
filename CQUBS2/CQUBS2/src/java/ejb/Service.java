@@ -22,7 +22,7 @@ public class Service implements Serializable {
 
     // Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SERV_ID")
     private Long serviceId;
     @Column(name="SERV_NAME")
@@ -36,7 +36,7 @@ public class Service implements Serializable {
     @ManyToOne
     @JoinColumn(name="CAT_ID")
     private Category category;
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ServiceAtLocation> salList;
     //Service date will be added soon
     

@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{serviceAddController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="services_staff.faces"><strong>SERVICES</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>ADD SERVICE</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>ADD NEW SERVICE</h1>
+                    </div>
+
+                    <h:form>
+                        <div class="row g-5 py-4">
+                            <div class="col-lg-6">
+                                <div class="form-row pb-4" id="serviceNameRow">
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" id="name" a:placeholder="Service name" value="#{serviceAddController.service.serviceName}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-row d-md-flex pb-4" id="detailsRow">
+                                    <div class="form-group pe-4">
+                                        <div class="dropdown">
+                                            <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                LOCATION
+                                            </button>
+
+                                            <ul class="dropdown-menu checkbox-menu">
+                                                <h:selectManyCheckbox value="#{serviceAddController.selectedLocationsList}" layout="pageDirection">
+                                                    <f:selectItems value="#{serviceAddController.locationsList}" var="l" itemValue="#{l}" itemLabel="&nbsp;#{l.locationName}"/>
+                                                </h:selectManyCheckbox>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="dropdown">
+                                            <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                CATEGORY
+                                            </button>
+
+                                            <ul class="dropdown-menu checkbox-menu">
+                                                <h:selectOneRadio value="#{serviceAddController.selectedCategoryId}" layout="pageDirection">
+                                                    <f:selectItems value="#{serviceAddController.categoriesList}" var="c" itemValue="#{c.cat_id}" itemLabel="&nbsp;#{c.categoryName}"/>
+                                                </h:selectOneRadio>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row pb-4" id="priceRow">
+                                    <h4>PRICE</h4>
+                                    <div class="form-group d-md-flex align-items-center" id="priceOptions">
+                                        <h:selectOneRadio value="#{serviceAddController.selectedPrice}">
+                                            <f:selectItem itemValue="Free" itemLabel="&nbsp;Free" class="pe-4"/>
+                                            <f:selectItem itemValue="Charge" itemLabel="&nbsp;Charge" class="pe-4"/>
+                                        </h:selectOneRadio>
+
+                                        <div>
+                                            <h:inputText class="form-control" id="price" value="#{serviceAddController.priceString}" a:placeholder="$"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row pb-4" id="descriptionRow">
+                                    <div class="form-group">
+                                        <h:inputTextarea class="form-control" id="description" rows="5" value="#{serviceAddController.service.serviceDescription}" a:placeholder="Enter a description here..."></h:inputTextarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <h4>PROMOTIONAL IMAGE</h4>
+                                </div>
+
+                                <div class="form-row py-4 px-4" id="uploadRow">
+                                    <input type="file" id="promoImages" name="promo"/>
+                                </div>
+
+                                <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
+                                    <a href="services_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <h:commandButton action="#{serviceAddController.create()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
