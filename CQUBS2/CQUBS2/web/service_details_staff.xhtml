@@ -54,7 +54,7 @@
                                 <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsStaffController.sal.location.locationName}</h5>
                                 <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsStaffController.sal.service.category.categoryName}</h5>
                                 <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{detailsStaffController.renderPrice(detailsStaffController.sal.service.servicePrice)}</h5>
-                                <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsStaffController.sal.regList.size()}</h5>
+                                <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{detailsStaffController.getRegList(detailsStaffController.sal).size()}</h5>
                             </div>
 
                             <div class="row py-4" style="border-top: 2px solid #ebebea; border-bottom: 2px solid #ebebea;">

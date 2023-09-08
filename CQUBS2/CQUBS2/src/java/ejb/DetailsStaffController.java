@@ -123,6 +123,12 @@ public class DetailsStaffController implements Serializable {
         return priceAsString;
     }
     
+    public List<Registration> getRegList(ServiceAtLocation servAtLocation)
+    {
+        List<Registration> regList = regEJB.findRegistrationsBySAL(servAtLocation);
+        return regList;
+    }
+    
     public void serviceEdit() {
         if(selectedCategoryId != service.getCategory().getCat_id())
             service.setCategory(categoryEJB.findCategoryById(selectedCategoryId));
