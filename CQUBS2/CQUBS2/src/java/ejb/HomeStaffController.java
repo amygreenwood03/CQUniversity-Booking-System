@@ -29,7 +29,6 @@ public class HomeStaffController implements Serializable {
         
     }
     
-    @PostConstruct
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");

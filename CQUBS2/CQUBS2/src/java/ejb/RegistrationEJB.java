@@ -63,6 +63,13 @@ public class RegistrationEJB {
         query.setParameter("sid", sal.getSalId());
         return query.getResultList();
     }
+    
+    public List<Registration> findRegistrationsByService(Service service)
+    {
+        TypedQuery<Registration> query = em.createNamedQuery("findRegistrationsByService", Registration.class);
+        query.setParameter("sid", service.getServiceId());
+        return query.getResultList();
+    }
 
     //@Override
     public void deleteRegistration(Registration reg) {

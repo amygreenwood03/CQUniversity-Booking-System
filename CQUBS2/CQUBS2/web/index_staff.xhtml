@@ -8,6 +8,10 @@
         
     </h:head>
     <h:body>
+        <f:metadata>
+            <f:viewAction action="#{homeStaffController.init()}"/>
+        </f:metadata>
+        
         <ui:composition template="common_layout.xhtml">
             <ui:define name="title">
                 #{homeStaffController.PAGE_NAME} - CQUniversity Booking System

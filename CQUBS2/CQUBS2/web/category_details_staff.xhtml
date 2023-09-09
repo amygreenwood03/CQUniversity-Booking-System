@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="categoryId" value="#{cDetailsStaffController.categoryId}"/>
+            <f:viewAction action="#{cDetailsStaffController.init()}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{cDetailsStaffController.pageName} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="categories_staff.faces"><strong>CATEGORIES</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>#{cDetailsStaffController.pageName}</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row pb-4">
+                        <h1>#{cDetailsStaffController.category.categoryName}</h1>
+                    </div>
+
+                    <div class="row g-5">
+                        <div class="col-lg-6 d-lg-none">
+                            <img src="#{cDetailsStaffController.category.imageUrl}" class="img-fluid"/>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row pb-4">
+                                <h:dataTable value="#{cDetailsStaffController.getServiceList(cDetailsStaffController.category)}" var="s" class="table table-bordered" rendered="#{cDetailsStaffController.category.services.size() > 0}">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Service Name"/>
+                                        </f:facet>
+                                        <h:outputText value="#{s.serviceName}"/>
+                                    </h:column>
+                                    
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Total Registered"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cDetailsStaffController.getTotalRegList(s).size()}"/>
+                                    </h:column>
+                                </h:dataTable>
+                                
+                                <h:panelGroup layout="block" rendered="#{cDetailsStaffController.getServiceList(cDetailsStaffController.category).size() eq 0}">
+                                    <div class="alert">There are currently no services for this category.</div>
+                                </h:panelGroup>
+                            </div>
+
+                            <div class="row py-4 d-flex align-items-center" style="border-top: 2px solid #ebebea;">
+                                <a href="category_edit_staff.faces" style="max-width: fit-content;"><button class="btn btn-primary">EDIT CATEGORY</button></a>
+                                <h:form style="max-width: fit-content"><h:commandButton action="#{cDetailsStaffController.delete()}" class="btn btn-primary" value="REMOVE CATEGORY"/></h:form>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="#{cDetailsStaffController.category.imageUrl}" class="img-fluid"/>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

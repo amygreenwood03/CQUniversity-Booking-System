@@ -46,6 +46,12 @@
                                 </h:panelGroup>
                                 
                                 <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Staff'}">
+                                    <li class="nav-item pe-4">
+                                        <strong><a class="nav-link #{view.viewId eq '/categories_staff.xhtml' ? 'active' : ''}" href="categories_staff.faces">CATEGORIES</a></strong>
+                                    </li>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not empty user and user['class'].simpleName eq 'Staff'}">
                                     <li class="nav-item">
                                         <strong><a class="nav-link #{view.viewId eq '/services_staff.xhtml' or '/service_details_staff.xhtml' ? 'active' : ''}" href="services_staff.faces">SERVICES</a></strong>
                                     </li>

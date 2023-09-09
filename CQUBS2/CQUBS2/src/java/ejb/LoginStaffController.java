@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -73,7 +74,14 @@ public class LoginStaffController implements Serializable {
 
                 ctx.getExternalContext().getSessionMap().put("user", staffAccount);
 
-                navResult = "index_staff.faces";
+                //navResult = "index_staff.faces";
+                
+                try {
+                    ctx.getExternalContext().redirect("index_staff.faces");
+                }
+                catch(IOException e) {
+
+                }
             }
             else {
                 //password doesn't match, return to login page

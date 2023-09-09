@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewAction action="#{categoriesStaffController.init()}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{user.department.departmentName} Categories - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>CATEGORIES</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>#{user.department.departmentName} CATEGORIES</h1>
+                    </div>
+
+                    <div class="row py-4">
+                        <div class="row d-flex align-items-center">
+                            <a href="category_add_staff.faces" style="max-width: fit-content;"><button class="btn btn-primary">ADD CATEGORY</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid px-5 py-4" id="resultsDiv">
+                    <div class="row">
+                        <p>#{categoriesStaffController.categoriesList.size()} #{categoriesStaffController.categoriesList.size() eq 1 ? 'category' : 'categories'}</p>
+                    </div>
+
+                    <div class="row g-4" id="searchResults">
+                        <ui:repeat value="#{categoriesStaffController.categoriesList}" var="c">
+                            <div class="col-lg-3">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <h:link outcome="category_details_staff" class="stretched-link card-link" value="#{c.categoryName}">
+                                                <f:param name="categoryId" value="#{c.cat_id}"/>
+                                            </h:link>
+                                        </h4>
+                                        <div class="card-text mt-4">
+                                            <p>#{categoriesStaffController.getServiceList(c).size()} #{categoriesStaffController.getServiceList(c).size() eq 1 ? 'SERVICE' : 'SERVICES'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

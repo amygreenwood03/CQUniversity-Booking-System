@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewAction action="#{cDetailsStaffController.editInit()}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                Edit #{cDetailsStaffController.category.categoryName} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="categories_staff.faces"><strong>SERVICES</strong></a>
+                            </li>
+                            
+                            <li class="breadcrumb-item">
+                                <a href="category_details_staff.faces"><strong>#{cDetailsStaffController.category.categoryName}</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>EDIT</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>EDIT #{cDetailsStaffController.category.categoryName}</h1>
+                    </div>
+
+                    <h:form>
+                        <div class="row g-5 py-4">
+                            <div class="col-lg-6">
+                                <div class="form-row pb-4" id="categoryNameRow">
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" id="name" value="#{cDetailsStaffController.category.categoryName}" a:placeholder="Category name"/>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <h4>PROMOTIONAL IMAGE</h4>
+                                </div>
+
+                                <div class="form-row py-4 px-4" id="uploadRow">
+                                    <input type="file" id="promoImages" name="promo"/>
+                                </div>
+
+                                <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
+                                    <a href="categories_staff.html" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <h:commandButton action="#{cDetailsStaffController.edit()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

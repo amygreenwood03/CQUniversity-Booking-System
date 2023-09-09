@@ -80,18 +80,6 @@ public class ServiceAtLocationEJB{
         sal = em.find(ServiceAtLocation.class, sal.getSalId());
         sal = em.merge(sal);
         em.remove(sal);
-        /*Service service = em.find(Service.class, sal.getService().getServiceId());
-        
-        if(service.getSalList().size() == 1)
-        {
-            if(service.getSalList().get(0).getService().getServiceId() == sal.getSalId())
-            {
-                em.remove(em.merge(sal));
-                em.remove(em.merge(service));
-            }
-        }
-        else
-            em.remove(em.merge(sal));*/
     }
 
     //@Override

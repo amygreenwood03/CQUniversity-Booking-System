@@ -168,10 +168,12 @@ public class DetailsStaffController implements Serializable {
     }
     
     public void serviceDelete() {
-        if(sal.getRegList() != null && !sal.getRegList().isEmpty())
+        List<Registration> regList = getRegList(sal);
+        
+        if(regList != null && !regList.isEmpty())
         {
-            for(int i = 0; i < sal.getRegList().size(); i++)
-                regEJB.deleteRegistration(sal.getRegList().get(i));
+            for(int i = 0; i < regList.size(); i++)
+                regEJB.deleteRegistration(regList.get(i));
         }
         
         List<ServiceAtLocation> sals = salEJB.findSALsByService(sal.getService());

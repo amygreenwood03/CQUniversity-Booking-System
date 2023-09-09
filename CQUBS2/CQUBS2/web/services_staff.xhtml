@@ -97,7 +97,7 @@
                 
                 <div class="container-fluid px-5 py-4" id="resultsDiv">
                     <div class="row">
-                        <p>#{servicesStaffController.salList.size()} services</p>
+                        <p>#{servicesStaffController.salList.size()} #{servicesStaffController.salList.size() eq 1 ? 'service' : 'services'}</p>
                     </div>
 
                     <div class="row g-4" id="searchResults">

@@ -13,6 +13,7 @@ import jakarta.persistence.*;
         query="SELECT r FROM Registration r")
 @NamedQuery(name = "findRegistrationsByVolunteer", query = "SELECT r FROM Registration r WHERE r.volunteer.id = :vid")
 @NamedQuery(name = "findRegistrationsBySAL", query = "SELECT r FROM Registration r WHERE r.sal.salId = :sid")
+@NamedQuery(name = "findRegistrationsByService", query = "SELECT r FROM Registration r WHERE r.sal.service.serviceId = :sid")
 public class Registration implements Serializable {
     // Attributes
     @Id

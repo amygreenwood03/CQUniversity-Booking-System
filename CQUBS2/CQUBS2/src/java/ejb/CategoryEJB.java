@@ -50,12 +50,16 @@ public class CategoryEJB{
 
     //@Override
     public void deleteCategory(Category category) {
-        em.remove(em.merge(category));
+        category = em.find(Category.class, category.getCat_id());
+        category = em.merge(category);
+        em.remove(category);
     }
 
     //@Override
     public Category updateCategory(Category category) {
-        return em.merge(category);
+        Category updatedCategory = em.find(Category.class, category.getCat_id());
+        updatedCategory.setCategoryName(category.getCategoryName());
+        return em.merge(updatedCategory);
     }
 
     //@Override
