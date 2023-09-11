@@ -9,6 +9,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  *
@@ -32,7 +37,7 @@ public class ServiceAddController implements Serializable
     private ServiceAtLocationEJB salEJB;
     
     private final String PAGE_NAME = "Add Service";
-    private String selectedPrice, priceString;
+    private String selectedPrice, priceString, imageUrl;
     
     private List<Location> selectedLocationsList = new ArrayList<>();
     private List<Location> locationsList = new ArrayList<>();
@@ -41,6 +46,9 @@ public class ServiceAddController implements Serializable
     private List<Category> categoriesList = new ArrayList<>();
     
     private Service service;
+    
+    private Part promoImg;
+    private File savedImg;
     
     public ServiceAddController() 
     {
@@ -64,13 +72,15 @@ public class ServiceAddController implements Serializable
     
     public void create()
     {
+        uploadImg();
+        
         if(selectedPrice.equals("Free"))
             service.setServicePrice(0.0);
         else
             service.setServicePrice(Double.parseDouble(priceString));
         
         service.setCategory(categoryEJB.findCategoryById(selectedCategoryId));
-        service.setImageUrl("img/placeholder.png");
+        service.setImageUrl(imageUrl);
         
         List<ServiceAtLocation> sals = new ArrayList<>();
         
@@ -88,6 +98,27 @@ public class ServiceAddController implements Serializable
         try
         {
             ctx.getExternalContext().redirect("services_staff.faces");
+        }
+        catch(IOException e)
+        {
+            
+        }
+    }
+    
+    public void uploadImg()
+    {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        
+        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
+        
+        imageUrl = "/images/" + filename;
+        
+        savedImg = new File(imagesPath, filename);
+        
+        try(InputStream input = promoImg.getInputStream())
+        {
+            Files.copy(input, savedImg.toPath());
         }
         catch(IOException e)
         {
@@ -154,4 +185,12 @@ public class ServiceAddController implements Serializable
     public String getPAGE_NAME() {
         return PAGE_NAME;
     } 
+
+    public Part getPromoImg() {
+        return promoImg;
+    }
+
+    public void setPromoImg(Part promoImg) {
+        this.promoImg = promoImg;
+    }
 }

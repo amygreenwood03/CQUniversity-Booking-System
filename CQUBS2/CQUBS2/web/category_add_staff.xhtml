@@ -40,7 +40,7 @@
                         <h1>ADD NEW CATEGORY</h1>
                     </div>
 
-                    <h:form>
+                    <h:form enctype="multipart/form-data">
                         <div class="row g-5 py-4">
                             <div class="col-lg-6">
                                 <div class="form-row pb-4" id="categoryNameRow">
@@ -54,11 +54,11 @@
                                 </div>
 
                                 <div class="form-row py-4 px-4" id="uploadRow">
-                                    <input type="file" id="promoImages" name="promo"/>
+                                    <h:inputFile value="#{categoryAddController.promoImg}" id="promoImages"/>
                                 </div>
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
-                                    <a href="categories_staff.html" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <a href="categories_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
                                     <h:commandButton action="#{categoryAddController.create(user)}" class="btn btn-primary" value="SAVE" id="submitButton"/>
                                 </div>
                             </div>

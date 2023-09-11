@@ -6,6 +6,11 @@ import java.io.Serializable;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import jakarta.ejb.EJB;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  *
@@ -22,6 +27,10 @@ public class CategoryAddController implements Serializable
     private Category category = new Category();
     
     private final String PAGE_NAME = "Add Category";
+    private String imageUrl;
+    
+    private Part promoImg;
+    private File savedImg;
     
     public CategoryAddController() 
     {
@@ -29,7 +38,9 @@ public class CategoryAddController implements Serializable
     
     public void create(Staff user)
     {
-        category.setImageUrl("img/placeholder.png");
+        uploadImg();
+        
+        category.setImageUrl(imageUrl);
         category.setDept(user.getDepartment());
         
         categoryEJB.createCategory(category);
@@ -39,6 +50,27 @@ public class CategoryAddController implements Serializable
         try
         {
             ctx.getExternalContext().redirect("categories_staff.faces");
+        }
+        catch(IOException e)
+        {
+            
+        }
+    }
+    
+    public void uploadImg()
+    {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        
+        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
+        
+        imageUrl = "/images/" + filename;
+        
+        savedImg = new File(imagesPath, filename);
+        
+        try(InputStream input = promoImg.getInputStream())
+        {
+            Files.copy(input, savedImg.toPath());
         }
         catch(IOException e)
         {
@@ -59,5 +91,15 @@ public class CategoryAddController implements Serializable
     public String getPAGE_NAME() 
     {
         return PAGE_NAME;
+    }
+    
+    public Part getPromoImg() 
+    {
+        return promoImg;
+    }
+
+    public void setPromoImg(Part promoImg) 
+    {
+        this.promoImg = promoImg;
     }
 }

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="salId" value="#{notifController.salId}"/>
+            <f:viewAction action="#{notifController.init()}"/>
+        </f:metadata>
+        
+        <ui:composition template="common_layout.xhtml">
+            <ui:define name="title">
+                #{notifController.PAGE_NAME} - CQUniversity Booking System
+            </ui:define>
+            
+            <ui:define name="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <div class="container-fluid px-5 my-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index_staff.faces"><i class="fa fa-home"></i></a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="services_staff.faces"><strong>SERVICES</strong></a>
+                            </li>
+                            
+                            <li class="breadcrumb-item">
+                                <a href="service_details_staff.faces"><strong>#{notifController.sal.service.serviceName}</strong></a>
+                            </li>
+
+                            <li class="breadcrumb-item" aria-current="page">
+                                <strong>SEND EMAIL</strong>
+                            </li>
+                        </ol>
+                    </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="container-fluid my-4 px-5">
+                    <div class="row">
+                        <h1>SEND AN EMAIL NOTIFICATION</h1>
+                    </div>
+
+                    <h:form>
+                        <div class="row g-5 py-4">
+                            <div class="col-lg-6">
+                                <div class="form-row row gx-3" id="contactNameRow">
+                                    <h4 class="pb-3">CONTACT INFORMATION</h4>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:inputText class="form-control" id="firstName" value="#{notifController.firstName}" a:placeholder="First name"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:inputText class="form-control" id="lastName" value="#{notifController.lastName}" a:placeholder="Last name"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row py-4" id="phoneRow">
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" id="phone" value="#{notifController.phone}" a:placeholder="Phone number"/>
+                                    </div>
+                                </div>
+
+                                <div class="row py-4 mt-1" style="border-top: 2px solid #ebebea;">
+                                    <h4 class="pb-3">AVAILABILITIES</h4>
+
+                                    <div class="form-group">
+                                        <h:inputTextarea class="form-control" id="details" rows="10" value="#{notifController.detailsText}" a:placeholder="Enter availabilities and relevant extra details here..."></h:inputTextarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <h4>#{notifController.sal.service.serviceName}</h4>
+                                </div>
+
+                                <div class="form-row py-4 px-4" id="serviceDetailsRow">
+                                    <h5><i class="fas fa-map-marker-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.sal.location.locationName}</h5>
+                                    <h5><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.sal.service.category.categoryName}</h5>
+                                    <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.renderPrice(notifController.sal.service.servicePrice)}</h5>
+                                    <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.getRegList(notifController.sal).size()}</h5>
+                                </div>
+
+                                <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
+                                    <a href="service_details_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <h:commandButton action="#{notifController.sendEmail()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

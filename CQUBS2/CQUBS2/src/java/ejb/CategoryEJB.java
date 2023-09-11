@@ -59,6 +59,7 @@ public class CategoryEJB{
     public Category updateCategory(Category category) {
         Category updatedCategory = em.find(Category.class, category.getCat_id());
         updatedCategory.setCategoryName(category.getCategoryName());
+        updatedCategory.setImageUrl(category.getImageUrl());
         return em.merge(updatedCategory);
     }
 

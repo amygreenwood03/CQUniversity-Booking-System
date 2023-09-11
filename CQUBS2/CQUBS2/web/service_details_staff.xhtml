@@ -63,9 +63,9 @@
                             </div>
 
                             <div class="row d-flex align-items-center pt-4">
-                                <a href="service_edit_staff.faces" style="max-width: fit-content;"><button class="btn btn-primary">EDIT SERVICE</button></a>
+                                <h:button outcome="service_edit_staff" style="max-width: fit-content;" value="EDIT SERVICE" class="btn btn-primary"/>
                                 <h:form style="max-width: fit-content"><h:commandButton action="#{detailsStaffController.serviceDelete()}" class="btn btn-primary" value="REMOVE SERVICE"/></h:form>
-                                <a href="#" style="max-width: fit-content;"><button class="btn btn-primary">SEND EMAIL</button></a>
+                                <h:button outcome="send_notif_staff" style="max-width: fit-content" value="SEND EMAIL" class="btn btn-primary"><f:param name="salId" value="#{detailsStaffController.sal.salId}"/></h:button>
                             </div>
                         </div>
 

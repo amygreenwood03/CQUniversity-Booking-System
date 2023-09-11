@@ -4,8 +4,13 @@ import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +51,10 @@ public class DetailsStaffController implements Serializable {
     private Long selectedCategoryId = 0L;
     private List<Category> categoriesList = new ArrayList<>();
     
-    private String selectedPrice, priceString;
+    private String selectedPrice, priceString, imageUrl;
+    
+    private Part promoImg;
+    private File savedImg;
     
     public DetailsStaffController() {
         
@@ -130,6 +138,12 @@ public class DetailsStaffController implements Serializable {
     }
     
     public void serviceEdit() {
+        if(promoImg != null)
+        {
+            uploadImg();
+            service.setImageUrl(imageUrl);
+        }
+        
         if(selectedCategoryId != service.getCategory().getCat_id())
             service.setCategory(categoryEJB.findCategoryById(selectedCategoryId));
         
@@ -191,6 +205,27 @@ public class DetailsStaffController implements Serializable {
         try
         {
             ctx.getExternalContext().redirect("services_staff.faces");
+        }
+        catch(IOException e)
+        {
+            
+        }
+    }
+    
+    public void uploadImg()
+    {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        
+        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
+        
+        imageUrl = "/images/" + filename;
+        
+        savedImg = new File(imagesPath, filename);
+        
+        try(InputStream input = promoImg.getInputStream())
+        {
+            Files.copy(input, savedImg.toPath());
         }
         catch(IOException e)
         {
@@ -290,5 +325,15 @@ public class DetailsStaffController implements Serializable {
     public void setPriceString(String priceString) 
     {
         this.priceString = priceString;
+    }
+    
+    public Part getPromoImg() 
+    {
+        return promoImg;
+    }
+
+    public void setPromoImg(Part promoImg) 
+    {
+        this.promoImg = promoImg;
     }
 }
