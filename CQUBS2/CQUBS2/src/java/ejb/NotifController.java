@@ -85,6 +85,7 @@ public class NotifController implements Serializable {
             final String senderAddress = ""; //email address of sender
             final String senderPassword = ""; //email password of sender
             
+            //Change your email contents here
             final String emailSubject = "Event reminder email: " + sal.getService().getServiceName() + " at " + sal.getLocation().getLocationName();
             final String emailContent = "Dear volunteers, \n"
                     + "You have received this email as you registered for the event \"" + sal.getService().getServiceName() + "\", "
@@ -118,7 +119,7 @@ public class NotifController implements Serializable {
     }
     
     public String renderPrice(double price) {
-        String priceAsString = "";
+        String priceAsString;
         if(price > 0.0)
             priceAsString = "$" + df.format(price);
         else

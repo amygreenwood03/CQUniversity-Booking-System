@@ -6,7 +6,6 @@ import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * This controller manages profile_staff.xhtml, the page where staffs can manage their user account profiles.

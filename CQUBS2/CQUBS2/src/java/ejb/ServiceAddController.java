@@ -16,14 +16,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- *
- * @author Amy
+ * This controller allows staffs to add a new service on a category.
  */
 
 @Named(value = "serviceAddController")
 @SessionScoped
-public class ServiceAddController implements Serializable
-{
+public class ServiceAddController implements Serializable {
     @EJB
     private LocationEJB locationEJB;
     
@@ -50,13 +48,12 @@ public class ServiceAddController implements Serializable
     private Part promoImg;
     private File savedImg;
     
-    public ServiceAddController() 
-    {
+    public ServiceAddController() {
+        
     }
     
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
         
@@ -70,8 +67,7 @@ public class ServiceAddController implements Serializable
         service = new Service();
     }
     
-    public void create()
-    {
+    public void create() {
         uploadImg();
         
         if(selectedPrice.equals("Free"))
@@ -84,8 +80,7 @@ public class ServiceAddController implements Serializable
         
         List<ServiceAtLocation> sals = new ArrayList<>();
         
-        for(int i = 0; i < selectedLocationsList.size(); i++)
-        {
+        for(int i = 0; i < selectedLocationsList.size(); i++) {
             sals.add(new ServiceAtLocation(service, selectedLocationsList.get(i)));
         }
         
@@ -95,12 +90,10 @@ public class ServiceAddController implements Serializable
         
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        try
-        {
+        try {
             ctx.getExternalContext().redirect("services_staff.faces");
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
@@ -116,12 +109,10 @@ public class ServiceAddController implements Serializable
         
         savedImg = new File(imagesPath, filename);
         
-        try(InputStream input = promoImg.getInputStream())
-        {
+        try(InputStream input = promoImg.getInputStream()) {
             Files.copy(input, savedImg.toPath());
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
