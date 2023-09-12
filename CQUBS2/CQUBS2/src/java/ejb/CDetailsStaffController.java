@@ -4,7 +4,6 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import java.util.List;
-import java.util.ArrayList;
 import java.io.Serializable;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.Part;
@@ -15,14 +14,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- *
- * @author Amy
+ * This class in charge of managing category details. 
+ * Staffs can change the details of categories related to the departments they are associated with. 
  */
 
 @Named(value = "cDetailsStaffController")
 @SessionScoped
-public class CDetailsStaffController implements Serializable
-{
+public class CDetailsStaffController implements Serializable {
     @EJB
     private CategoryEJB categoryEJB;
     
@@ -44,21 +42,18 @@ public class CDetailsStaffController implements Serializable
     private Part promoImg;
     private File savedImg;
     
-    public CDetailsStaffController() 
-    {
+    public CDetailsStaffController() {
+        
     }
     
-    public void init()
-    {
+    public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        if(categoryId > 0L)
-        {
+        if(categoryId > 0L) {
             category = categoryEJB.findCategoryById(categoryId);
             pageName = category.getCategoryName();
         }
-        else
-        {
+        else {
             try {
                 ctx.getExternalContext().redirect("categories_staff.faces");
             }
@@ -68,12 +63,10 @@ public class CDetailsStaffController implements Serializable
         }
     }
     
-    public void editInit()
-    {
+    public void editInit() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        if(categoryId == 0L)
-        {
+        if(categoryId == 0L) {
             try {
                 ctx.getExternalContext().redirect("categories_staff.faces");
             }
@@ -83,22 +76,18 @@ public class CDetailsStaffController implements Serializable
         }
     }
     
-    public List<Registration> getTotalRegList(Service service)
-    {
+    public List<Registration> getTotalRegList(Service service) {
         List<Registration> totalRegList = regEJB.findRegistrationsByService(service);
         return totalRegList;
     }
     
-    public List<Service> getServiceList(Category cat)
-    {
+    public List<Service> getServiceList(Category cat) {
         List<Service> serviceList = serviceEJB.findServicesByCategory(cat);
         return serviceList;
     }
     
-    public void edit()
-    {
-        if(promoImg != null)
-        {
+    public void edit() {
+        if(promoImg != null) {
             uploadImg();
             category.setImageUrl(imageUrl);
         }
@@ -115,18 +104,14 @@ public class CDetailsStaffController implements Serializable
         }
     }
     
-    public void delete()
-    {   
+    public void delete() {   
         List<Service> serviceList = getServiceList(category);
         
-        if(serviceList != null && !serviceList.isEmpty())
-        {
-            for(int i = 0; i < serviceList.size(); i++)
-            {
+        if(serviceList != null && !serviceList.isEmpty()) {
+            for(int i = 0; i < serviceList.size(); i++) {
                 List<Registration> regList = getTotalRegList(serviceList.get(i));
                 
-                if(regList != null && !regList.isEmpty())
-                {
+                if(regList != null && !regList.isEmpty()) {
                     for(int j = 0; j < regList.size(); j++)
                         regEJB.deleteRegistration(regList.get(j));
                 }
@@ -135,8 +120,7 @@ public class CDetailsStaffController implements Serializable
         
         List<ServiceAtLocation> salList = salEJB.findSALsByCategory(category);
         
-        if(salList != null && !salList.isEmpty())
-        {
+        if(salList != null && !salList.isEmpty()) {
             for(int i = 0; i < salList.size(); i++)
                 salEJB.deleteSAL(salList.get(i));
         }
@@ -148,74 +132,59 @@ public class CDetailsStaffController implements Serializable
         
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        try
-        {
+        try {
             ctx.getExternalContext().redirect("categories_staff.faces");
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
     
-    public void uploadImg()
-    {
+    public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        
         String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;
-        
         savedImg = new File(imagesPath, filename);
         
-        try(InputStream input = promoImg.getInputStream())
-        {
+        try(InputStream input = promoImg.getInputStream()) {
             Files.copy(input, savedImg.toPath());
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
 
-    public Category getCategory() 
-    {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) 
-    {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public Long getCategoryId() 
-    {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) 
-    {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getPageName() 
-    {
+    public String getPageName() {
         return pageName;
     }
 
-    public void setPageName(String pageName) 
-    {
+    public void setPageName(String pageName) {
         this.pageName = pageName;
     }
 
-    public Part getPromoImg() 
-    {
+    public Part getPromoImg() {
         return promoImg;
     }
 
-    public void setPromoImg(Part promoImg) 
-    {
+    public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
     }
 }

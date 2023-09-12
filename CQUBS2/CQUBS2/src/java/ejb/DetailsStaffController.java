@@ -77,22 +77,16 @@ public class DetailsStaffController implements Serializable {
         }
     }
     
-    public void editInit(Staff user)
-    {
+    public void editInit(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        if(salId > 0L)
-        {
+        if(salId > 0L) {
             service = sal.getService();
-            
             locationsList = locationEJB.findLocations();
             
-            for(int i = 0; i < locationsList.size(); i++)
-            {
-                for(int j = 0; j < service.getSalList().size(); j++)
-                {
-                    if(locationsList.get(i).getLocationId() == service.getSalList().get(j).getLocation().getLocationId())
-                    {
+            for(int i = 0; i < locationsList.size(); i++) {
+                for(int j = 0; j < service.getSalList().size(); j++){
+                    if(locationsList.get(i).getLocationId() == service.getSalList().get(j).getLocation().getLocationId()) {
                         locationsList.remove(i);
                         break;
                     }
@@ -102,16 +96,14 @@ public class DetailsStaffController implements Serializable {
             categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
             selectedCategoryId = service.getCategory().getCat_id();
             
-            if(service.getServicePrice() > 0)
-            {
+            if(service.getServicePrice() > 0) {
                 selectedPrice = "Charge";
                 priceString = df.format(service.getServicePrice());
             }
             else
                 selectedPrice = "Free";
         }
-        else
-        {
+        else {
             try {
                 ctx.getExternalContext().redirect("service_details_staff.faces");
             }
@@ -131,15 +123,13 @@ public class DetailsStaffController implements Serializable {
         return priceAsString;
     }
     
-    public List<Registration> getRegList(ServiceAtLocation servAtLocation)
-    {
+    public List<Registration> getRegList(ServiceAtLocation servAtLocation) {
         List<Registration> regList = regEJB.findRegistrationsBySAL(servAtLocation);
         return regList;
     }
     
     public void serviceEdit() {
-        if(promoImg != null)
-        {
+        if(promoImg != null) {
             uploadImg();
             service.setImageUrl(imageUrl);
         }
@@ -147,22 +137,18 @@ public class DetailsStaffController implements Serializable {
         if(selectedCategoryId != service.getCategory().getCat_id())
             service.setCategory(categoryEJB.findCategoryById(selectedCategoryId));
         
-        if(selectedPrice.equals("Free"))
-        {
+        if(selectedPrice.equals("Free")) {
             if(service.getServicePrice() > 0.0)
                 service.setServicePrice(0.0);
         }
-        else
-        {
+        else {
             service.setServicePrice(Double.parseDouble(priceString));
         }
         
-        if(!selectedLocationsList.isEmpty())
-        {
+        if(!selectedLocationsList.isEmpty()) {
             List<ServiceAtLocation> sals = new ArrayList<>();
             
-            for(int i = 0; i < selectedLocationsList.size(); i++)
-            {
+            for(int i = 0; i < selectedLocationsList.size(); i++) {
                 sals.add(new ServiceAtLocation(service, selectedLocationsList.get(i)));
             }
             
@@ -184,8 +170,7 @@ public class DetailsStaffController implements Serializable {
     public void serviceDelete() {
         List<Registration> regList = getRegList(sal);
         
-        if(regList != null && !regList.isEmpty())
-        {
+        if(regList != null && !regList.isEmpty()) {
             for(int i = 0; i < regList.size(); i++)
                 regEJB.deleteRegistration(regList.get(i));
         }
@@ -202,33 +187,27 @@ public class DetailsStaffController implements Serializable {
         
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        try
-        {
+        try {
             ctx.getExternalContext().redirect("services_staff.faces");
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
     
-    public void uploadImg()
-    {
+    public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;
-        
         savedImg = new File(imagesPath, filename);
         
-        try(InputStream input = promoImg.getInputStream())
-        {
+        try(InputStream input = promoImg.getInputStream()) {
             Files.copy(input, savedImg.toPath());
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
@@ -257,38 +236,31 @@ public class DetailsStaffController implements Serializable {
         this.pageName = pageName;
     }
 
-    public Service getService() 
-    {
+    public Service getService() {
         return service;
     }
 
-    public void setService(Service service) 
-    {
+    public void setService(Service service) {
         this.service = service;
     }
 
-    public List<Location> getSelectedLocationsList() 
-    {
+    public List<Location> getSelectedLocationsList() {
         return selectedLocationsList;
     }
 
-    public void setSelectedLocationsList(List<Location> selectedLocationsList) 
-    {
+    public void setSelectedLocationsList(List<Location> selectedLocationsList) {
         this.selectedLocationsList = selectedLocationsList;
     }
 
-    public List<Location> getLocationsList() 
-    {
+    public List<Location> getLocationsList() {
         return locationsList;
     }
 
-    public void setLocationsList(List<Location> locationsList) 
-    {
+    public void setLocationsList(List<Location> locationsList) {
         this.locationsList = locationsList;
     }
 
-    public Long getSelectedCategoryId() 
-    {
+    public Long getSelectedCategoryId() {
         return selectedCategoryId;
     }
 

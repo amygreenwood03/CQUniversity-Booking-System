@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * This controller controls "About Us" page.
+ * Change the contents of the strings of this controller to change the contents of About Us page.
  */
 
 @Named(value = "aboutController")

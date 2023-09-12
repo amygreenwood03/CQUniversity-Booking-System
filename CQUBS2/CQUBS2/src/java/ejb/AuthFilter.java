@@ -16,6 +16,7 @@ import java.io.IOException;
  * Authentication Filter makes sure that specific user types can obtain access to certain pages only. 
  * The purpose of this class is to prevent guests or volunteers to access the staff only pages. 
  */
+
 public class AuthFilter implements Filter {
     private FilterConfig config;
     
@@ -27,7 +28,8 @@ public class AuthFilter implements Filter {
         
         String url = request.getRequestURI();
         String context = request.getContextPath();
-                
+        
+        //Staff specialised links
         String staffHome = context + "/index_staff.faces";
         String staffDetails = context + "/service_details_staff.faces";
         String staffServices = context + "/services_staff.faces";
@@ -39,14 +41,14 @@ public class AuthFilter implements Filter {
         String staffCategories = context + "/categories_staff.faces";
         String staffCAdd = context + "/category_add_staff.faces";
         String staffCEdit = context + "/category_edit_staff.faces";
+        
+        //Links for volunteers and guests
         String genHome = context + "/index.faces";
         String genDetails = context + "/service_details.faces";
         String genServices = context + "/services.faces";
         String genProfile = context + "/profile.faces";
         String genEditProfile = context + "/profile_edit.faces";
         String about = context + "/about_us.faces";
-        
-        //response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         
         if(url.startsWith(request.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER)) {
             chain.doFilter(request, response);
@@ -64,20 +66,17 @@ public class AuthFilter implements Filter {
                 response.sendRedirect(staffHome);
             else
                 chain.doFilter(request, response);
-        else if(url.matches(".*_staff\\.faces"))
-        {
+        else if(url.matches(".*_staff\\.faces")) {
             if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 chain.doFilter(request, response);
-            else
-            {   
+            else {   
                 if(url.equals(staffHome))
                     response.sendRedirect(genHome);
                 else if(url.equals(staffDetails))
                     response.sendRedirect(genDetails);
                 else if(url.equals(staffServices))
                     response.sendRedirect(genServices);
-                else if(url.equals(staffProfile) || url.equals(staffEditProfile))
-                {
+                else if(url.equals(staffProfile) || url.equals(staffEditProfile)) {
                     if(session != null && session.getAttribute("user") == null)
                         response.sendRedirect(genHome);
                     else
@@ -87,10 +86,8 @@ public class AuthFilter implements Filter {
                     response.sendRedirect(genServices);
             }
         }
-        else if(url.matches(".*\\.faces"))
-        {
-            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
-            {
+        else if(url.matches(".*\\.faces")) {
+            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff")) {
                 if(url.equals(genHome))
                     response.sendRedirect(staffHome);
                 else if(url.equals(genDetails))
@@ -105,18 +102,15 @@ public class AuthFilter implements Filter {
         }
         else
             chain.doFilter(request, response);
-        
     }
     
     @Override
-    public void init(FilterConfig config) throws ServletException
-    {
+    public void init(FilterConfig config) throws ServletException {
         this.config = config;
     }
     
     @Override
-    public void destroy()
-    {
+    public void destroy() {
         config = null;
     }
 }

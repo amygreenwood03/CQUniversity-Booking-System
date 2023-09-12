@@ -10,14 +10,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- *
- * @author Amy
+ * This class allow staffs to add, update or delete categories related to the departments they are assigned with.
  */
 
 @Named(value = "categoriesStaffController")
 @SessionScoped
-public class CategoriesStaffController implements Serializable
-{
+public class CategoriesStaffController implements Serializable {
     @EJB
     private CategoryEJB categoryEJB;
     
@@ -26,31 +24,27 @@ public class CategoriesStaffController implements Serializable
     
     private List<Category> categoriesList = new ArrayList<>();
     
-    public CategoriesStaffController() 
-    {
+    public CategoriesStaffController() {
+        
     }
     
-    public void init()
-    {
+    public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
         
         categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
     }
     
-    public List<Service> getServiceList(Category cat)
-    {
+    public List<Service> getServiceList(Category cat) {
         List<Service> serviceList = serviceEJB.findServicesByCategory(cat);
         return serviceList;
     }
 
-    public List<Category> getCategoriesList() 
-    {
+    public List<Category> getCategoriesList() {
         return categoriesList;
     }
 
-    public void setCategoriesList(List<Category> categoriesList) 
-    {
+    public void setCategoriesList(List<Category> categoriesList) {
         this.categoriesList = categoriesList;
     }
 }

@@ -101,5 +101,4 @@ public class Department implements Serializable {
     public String toString() {
         return "cquclientbookingsystem.ejb.Department[ id=" + departmentId + " ]";
     }
-    
 }
