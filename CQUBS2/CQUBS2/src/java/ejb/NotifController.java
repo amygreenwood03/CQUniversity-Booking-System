@@ -33,7 +33,7 @@ public class NotifController implements Serializable {
     private final String PAGE_NAME = "Send Email Notification";
     private static final DecimalFormat df = new DecimalFormat("0.00");
     
-    public NotifController()  {
+    public NotifController() {
         
     }
     
@@ -80,8 +80,8 @@ public class NotifController implements Serializable {
             }
             
             //Send email via SMTP TLS
-            final String smtpService = ""; //Enter your SMTP hostname
-            final String smtpPort = ""; //Enter your SMTP port
+            final String smtpService = ""; //Enter your SMTP hostname. Example: "smtp.gmail.com" for Gmail SMTP
+            final String smtpPort = ""; //Enter your SMTP port. Example: 587 for Gmail TLS
             final String senderAddress = ""; //email address of sender
             final String senderPassword = ""; //email password of sender
             
@@ -92,6 +92,17 @@ public class NotifController implements Serializable {
                     + "at your selected location, " + sal.getLocation().getLocationName() + ". "
                     + "Please visit the website to check your event details again. \n\n"
                     + "Kind Regards, \n" + firstName + " " + lastName;
+            
+            /* The email text is as follows: 
+            Event reminder email: (Service name) at (Service location)
+            
+            Dear volunteers,
+            You have received this email as you registered for the event "(Event name)", at your selected location, (Location name).
+            Please visit the website to check your event details again.
+            
+            Kind Regards,
+            (First name) (Last name)
+            */
             
             Properties propSMTP = new Properties();
             propSMTP.put("mail.smtp.host",smtpService);

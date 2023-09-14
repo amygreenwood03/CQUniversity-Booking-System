@@ -31,8 +31,7 @@ public class SignUpController implements Serializable {
         
     }
     
-    public boolean checkFields()
-    {
+    public boolean checkFields() {
         if(firstName.isBlank() || lastName.isBlank() || phoneNumber.isBlank() || emailAddress.isBlank() || password.isBlank())
             return true;
         
@@ -45,8 +44,7 @@ public class SignUpController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage signupError = new FacesMessage("", "One or more fields are blank or filled incorrectly. Please check and try again.");
         
-        if(checkFields())
-        {
+        if(checkFields()) {
             ctx.addMessage("signUpForm", signupError);
             navResult = null;
             return navResult;
@@ -61,7 +59,7 @@ public class SignUpController implements Serializable {
         
         // No users found with the address
         if(user == null) {
-            //Encrypt raw password with hash and salt
+            //Encrypt raw password with SHA-512 hash and salt
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             SecureRandom random = new SecureRandom();
             String saltString = "";

@@ -14,14 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- *
- * @author Amy
+ * This controller allows staffs to add a new category
  */
 
 @Named(value = "categoryAddController")
 @SessionScoped
-public class CategoryAddController implements Serializable
-{
+public class CategoryAddController implements Serializable {
     @EJB
     private CategoryEJB categoryEJB;
     
@@ -33,25 +31,22 @@ public class CategoryAddController implements Serializable
     private Part promoImg;
     private File savedImg;
     
-    public CategoryAddController() 
-    {
+    public CategoryAddController() {
+        
     }
     
-    public boolean checkFields()
-    {
+    public boolean checkFields() {
         if(category.getCategoryName().isBlank() || promoImg == null)
             return true;
         
         return false;
     }
     
-    public String create(Staff user)
-    {
+    public String create(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
         
-        if(checkFields())
-        {
+        if(checkFields()) {
             ctx.addMessage("createForm", createError);
             return null;
         }
@@ -66,49 +61,42 @@ public class CategoryAddController implements Serializable
         return "categories_staff.faces?faces-redirect=true";
     }
     
-    public void uploadImg()
-    {
+    public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        //Change the image path to your Glassfish docroot/images folder
+        String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;
         
         savedImg = new File(imagesPath, filename);
         
-        try(InputStream input = promoImg.getInputStream())
-        {
+        try(InputStream input = promoImg.getInputStream()) {
             Files.copy(input, savedImg.toPath());
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             
         }
     }
 
-    public Category getCategory() 
-    {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) 
-    {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getPAGE_NAME() 
-    {
+    public String getPAGE_NAME() {
         return PAGE_NAME;
     }
     
-    public Part getPromoImg() 
-    {
+    public Part getPromoImg() {
         return promoImg;
     }
 
-    public void setPromoImg(Part promoImg) 
-    {
+    public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
     }
 }

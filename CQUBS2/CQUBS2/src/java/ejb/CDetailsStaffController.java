@@ -75,8 +75,7 @@ public class CDetailsStaffController implements Serializable {
                 
             }
         }
-        else
-        {   
+        else {   
             categoryName = category.getCategoryName();
         }
     }
@@ -95,8 +94,7 @@ public class CDetailsStaffController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage editError = new FacesMessage("", "Please fill out all fields.");
         
-        if(categoryName.isBlank())
-        {
+        if(categoryName.isBlank()) {
             ctx.addMessage("editForm", editError);
             return null;
         }
@@ -144,7 +142,9 @@ public class CDetailsStaffController implements Serializable {
     
     public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        
+        //Change the image path to your Glassfish docroot/images folder
+        String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;

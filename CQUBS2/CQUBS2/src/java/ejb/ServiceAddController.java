@@ -68,8 +68,7 @@ public class ServiceAddController implements Serializable {
         service = new Service();
     }
     
-    public boolean checkFields()
-    {
+    public boolean checkFields() {
         if(service.getServiceName().isBlank() || selectedLocationsList.isEmpty() || selectedPrice.isBlank() || selectedCategoryId == 0L || promoImg == null || service.getServiceDescription().isBlank())
             return true;
         
@@ -80,8 +79,7 @@ public class ServiceAddController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
         
-        if(checkFields())
-        {
+        if(checkFields()) {
             ctx.addMessage(("createForm"), createError);
             return null;
         }
@@ -90,21 +88,16 @@ public class ServiceAddController implements Serializable {
         
         if(selectedPrice.equals("Free"))
             service.setServicePrice(0.0);
-        else
-        {
-            if(priceString.isBlank())
-            {
+        else {
+            if(priceString.isBlank()) {
                 ctx.addMessage(("createForm"), createError);
                 return null;
             }
-            else
-            {
-                try
-                {
+            else {
+                try {
                     service.setServicePrice(Double.parseDouble(priceString));
                 }
-                catch(NumberFormatException e)
-                {
+                catch(NumberFormatException e) {
                     ctx.addMessage("createForm", new FacesMessage("", "The specified service price must be a number."));
                     return null;
                 }
@@ -127,11 +120,11 @@ public class ServiceAddController implements Serializable {
         return "services_staff.faces?faces-redirect=true";
     }
     
-    public void uploadImg()
-    {
+    public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
-        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        //Change the image path to your Glassfish docroot/images folder
+        String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;
