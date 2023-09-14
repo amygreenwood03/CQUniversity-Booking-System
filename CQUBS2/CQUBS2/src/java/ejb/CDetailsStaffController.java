@@ -3,6 +3,7 @@ package ejb;
 import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import java.util.List;
 import java.io.Serializable;
 import jakarta.faces.context.FacesContext;
@@ -33,10 +34,10 @@ public class CDetailsStaffController implements Serializable {
     @EJB
     private ServiceAtLocationEJB salEJB;
     
-    private Category category = new Category();
+    private Category category;
     private Long categoryId = 0L;
     
-    private String pageName = "";
+    private String pageName, categoryName = "";
     private String imageUrl;
     
     private Part promoImg;
@@ -74,6 +75,10 @@ public class CDetailsStaffController implements Serializable {
                 
             }
         }
+        else
+        {   
+            categoryName = category.getCategoryName();
+        }
     }
     
     public List<Registration> getTotalRegList(Service service) {
@@ -86,7 +91,18 @@ public class CDetailsStaffController implements Serializable {
         return serviceList;
     }
     
-    public void edit() {
+    public String edit() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage editError = new FacesMessage("", "Please fill out all fields.");
+        
+        if(categoryName.isBlank())
+        {
+            ctx.addMessage("editForm", editError);
+            return null;
+        }
+        
+        category.setCategoryName(categoryName);
+        
         if(promoImg != null) {
             uploadImg();
             category.setImageUrl(imageUrl);
@@ -94,17 +110,10 @@ public class CDetailsStaffController implements Serializable {
         
         categoryEJB.updateCategory(category);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try {
-            ctx.getExternalContext().redirect("category_details_staff.faces?categoryId=" + category.getCat_id());
-        }
-        catch(IOException e) {
-                
-        }
+        return "category_details_staff.faces?faces-redirect=true";
     }
     
-    public void delete() {   
+    public String delete() {   
         List<Service> serviceList = getServiceList(category);
         
         if(serviceList != null && !serviceList.isEmpty()) {
@@ -130,14 +139,7 @@ public class CDetailsStaffController implements Serializable {
         
         categoryEJB.deleteCategory(category);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try {
-            ctx.getExternalContext().redirect("categories_staff.faces");
-        }
-        catch(IOException e) {
-            
-        }
+        return "categories_staff.faces?faces-redirect=true";
     }
     
     public void uploadImg() {
@@ -186,5 +188,13 @@ public class CDetailsStaffController implements Serializable {
 
     public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

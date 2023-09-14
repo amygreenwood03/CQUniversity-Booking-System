@@ -32,7 +32,7 @@
                             </li>
                             
                             <li class="breadcrumb-item">
-                                <a href="service_details_staff.faces"><strong>#{notifController.sal.service.serviceName}</strong></a>
+                                <a href="service_details_staff.faces?salId=#{notifController.sal.salId}"><strong>#{notifController.sal.service.serviceName}</strong></a>
                             </li>
 
                             <li class="breadcrumb-item" aria-current="page">
@@ -96,7 +96,7 @@
                                 </div>
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
-                                    <a href="service_details_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <a href="service_details_staff.faces?salId=#{notifController.sal.salId}" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
                                     <h:commandButton action="#{notifController.sendEmail()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
                                 </div>
                             </div>

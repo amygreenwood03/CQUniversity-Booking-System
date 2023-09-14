@@ -3,6 +3,7 @@ package ejb;
 import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
@@ -26,10 +27,26 @@ public class LoginController implements Serializable {
         
     }
     
+    public boolean checkFields()
+    {
+        if(username.isBlank() || password.isBlank())
+            return true;
+        
+        return false;
+    }
+    
     public String login() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage loginError = new FacesMessage("", "Your credentials are invalid. Please check them and try again.");
         Volunteer volunteerAccount;
+        
+        if(checkFields())
+        {
+            ctx.addMessage("loginForm", loginError);
+            navResult = null;
+            return navResult;
+        }
         
         //Does the user with the email address exist?
         try {
@@ -41,7 +58,9 @@ public class LoginController implements Serializable {
 
         if (volunteerAccount == null){
             //No user found, wrong login 
-            navResult = "login.faces";
+            //ctx.addMessage("loginForm", loginError);
+            
+            navResult = null;
         }
         else {
             //Check if it is Staff account or volunteer account
@@ -73,13 +92,14 @@ public class LoginController implements Serializable {
 
                 ctx.getExternalContext().getSessionMap().put("user", volunteerAccount);
 
-                navResult = "index.faces";
+                navResult = "index.faces?faces-redirect=true";
             }
             else {
                 //password doesn't match, return to login page
-                username = "";
+                //username = "";
                 password = "";
-                navResult = "login.faces";
+                ctx.addMessage("loginForm", loginError);
+                navResult = null;
             }
         }
         return navResult;
@@ -88,7 +108,7 @@ public class LoginController implements Serializable {
     public String logout() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().clear();
-        return "index.faces";
+        return "index.faces?faces-redirect=true";
     }
 
     public String getUsername() {

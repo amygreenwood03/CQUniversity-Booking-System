@@ -49,7 +49,7 @@ public class NotifController implements Serializable {
             sal = salEJB.findSALById(salId);
         else {
             try {
-                ctx.getExternalContext().redirect("service_details_staff.faces");
+                ctx.getExternalContext().redirect("services_staff.faces");
             }
             catch(IOException e) {
                 

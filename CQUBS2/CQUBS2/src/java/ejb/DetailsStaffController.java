@@ -2,6 +2,7 @@ package ejb;
 
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.servlet.http.Part;
@@ -51,7 +52,7 @@ public class DetailsStaffController implements Serializable {
     private Long selectedCategoryId = 0L;
     private List<Category> categoriesList = new ArrayList<>();
     
-    private String selectedPrice, priceString, imageUrl;
+    private String selectedPrice, priceString, imageUrl, serviceName, serviceDescription;
     
     private Part promoImg;
     private File savedImg;
@@ -82,6 +83,10 @@ public class DetailsStaffController implements Serializable {
         
         if(salId > 0L) {
             service = sal.getService();
+            
+            serviceName = service.getServiceName();
+            serviceDescription = service.getServiceDescription();
+            
             locationsList = locationEJB.findLocations();
             
             for(int i = 0; i < locationsList.size(); i++) {
@@ -105,7 +110,7 @@ public class DetailsStaffController implements Serializable {
         }
         else {
             try {
-                ctx.getExternalContext().redirect("service_details_staff.faces");
+                ctx.getExternalContext().redirect("services_staff.faces");
             }
             catch(IOException e) {
                 
@@ -128,7 +133,19 @@ public class DetailsStaffController implements Serializable {
         return regList;
     }
     
-    public void serviceEdit() {
+    public String serviceEdit() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage editError = new FacesMessage("", "Please fill out all fields.");
+        
+        if(serviceName.isBlank() || serviceDescription.isBlank())
+        {
+            ctx.addMessage("editForm", editError);
+            return null;
+        }
+        
+        service.setServiceName(serviceName);
+        service.setServiceDescription(serviceDescription);
+        
         if(promoImg != null) {
             uploadImg();
             service.setImageUrl(imageUrl);
@@ -142,7 +159,23 @@ public class DetailsStaffController implements Serializable {
                 service.setServicePrice(0.0);
         }
         else {
-            service.setServicePrice(Double.parseDouble(priceString));
+            if(priceString.isBlank())
+            {
+                ctx.addMessage("editForm", editError);
+                return null;
+            }
+            else
+            {
+                try
+                {
+                    service.setServicePrice(Double.parseDouble(priceString));
+                }
+                catch(NumberFormatException e)
+                {
+                    ctx.addMessage("editForm", new FacesMessage("", "The specified service price must be a number."));
+                    return null;
+                }
+            }
         }
         
         if(!selectedLocationsList.isEmpty()) {
@@ -157,17 +190,10 @@ public class DetailsStaffController implements Serializable {
         
         serviceEJB.updateService(service);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try {
-            ctx.getExternalContext().redirect("service_details_staff.faces?salId=" + sal.getSalId());
-        }
-        catch(IOException e) {
-                
-        }
+        return "service_details_staff.faces?faces-redirect=true";
     }
     
-    public void serviceDelete() {
+    public String serviceDelete() {
         List<Registration> regList = getRegList(sal);
         
         if(regList != null && !regList.isEmpty()) {
@@ -185,14 +211,7 @@ public class DetailsStaffController implements Serializable {
         else
             salEJB.deleteSAL(sal);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try {
-            ctx.getExternalContext().redirect("services_staff.faces");
-        }
-        catch(IOException e) {
-            
-        }
+        return "services_staff.faces?faces-redirect=true";
     }
     
     public void uploadImg() {
@@ -307,5 +326,21 @@ public class DetailsStaffController implements Serializable {
     public void setPromoImg(Part promoImg) 
     {
         this.promoImg = promoImg;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceDescription() {
+        return serviceDescription;
+    }
+
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
     }
 }

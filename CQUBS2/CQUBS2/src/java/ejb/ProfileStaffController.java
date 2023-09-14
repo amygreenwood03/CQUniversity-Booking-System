@@ -3,6 +3,7 @@ package ejb;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public class ProfileStaffController implements Serializable {
     private final String PROFILE_NAME = "Your Profile";
     private final String EDIT_NAME = "Edit Your Profile";
     
-    private String department = "If you see this text, Initialisation did not work.";
+    private String firstName, lastName, email, phone;
     
     public ProfileStaffController() {
         
@@ -32,15 +33,71 @@ public class ProfileStaffController implements Serializable {
   
     public void init(Staff user) {
         staff = userEJB.findStaffById(user.getId());
-        department = staff.getDepartment().getDepartmentName();
+        
+        firstName = staff.getFirstName();
+        lastName = staff.getLastName();
+        email = staff.getEmail();
+        phone = staff.getPhone();
     }
     
-    public String edit() {
-        userEJB.updateStaff(staff);
+    public boolean checkFields()
+    {
+        if(firstName.isBlank() || lastName.isBlank() || email.isBlank() || phone.isBlank())
+            return true;
+        else if(!phone.matches("^[0-9]{10}$") || !email.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9]"
+            + "(?:[a-z0-9-]*[a-z0-9])?"))
+            return true;
         
+        return false;
+    }
+    
+    public String edit(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage editError = new FacesMessage("", "One or more fields are empty or filled incorrectly. Please check and try again.");
+        
+        if(checkFields())
+        {
+            ctx.addMessage("editForm", editError);
+            return null;
+        }
+        
+        Staff sTest;
+        Volunteer vTest;
+        
+        try {
+            sTest = userEJB.findStaffByEmail(email);
+            
+            if(user.getId() == sTest.getId())
+                sTest = null;
+        } 
+        catch (Exception e) {
+            sTest = null;
+        }
+        
+        try {
+            vTest = userEJB.findVolByEmail(email);
+        } 
+        catch (Exception e) {
+            vTest = null;
+        }
+        
+        if(sTest != null || vTest != null)
+        {
+            ctx.addMessage("editForm", new FacesMessage("", "That email is already in use by another user."));
+            return null;
+        }
+        
+        staff.setFirstName(firstName);
+        staff.setLastName(lastName);
+        staff.setEmail(email);
+        staff.setPhone(phone);
+        
+        userEJB.updateStaff(staff);
+
         ctx.getExternalContext().getSessionMap().put("user", staff);
-        return "profile_staff.faces";
+        return "profile_staff.faces?faces-redirect=true";
     }
     
     public List<Registration> getRegList(Volunteer user) {
@@ -64,27 +121,35 @@ public class ProfileStaffController implements Serializable {
         this.staff = staff;
     }
 
-    public RegistrationEJB getRegEJB() {
-        return regEJB;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRegEJB(RegistrationEJB regEJB) {
-        this.regEJB = regEJB;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public UsersEJB getUserEJB() {
-        return userEJB;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserEJB(UsersEJB userEJB) {
-        this.userEJB = userEJB;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

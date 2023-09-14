@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
 
     </h:head>
@@ -43,32 +44,32 @@
                         <h1>EDIT YOUR PROFILE</h1>
                     </div>
 
-                    <h:form>
+                    <h:form id="editForm">
                         <div class="row g-5 py-4">
                             <div class="col-lg-6">
                                 <div class="form-row pb-4 row gx-3" id="nameRow">
                                     <div class="col-md-6">
                                         <div class="form-group" id="firstNameCol">
-                                            <h:inputText class="form-control" id="firstName" value="#{profileController.volunteer.firstName}"/>
+                                            <h:inputText class="form-control" id="firstName" value="#{profileController.firstName}" a:placeholder="First name"/>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group" id="lastNameCol">
-                                            <h:inputText class="form-control" id="lastName" value="#{profileController.volunteer.lastName}"/>
+                                            <h:inputText class="form-control" id="lastName" value="#{profileController.lastName}" a:placeholder="Last name"/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-row pb-4" id="emailRow">
                                     <div class="form-group">
-                                        <h:inputText class="form-control" id="email" value="#{profileController.volunteer.email}"/>
+                                        <h:inputText class="form-control" id="email" value="#{profileController.email}" a:placeholder="Email address"/>
                                     </div>
                                 </div>
 
                                 <div class="form-row pb-4" id="phoneRow">
                                     <div class="form-group">
-                                        <h:inputText class="form-control" id="phone" value="#{profileController.volunteer.phone}"/>
+                                        <h:inputText class="form-control" id="phone" value="#{profileController.phone}" a:placeholder="Phone number"/>
                                     </div>
                                 </div>
 
@@ -105,9 +106,11 @@
                                     </h:panelGroup>
                                 </div>
 
+                                <div class="row"><p><h:message id="editMsg" for="editForm"/></p></div>
+                                
                                 <div class="form-row d-flex align-items-center pb-4" id="buttonsRow" style="float: right;">
                                     <a href="profile.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
-                                    <h:commandButton action="#{profileController.edit()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                    <h:commandButton action="#{profileController.edit(user)}" class="btn btn-primary" value="SAVE" id="submitButton"/>
                                 </div>
                             </div>
                         </div>

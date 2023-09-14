@@ -3,6 +3,7 @@ package ejb;
 import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
@@ -30,10 +31,26 @@ public class SignUpController implements Serializable {
         
     }
     
+    public boolean checkFields()
+    {
+        if(firstName.isBlank() || lastName.isBlank() || phoneNumber.isBlank() || emailAddress.isBlank() || password.isBlank())
+            return true;
+        
+        return false;
+    }
+    
     //Important! - Currently not being activated by sign_up.xhtml, please check.
     public String signupVolunteer() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage signupError = new FacesMessage("", "One or more fields are blank or filled incorrectly. Please check and try again.");
+        
+        if(checkFields())
+        {
+            ctx.addMessage("signUpForm", signupError);
+            navResult = null;
+            return navResult;
+        }
         
         // Is the email assigned to existing account?
         try {
@@ -82,26 +99,30 @@ public class SignUpController implements Serializable {
                 phoneNumber = "";
                 emailAddress = "";
                 password = "";
-                navResult = "index.faces";
+                navResult = "index.faces?faces-redirect=true";
             }
             else {
                 // Entry problem!
-                firstName = "";
+                /*firstName = "";
                 lastName = "";
                 phoneNumber = "";
-                emailAddress = "";
+                emailAddress = "";*/
                 password = "";
-                navResult = "sign_up.faces";
+                
+                ctx.addMessage("signUpForm", signupError);
+                navResult = null;
             }
         }
         // User already exists
         else {
-            firstName = "";
+            /*firstName = "";
             lastName = "";
-            phoneNumber = "";
-            emailAddress = ""; 
+            phoneNumber = "";*/
+            emailAddress = "";
             password = "";
-            navResult = "login.faces";
+            
+            ctx.addMessage("signUpForm", new FacesMessage("", "This email is already in use by another user."));
+            navResult = null;
         }
         return navResult;
     }

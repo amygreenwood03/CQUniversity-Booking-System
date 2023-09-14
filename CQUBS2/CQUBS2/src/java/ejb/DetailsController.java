@@ -73,7 +73,7 @@ public class DetailsController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().put("user", reg.getVolunteer());
         
-        return "service_details.faces";
+        return "service_details.faces?salId=" + sal.getSalId();
     }
     
     public boolean registrationStatus(Volunteer user) {

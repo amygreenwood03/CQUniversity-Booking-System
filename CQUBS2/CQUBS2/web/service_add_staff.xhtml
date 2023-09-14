@@ -40,7 +40,7 @@
                         <h1>ADD NEW SERVICE</h1>
                     </div>
 
-                    <h:form enctype="multipart/form-data">
+                    <h:form enctype="multipart/form-data" id="createForm">
                         <div class="row g-5 py-4">
                             <div class="col-lg-6">
                                 <div class="form-row pb-4" id="serviceNameRow">
@@ -108,6 +108,8 @@
                                 <div class="form-row py-4 px-4" id="uploadRow">
                                     <h:inputFile value="#{serviceAddController.promoImg}" id="promoImages"/>
                                 </div>
+                                
+                                <div class="row pt-4"><p><h:message id="createMsg" for="createForm"/></p></div>
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
                                     <a href="services_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>

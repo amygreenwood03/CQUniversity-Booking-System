@@ -73,8 +73,9 @@
                             </div>
 
                             <div class="row py-4 d-flex align-items-center" style="border-top: 2px solid #ebebea;">
-                                <a href="category_edit_staff.faces" style="max-width: fit-content;"><button class="btn btn-primary">EDIT CATEGORY</button></a>
-                                <h:form style="max-width: fit-content"><h:commandButton action="#{cDetailsStaffController.delete()}" class="btn btn-primary" value="REMOVE CATEGORY"/></h:form>
+                                <h:button outcome="category_edit_staff" style="max-width: fit-content" value="EDIT CATEGORY" class="btn btn-primary"/>
+                                <button style="max-width: fit-content" class="btn btn-primary ms-4" onclick="deleteCatConfirm()">REMOVE CATEGORY</button>
+                                <h:form id="hiddenForm" style="max-width: fit-content; display: none"><h:commandButton id="hiddenBtn" action="#{cDetailsStaffController.delete()}" style="display: none"/></h:form>
                             </div>
                         </div>
 

@@ -27,11 +27,11 @@
                             </li>
 
                             <li class="breadcrumb-item">
-                                <a href="categories_staff.faces"><strong>SERVICES</strong></a>
+                                <a href="categories_staff.faces"><strong>CATEGORIES</strong></a>
                             </li>
                             
                             <li class="breadcrumb-item">
-                                <a href="category_details_staff.faces"><strong>#{cDetailsStaffController.category.categoryName}</strong></a>
+                                <a href="category_details_staff.faces?categoryId=#{cDetailsStaffController.category.cat_id}"><strong>#{cDetailsStaffController.category.categoryName}</strong></a>
                             </li>
 
                             <li class="breadcrumb-item" aria-current="page">
@@ -48,12 +48,12 @@
                         <h1>EDIT #{cDetailsStaffController.category.categoryName}</h1>
                     </div>
 
-                    <h:form enctype="multipart/form-data">
+                    <h:form enctype="multipart/form-data" id="editForm">
                         <div class="row g-5 py-4">
                             <div class="col-lg-6">
                                 <div class="form-row pb-4" id="categoryNameRow">
                                     <div class="form-group">
-                                        <h:inputText class="form-control" id="name" value="#{cDetailsStaffController.category.categoryName}" a:placeholder="Category name"/>
+                                        <h:inputText class="form-control" id="name" value="#{cDetailsStaffController.categoryName}" a:placeholder="Category name"/>
                                     </div>
                                 </div>
 
@@ -64,9 +64,11 @@
                                 <div class="form-row py-4 px-4" id="uploadRow">
                                     <h:inputFile value="#{cDetailsStaffController.promoImg}" id="promoImages"/>
                                 </div>
+                                
+                                <div class="row pt-4"><p><h:message id="editMsg" for="editForm"/></p></div>
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
-                                    <a href="categories_staff.faces" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
+                                    <a href="category_details_staff.faces?categoryId=#{cDetailsStaffController.category.cat_id}" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
                                     <h:commandButton action="#{cDetailsStaffController.edit()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
                                 </div>
                             </div>

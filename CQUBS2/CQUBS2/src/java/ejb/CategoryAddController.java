@@ -6,6 +6,7 @@ import java.io.Serializable;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.InputStream;
@@ -36,8 +37,25 @@ public class CategoryAddController implements Serializable
     {
     }
     
-    public void create(Staff user)
+    public boolean checkFields()
     {
+        if(category.getCategoryName().isBlank() || promoImg == null)
+            return true;
+        
+        return false;
+    }
+    
+    public String create(Staff user)
+    {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
+        
+        if(checkFields())
+        {
+            ctx.addMessage("createForm", createError);
+            return null;
+        }
+        
         uploadImg();
         
         category.setImageUrl(imageUrl);
@@ -45,16 +63,7 @@ public class CategoryAddController implements Serializable
         
         categoryEJB.createCategory(category);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try
-        {
-            ctx.getExternalContext().redirect("categories_staff.faces");
-        }
-        catch(IOException e)
-        {
-            
-        }
+        return "categories_staff.faces?faces-redirect=true";
     }
     
     public void uploadImg()

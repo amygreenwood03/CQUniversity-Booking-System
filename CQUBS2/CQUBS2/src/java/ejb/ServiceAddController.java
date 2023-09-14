@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import jakarta.servlet.http.Part;
@@ -16,7 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * This controller allows staffs to add a new service on a category.
+ * This controller allows staff to add a new service on a category.
  */
 
 @Named(value = "serviceAddController")
@@ -67,13 +68,48 @@ public class ServiceAddController implements Serializable {
         service = new Service();
     }
     
-    public void create() {
+    public boolean checkFields()
+    {
+        if(service.getServiceName().isBlank() || selectedLocationsList.isEmpty() || selectedPrice.isBlank() || selectedCategoryId == 0L || promoImg == null || service.getServiceDescription().isBlank())
+            return true;
+        
+        return false;
+    }
+    
+    public String create() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
+        
+        if(checkFields())
+        {
+            ctx.addMessage(("createForm"), createError);
+            return null;
+        }
+        
         uploadImg();
         
         if(selectedPrice.equals("Free"))
             service.setServicePrice(0.0);
         else
-            service.setServicePrice(Double.parseDouble(priceString));
+        {
+            if(priceString.isBlank())
+            {
+                ctx.addMessage(("createForm"), createError);
+                return null;
+            }
+            else
+            {
+                try
+                {
+                    service.setServicePrice(Double.parseDouble(priceString));
+                }
+                catch(NumberFormatException e)
+                {
+                    ctx.addMessage("createForm", new FacesMessage("", "The specified service price must be a number."));
+                    return null;
+                }
+            }
+        }
         
         service.setCategory(categoryEJB.findCategoryById(selectedCategoryId));
         service.setImageUrl(imageUrl);
@@ -88,14 +124,7 @@ public class ServiceAddController implements Serializable {
         
         serviceEJB.createService(service);
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        try {
-            ctx.getExternalContext().redirect("services_staff.faces");
-        }
-        catch(IOException e) {
-            
-        }
+        return "services_staff.faces?faces-redirect=true";
     }
     
     public void uploadImg()
