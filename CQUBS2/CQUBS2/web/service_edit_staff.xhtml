@@ -96,19 +96,20 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row pb-4" id="priceRow">
+                                <h:panelGroup layout="block" class="form-row pb-4" id="priceRow">
                                     <h4>PRICE</h4>
                                     <div class="form-group d-md-flex align-items-center" id="priceOptions">
                                         <h:selectOneRadio value="#{detailsStaffController.selectedPrice}">
                                             <f:selectItem itemValue="Free" itemLabel="&nbsp;Free" class="pe-4"/>
                                             <f:selectItem itemValue="Charge" itemLabel="&nbsp;Charge" class="pe-4"/>
+                                            <f:ajax render="priceRow"/>
                                         </h:selectOneRadio>
 
                                         <div>
-                                            <h:inputText class="form-control" id="price" value="#{detailsStaffController.priceString}" a:placeholder="$"/>
+                                            <h:inputText class="form-control" id="price" value="#{detailsStaffController.priceString}" a:placeholder="$" disabled="#{detailsStaffController.selectedPrice eq 'Free'}"/>
                                         </div>
                                     </div>
-                                </div>
+                                </h:panelGroup>
 
                                 <div class="form-row pb-4" id="descriptionRow">
                                     <div class="form-group">

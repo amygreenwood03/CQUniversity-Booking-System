@@ -105,8 +105,10 @@ public class DetailsStaffController implements Serializable {
                 selectedPrice = "Charge";
                 priceString = df.format(service.getServicePrice());
             }
-            else
+            else {
                 selectedPrice = "Free";
+                priceString = "";
+            }
         }
         else {
             try {

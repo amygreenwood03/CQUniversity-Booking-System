@@ -62,7 +62,7 @@ public class ServiceAddController implements Serializable {
         categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
         
         selectedLocationsList.clear();
-        selectedPrice = "";
+        selectedPrice = "Free";
         priceString = "";
         
         service = new Service();
@@ -124,7 +124,8 @@ public class ServiceAddController implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
         //Change the image path to your Glassfish docroot/images folder
-        String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
+        //String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
+        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;

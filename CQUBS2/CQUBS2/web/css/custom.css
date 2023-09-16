@@ -92,6 +92,11 @@ h1,h2,h3,h4,h5
     background-color: #4f7392;
 }
 
+.btn-primary:disabled
+{
+    background-color: #74746d;
+}
+
 .btn-secondary
 {
     color: #003057;

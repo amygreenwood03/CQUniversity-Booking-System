@@ -66,7 +66,7 @@
                                 <h:button outcome="service_edit_staff" style="max-width: fit-content;" value="EDIT SERVICE" class="btn btn-primary"/>
                                 <button style="max-width: fit-content" class="btn btn-primary mx-4" onclick="deleteServConfirm()">REMOVE SERVICE</button>
                                 <h:form id="hiddenForm" style="max-width: fit-content; display: none"><h:commandButton id="hiddenBtn" action="#{detailsStaffController.serviceDelete()}" style="display: none"/></h:form>
-                                <h:button outcome="send_notif_staff" style="max-width: fit-content" value="SEND EMAIL" class="btn btn-primary"><f:param name="salId" value="#{detailsStaffController.sal.salId}"/></h:button>
+                                <h:button outcome="send_notif_staff" style="max-width: fit-content" value="SEND EMAIL" class="btn btn-primary" disabled="#{detailsStaffController.getRegList(detailsStaffController.sal).size() eq 0}"><f:param name="salId" value="#{detailsStaffController.sal.salId}"/></h:button>
                             </div>
                         </div>
 

@@ -35,6 +35,7 @@ public class AuthFilter implements Filter {
         String staffServices = context + "/services_staff.faces";
         String staffSAdd = context + "/service_add_staff.faces";
         String staffSEdit = context + "/service_edit_staff.faces";
+        String staffNotif = context + "/send_notif_staff.faces";
         String staffProfile = context + "/profile_staff.faces";
         String staffEditProfile = context + "/profile_edit_staff.faces";
         String staffCDetails = context + "/category_details_staff.faces";
@@ -83,6 +84,8 @@ public class AuthFilter implements Filter {
                         response.sendRedirect(genProfile);
                 }
                 else if(url.equals(staffSAdd) || url.equals(staffSEdit) || url.equals(staffCAdd) || url.equals(staffCEdit) || url.equals(staffCategories) || url.equals(staffCDetails))
+                    response.sendRedirect(genServices);
+                else if(url.equals(staffNotif))
                     response.sendRedirect(genServices);
             }
         }

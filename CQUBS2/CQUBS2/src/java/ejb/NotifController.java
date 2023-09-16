@@ -2,6 +2,7 @@ package ejb;
 
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -60,8 +62,8 @@ public class NotifController implements Serializable {
     public void sendEmail() {
         try {
             //Get email list
-            List<Registration> registrationList = sal.getRegList(); //Registration list of the SAL
-            List<String> emailList = null; //List of the email address of volunteers will be saved here
+            List<Registration> registrationList = getRegList(sal); //Registration list of the SAL
+            List<String> emailList = new ArrayList<>(); //List of the email address of volunteers will be saved here
             
             String emailReceivers = "";
             if(!registrationList.isEmpty()) {
@@ -80,8 +82,8 @@ public class NotifController implements Serializable {
             }
             
             //Send email via SMTP TLS
-            final String smtpService = ""; //Enter your SMTP hostname. Example: "smtp.gmail.com" for Gmail SMTP
-            final String smtpPort = ""; //Enter your SMTP port. Example: 587 for Gmail TLS
+            final String smtpService = "smtp.gmail.com"; //Enter your SMTP hostname. Example: "smtp.gmail.com" for Gmail SMTP
+            final String smtpPort = "587"; //Enter your SMTP port. Example: 587 for Gmail TLS
             final String senderAddress = ""; //email address of sender
             final String senderPassword = ""; //email password of sender
             
@@ -108,6 +110,7 @@ public class NotifController implements Serializable {
             propSMTP.put("mail.smtp.host",smtpService);
             propSMTP.put("mail.smtp.port", smtpPort);
             propSMTP.put("mail.smtp.auth", "true");
+            propSMTP.put("mail.smtp.ssl.protocols", "TLSv1.2");
             propSMTP.put("mail.smtp.starttls.enable","true");
             
             Session sessionSMTP = Session.getInstance(propSMTP, new jakarta.mail.Authenticator() {
@@ -125,7 +128,9 @@ public class NotifController implements Serializable {
         }
         //issues with sending emails
         catch(Exception e) {
-            
+            e.printStackTrace();
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("sendForm", new FacesMessage("", e.getMessage()));
         }
     }
     
