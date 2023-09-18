@@ -18,4 +18,10 @@ function deleteServConfirm()
     }
 }
 
+function tempNotif()
+{
+    var alertText = "This function has not yet been fully implemented.\nClick OK to be redirected back to the details page of the current service.";
+    
+    alert(alertText);
+}
 

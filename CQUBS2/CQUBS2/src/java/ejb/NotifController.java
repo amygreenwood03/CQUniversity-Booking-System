@@ -59,7 +59,25 @@ public class NotifController implements Serializable {
         }
     }
     
-    public void sendEmail() {
+    public boolean checkFields()
+    {
+        if(firstName.isBlank() || lastName.isBlank() || phone.isBlank() || detailsText.isBlank())
+            return true;
+        
+        return false;
+    }
+    
+    public String sendEmail() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
+        FacesMessage errorMsg = new FacesMessage("", "Please fill out all fields.");
+        
+        if(checkFields())
+        {
+            ctx.addMessage("sendForm", errorMsg);
+            return null;
+        }
+        
         try {
             //Get email list
             List<Registration> registrationList = getRegList(sal); //Registration list of the SAL
@@ -92,15 +110,20 @@ public class NotifController implements Serializable {
             final String emailContent = "Dear volunteers, \n"
                     + "You have received this email as you registered for the event \"" + sal.getService().getServiceName() + "\", "
                     + "at your selected location, " + sal.getLocation().getLocationName() + ". "
-                    + "Please visit the website to check your event details again. \n\n"
-                    + "Kind Regards, \n" + firstName + " " + lastName;
+                    + "The available sessions and extra details are as follows:\n\n" + detailsText + "\n\n"
+                    + "Please contact " + firstName + " " + lastName + " on " + phone + " if interested in arranging a booking.\n\n"
+                    + "Kind Regards, \n" + user.getFirstName() + " " + user.getLastName();
             
             /* The email text is as follows: 
             Event reminder email: (Service name) at (Service location)
             
             Dear volunteers,
             You have received this email as you registered for the event "(Event name)", at your selected location, (Location name).
-            Please visit the website to check your event details again.
+            The available sessions and extra details are as follows:
+            
+            (Details text)
+            
+            Please contact (First name) (Last name) on (Phone number) if interested in arranging a booking.
             
             Kind Regards,
             (First name) (Last name)
@@ -128,10 +151,17 @@ public class NotifController implements Serializable {
         }
         //issues with sending emails
         catch(Exception e) {
-            e.printStackTrace();
-            FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("sendForm", new FacesMessage("", e.getMessage()));
+            return null;
         }
+        
+        return "service_details_staff.faces?faces-redirect=true";
+    }
+    
+    //temporary due to incomplete email functionality
+    public String redirect()
+    {
+        return "service_details_staff.faces?faces-redirect=true";
     }
     
     public String renderPrice(double price) {

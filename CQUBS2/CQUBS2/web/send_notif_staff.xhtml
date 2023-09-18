@@ -94,13 +94,13 @@
                                     <h5><i class="fas fa-dollar-sign fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.renderPrice(notifController.sal.service.servicePrice)}</h5>
                                     <h5><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;#{notifController.getRegList(notifController.sal).size()}</h5>
                                 </div>
+                                
+                                <div class="row pt-4"><p><h:message id="sendMsg" for="sendForm"/></p></div>
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
                                     <a href="service_details_staff.faces?salId=#{notifController.sal.salId}" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
-                                    <h:commandButton action="#{notifController.sendEmail()}" class="btn btn-primary" value="SAVE" id="submitButton"/>
+                                    <h:commandButton class="btn btn-primary" style="max-width: fit-content" action="#{notifController.redirect()}" onclick="tempNotif()" value="SAVE"/>
                                 </div>
-                                
-                                <div class="row"><h:message for="sendForm"/></div>
                             </div>
                         </div>
                     </h:form>
