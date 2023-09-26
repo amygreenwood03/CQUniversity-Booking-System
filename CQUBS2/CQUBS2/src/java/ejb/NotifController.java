@@ -133,8 +133,7 @@ public class NotifController implements Serializable {
             propSMTP.put("mail.smtp.host",smtpService);
             propSMTP.put("mail.smtp.port", smtpPort);
             propSMTP.put("mail.smtp.auth", "true");
-            propSMTP.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            propSMTP.put("mail.smtp.starttls.enable","true");
+            propSMTP.put("mail.smtp.starttls.enable", "true");
             
             Session sessionSMTP = Session.getInstance(propSMTP, new jakarta.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -151,6 +150,7 @@ public class NotifController implements Serializable {
         }
         //issues with sending emails
         catch(Exception e) {
+            e.printStackTrace();
             ctx.addMessage("sendForm", new FacesMessage("", e.getMessage()));
             return null;
         }

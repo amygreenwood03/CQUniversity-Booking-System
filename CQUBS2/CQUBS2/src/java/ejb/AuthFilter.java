@@ -55,20 +55,28 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
         }
         else if(url.matches(".*login.*\\.faces") || url.matches(".*sign_up.*\\.faces")) {
-            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
+            if(session != null 
+                    && session.getAttribute("user") != null 
+                    && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 response.sendRedirect(staffHome);
-            else if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Volunteer"))
+            else if(session != null 
+                    && session.getAttribute("user") != null 
+                    && session.getAttribute("user").getClass().getSimpleName().equals("Volunteer"))
                 response.sendRedirect(genHome);
             else
                 chain.doFilter(request, response);
         }
         else if(url.equals(about))
-            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
+            if(session != null 
+                    && session.getAttribute("user") != null 
+                    && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 response.sendRedirect(staffHome);
             else
                 chain.doFilter(request, response);
         else if(url.matches(".*_staff\\.faces")) {
-            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
+            if(session != null 
+                    && session.getAttribute("user") != null 
+                    && session.getAttribute("user").getClass().getSimpleName().equals("Staff"))
                 chain.doFilter(request, response);
             else {   
                 if(url.equals(staffHome))
@@ -83,14 +91,21 @@ public class AuthFilter implements Filter {
                     else
                         response.sendRedirect(genProfile);
                 }
-                else if(url.equals(staffSAdd) || url.equals(staffSEdit) || url.equals(staffCAdd) || url.equals(staffCEdit) || url.equals(staffCategories) || url.equals(staffCDetails))
+                else if(url.equals(staffSAdd) 
+                        || url.equals(staffSEdit) 
+                        || url.equals(staffCAdd) 
+                        || url.equals(staffCEdit) 
+                        || url.equals(staffCategories) 
+                        || url.equals(staffCDetails))
                     response.sendRedirect(genServices);
                 else if(url.equals(staffNotif))
                     response.sendRedirect(genServices);
             }
         }
         else if(url.matches(".*\\.faces")) {
-            if(session != null && session.getAttribute("user") != null && session.getAttribute("user").getClass().getSimpleName().equals("Staff")) {
+            if(session != null 
+                    && session.getAttribute("user") != null 
+                    && session.getAttribute("user").getClass().getSimpleName().equals("Staff")) {
                 if(url.equals(genHome))
                     response.sendRedirect(staffHome);
                 else if(url.equals(genDetails))

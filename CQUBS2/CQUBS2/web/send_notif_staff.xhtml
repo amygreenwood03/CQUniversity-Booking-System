@@ -99,7 +99,7 @@
 
                                 <div class="form-row d-flex align-items-center py-4" id="buttonsRow" style="float: right;">
                                     <a href="service_details_staff.faces?salId=#{notifController.sal.salId}" style="max-width: fit-content;"><input type="button" class="btn btn-secondary mx-4" value="CANCEL" id="cancelButton"/></a>
-                                    <h:commandButton class="btn btn-primary" style="max-width: fit-content" action="#{notifController.redirect()}" onclick="tempNotif()" value="SAVE"/>
+                                    <h:commandButton class="btn btn-primary" style="max-width: fit-content" action="#{notifController.sendEmail()}" value="SAVE"/>
                                 </div>
                             </div>
                         </div>
