@@ -59,8 +59,8 @@ public class NotifController implements Serializable {
         }
     }
     
-    public boolean checkFields()
-    {
+    public boolean checkFields() {
+        //Make sure no entries are blank
         if(firstName.isBlank() || lastName.isBlank() || phone.isBlank() || detailsText.isBlank())
             return true;
         
@@ -72,8 +72,7 @@ public class NotifController implements Serializable {
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
         FacesMessage errorMsg = new FacesMessage("", "Please fill out all fields.");
         
-        if(checkFields())
-        {
+        if(checkFields()) {
             ctx.addMessage("sendForm", errorMsg);
             return null;
         }
@@ -129,18 +128,21 @@ public class NotifController implements Serializable {
             (First name) (Last name)
             */
             
+            //Starting to generate SMTP server profile with preset values
             Properties propSMTP = new Properties();
             propSMTP.put("mail.smtp.host",smtpService);
             propSMTP.put("mail.smtp.port", smtpPort);
             propSMTP.put("mail.smtp.auth", "true");
             propSMTP.put("mail.smtp.starttls.enable", "true");
             
+            //SMTP Authentication. Please check your certification details
             Session sessionSMTP = Session.getInstance(propSMTP, new jakarta.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(senderAddress, senderPassword);
                 }
             });
             
+            //Actual message construction
             Message message = new MimeMessage(sessionSMTP);
             message.setFrom(new InternetAddress(senderAddress));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailReceivers));
@@ -159,8 +161,7 @@ public class NotifController implements Serializable {
     }
     
     //temporary due to incomplete email functionality
-    public String redirect()
-    {
+    public String redirect() {
         return "service_details_staff.faces?faces-redirect=true";
     }
     
