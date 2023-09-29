@@ -101,8 +101,8 @@ public class NotifController implements Serializable {
             //Send email via SMTP TLS
             final String smtpService = "smtp.gmail.com"; //Enter your SMTP hostname. Example: "smtp.gmail.com" for Gmail SMTP
             final String smtpPort = "587"; //Enter your SMTP port. Example: 587 for Gmail TLS
-            final String senderAddress = ""; //email address of sender
-            final String senderPassword = ""; //email password of sender
+            final String senderAddress = "cqubs2@gmail.com"; //email address of sender
+            final String senderPassword = "khjq pani zgtr pldc "; //email password of sender
             
             //Change your email contents here
             final String emailSubject = "Event reminder email: " + sal.getService().getServiceName() + " at " + sal.getLocation().getLocationName();
