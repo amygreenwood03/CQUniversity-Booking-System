@@ -41,15 +41,6 @@ CREATE TABLE IF NOT EXISTS User (
     PRIMARY KEY (USER_ID)
 );
 
--- Create the Login table
-CREATE TABLE IF NOT EXISTS Login (
-	LOGIN_ID INT AUTO_INCREMENT,
-    EMAIL CHAR(50) NOT NULL,
-    PASSWORD CHAR(128) NOT NULL, -- allowing for SHA512 encryption
-    SALT CHAR(255),
-    PRIMARY KEY (LOGIN_ID)
-);
-
 -- Create the Staff table
 CREATE TABLE IF NOT EXISTS Staff (
     USER_ID INT PRIMARY KEY,
