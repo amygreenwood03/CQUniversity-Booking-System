@@ -102,6 +102,7 @@ public class ServiceAtLocation implements Serializable {
         return true;
     }
 
+    //returns representation of object as string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.ServiceAtLocation[ id=" + salId + " ]";

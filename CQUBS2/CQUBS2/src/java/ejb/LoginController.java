@@ -20,29 +20,31 @@ import java.security.MessageDigest;
 @SessionScoped
 public class LoginController implements Serializable {
     @EJB
-    private UsersEJB usersEJB;
-    private final String PAGE_NAME = "Volunteer Login";
-    private String username,password = "";
+    private UsersEJB usersEJB; //UsersEJB instance
+    private final String PAGE_NAME = "Volunteer Login"; //page title
+    private String username,password = ""; //credentials entered by user
+    
+    //default constructor
     public LoginController() {
         
     }
     
-    public boolean checkFields()
-    {
+    //returns whether form fields are empty
+    public boolean checkFields() {
         if(username.isBlank() || password.isBlank())
             return true;
         
         return false;
     }
     
+    //attempts to login to volunteer account using supplied credentials
     public String login() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage loginError = new FacesMessage("", "Your credentials are invalid. Please check them and try again.");
         Volunteer volunteerAccount;
         
-        if(checkFields())
-        {
+        if(checkFields()) {
             ctx.addMessage("loginForm", loginError);
             navResult = null;
             return navResult;
@@ -58,7 +60,7 @@ public class LoginController implements Serializable {
 
         if (volunteerAccount == null){
             //No user found, wrong login 
-            //ctx.addMessage("loginForm", loginError);
+            ctx.addMessage("loginForm", loginError);
             
             navResult = null;
         }
@@ -96,7 +98,6 @@ public class LoginController implements Serializable {
             }
             else {
                 //password doesn't match, return to login page
-                //username = "";
                 password = "";
                 ctx.addMessage("loginForm", loginError);
                 navResult = null;
@@ -105,28 +106,34 @@ public class LoginController implements Serializable {
         return navResult;
     }
     
+    //logs out of volunteer account and discards session
     public String logout() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().clear();
         return "index.faces?faces-redirect=true";
     }
 
+    //username accessor
     public String getUsername() {
         return username;
     }
 
+    //username mutator
     public void setUsername(String username) {
         this.username = username;
     }
 
+    //password accessor
     public String getPassword() {
         return password;
     }
 
+    //password mutator
     public void setPassword(String password) {
         this.password = password;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }

@@ -1,6 +1,5 @@
 /*
  * ServiceAtLocationEJB.java - Session Bean for Service At Location classes
- * Bean to implement ServiceAtLocationRemote interface
  */
 package ejb;
 
@@ -18,71 +17,69 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-//@Remote(ServiceAtLocationRemote.class)
 public class ServiceAtLocationEJB{
 
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
-    private EntityManager em;
+    private EntityManager em; //entity manager instance
     
     @Resource
-    SessionContext ctx;
+    SessionContext ctx; //current session context of server
 
-    // Public methods
-    //@Override
+    //returns all sals
     public List<ServiceAtLocation> findSALs() {
         TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findAllSALs", ServiceAtLocation.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns sal based on id
     public ServiceAtLocation findSALById(Long id) {
         return em.find(ServiceAtLocation.class, id);
     }
     
-    public List<ServiceAtLocation> findSALsByLocation(Location location)
-    {
+    //returns sals based on location
+    public List<ServiceAtLocation> findSALsByLocation(Location location) {
         TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByLocation", ServiceAtLocation.class);
         query.setParameter("lid", location.getLocationId());
         return query.getResultList();
     }
     
-    public List<ServiceAtLocation> findSALsByCategory(Category category)
-    {
+    //returns sals based on category
+    public List<ServiceAtLocation> findSALsByCategory(Category category) {
         TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByCategory", ServiceAtLocation.class);
         query.setParameter("cid", category.getCat_id());
         return query.getResultList();
     }
     
-    public List<ServiceAtLocation> findSALsByService(Service service)
-    {
+    //returns sals based on service
+    public List<ServiceAtLocation> findSALsByService(Service service) {
         TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByService", ServiceAtLocation.class);
         query.setParameter("sid", service.getServiceId());
         return query.getResultList();
     }
     
-    public List<ServiceAtLocation> findSALsByDepartment(Department department)
-    {
+    //return sals by department
+    public List<ServiceAtLocation> findSALsByDepartment(Department department) {
         TypedQuery<ServiceAtLocation> query = em.createNamedQuery("findSALsByDepartment", ServiceAtLocation.class);
         query.setParameter("did", department.getDepartmentId());
         return query.getResultList();
     }
     
-    //@Override
+    //creates new sal
     public ServiceAtLocation createSAL(ServiceAtLocation sal) {
         em.persist(sal);
         System.out.println(ctx.getCallerPrincipal().getName());
         return sal;
     }
 
-    //@Override
+    //deletes existing sal
     public void deleteSAL(ServiceAtLocation sal) {
         sal = em.find(ServiceAtLocation.class, sal.getSalId());
         sal = em.merge(sal);
         em.remove(sal);
     }
 
-    //@Override
+    //edits existing sal
     public ServiceAtLocation updateSAL(ServiceAtLocation sal) {
         return em.merge(sal);
     }

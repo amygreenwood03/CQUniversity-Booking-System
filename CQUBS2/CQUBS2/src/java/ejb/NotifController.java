@@ -24,21 +24,23 @@ import java.util.Properties;
 @SessionScoped
 public class NotifController implements Serializable {
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocationEJB instance
     @EJB
-    private RegistrationEJB regEJB;
+    private RegistrationEJB regEJB; //RegistrationEJB instance
     
-    private Long salId = 0L;
+    private Long salId = 0L; //stores sal id passed from previous view
     
-    private ServiceAtLocation sal = new ServiceAtLocation();
-    private String firstName, lastName, phone, detailsText;
-    private final String PAGE_NAME = "Send Email Notification";
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private ServiceAtLocation sal = new ServiceAtLocation(); //stores current sal
+    private String firstName, lastName, phone, detailsText; //contents of form fields
+    private final String PAGE_NAME = "Send Email Notification"; //page title
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //decimal formatting for prices
     
+    //default constructor
     public NotifController() {
         
     }
     
+    //initialises page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -59,14 +61,15 @@ public class NotifController implements Serializable {
         }
     }
     
+    //returns whether form fields are empty
     public boolean checkFields() {
-        //Make sure no entries are blank
         if(firstName.isBlank() || lastName.isBlank() || phone.isBlank() || detailsText.isBlank())
             return true;
         
         return false;
     }
     
+    //sends email using gmail SMTP to all registered volunteers
     public String sendEmail() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
@@ -160,11 +163,7 @@ public class NotifController implements Serializable {
         return "service_details_staff.faces?faces-redirect=true";
     }
     
-    //temporary due to incomplete email functionality
-    public String redirect() {
-        return "service_details_staff.faces?faces-redirect=true";
-    }
-    
+    //returns representation of price as string
     public String renderPrice(double price) {
         String priceAsString;
         if(price > 0.0)
@@ -175,59 +174,73 @@ public class NotifController implements Serializable {
         return priceAsString;
     }
     
+    //returns all registrations for a sal
     public List<Registration> getRegList(ServiceAtLocation servAtLocation) {
         List<Registration> regList = regEJB.findRegistrationsBySAL(servAtLocation);
         return regList;
     }
 
+    //salId accessor
     public Long getSalId() {
         return salId;
     }
 
+    //salId mutator
     public void setSalId(Long salId) {
         this.salId = salId;
     }
 
+    //sal accessor
     public ServiceAtLocation getSal() {
         return sal;
     }
 
+    //sal mutator
     public void setSal(ServiceAtLocation sal) {
         this.sal = sal;
     }
 
+    //firstName accessor
     public String getFirstName() {
         return firstName;
     }
 
+    //firstName mutator
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    //lastName accessor
     public String getLastName() {
         return lastName;
     }
 
+    //lastName mutator
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    //phone accessor
     public String getPhone() {
         return phone;
     }
 
+    //phone mutator
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    //detailsText accessor
     public String getDetailsText() {
         return detailsText;
     }
 
+    //detailsText mutator
     public void setDetailsText(String detailsText) {
         this.detailsText = detailsText;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }

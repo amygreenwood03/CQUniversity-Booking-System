@@ -19,16 +19,18 @@ import java.text.DecimalFormat;
 @SessionScoped
 public class HomeStaffController implements Serializable {
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //ServiceEJB instance
     
-    private List<Service> recentServicesList = new ArrayList<>();
-    private final String PAGE_NAME = "Staff Home";
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private List<Service> recentServicesList = new ArrayList<>(); //stores most recent services in database
+    private final String PAGE_NAME = "Staff Home"; //page title
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //decimal formatting for prices
     
+    //default constructor
     public HomeStaffController() {
         
     }
     
+    //initialises page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
@@ -36,6 +38,7 @@ public class HomeStaffController implements Serializable {
         recentServicesList = servicesList;
     }
     
+    //returns representation of price as string
     public String renderPrice(double price) {
         String priceAsString = "";
         
@@ -46,19 +49,18 @@ public class HomeStaffController implements Serializable {
         
         return priceAsString;
     }
-    
-    public String redirect() {
-        return "index.faces";
-    }
 
+    //recentServicesList accessor
     public List<Service> getRecentServicesList() {
         return recentServicesList;
     }
 
+    //recentServicesList mutator
     public void setRecentServicesList(List<Service> recentServicesList) {
         this.recentServicesList = recentServicesList;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }

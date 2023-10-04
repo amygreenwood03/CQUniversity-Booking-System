@@ -11,9 +11,7 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
-@NamedQuery(
-    name="findAllVolunteers",
-        query="SELECT v FROM Volunteer v")
+@NamedQuery(name="findAllVolunteers", query="SELECT v FROM Volunteer v")
 @DiscriminatorValue("VOL")
 @Table(name="VOLUNTEER")
 public class Volunteer extends Users {
@@ -40,9 +38,9 @@ public class Volunteer extends Users {
         this.regList = regList;
     }
 
+    //returns representation of object as string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.Volunteer[ id=" + id + " ]";
     }
-    
 }

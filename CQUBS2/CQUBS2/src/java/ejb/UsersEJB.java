@@ -1,6 +1,5 @@
 /*
  * UsersEJB.java - Session Bean for User/Staff/Volunteer classes
- * Bean to implement UsersRemote interface
  */
 package ejb;
 
@@ -18,69 +17,67 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-//@Remote(UsersRemote.class)
 public class UsersEJB{
 
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
-    private EntityManager em;
+    private EntityManager em; //entity manager instance
     
     @Resource
-    SessionContext ctx;
+    SessionContext ctx; //current session context of server
     
-    // Public methods
-    //@Override
+    //returns all staff
     public List<Staff> findStaff() {
         TypedQuery<Staff> query = em.createNamedQuery("findAllStaff", Staff.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns all volunteers
     public List<Volunteer> findVolunteer() {
         TypedQuery<Volunteer> query = em.createNamedQuery("findAllVolunteers", Volunteer.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns staff based on id
     public Staff findStaffById(Long id) {
         return em.find(Staff.class, id);
     }
 
-    //@Override
+    //returns volunteer based on id
     public Volunteer findVolById(Long id) {
         return em.find(Volunteer.class, id);
     }
 
-    //@Override
+    //creates new staff
     public Staff createStaff(Staff staff) {
         em.persist(staff);
         System.out.println(ctx.getCallerPrincipal().getName());
         return staff;
     }
 
-    //@Override
+    //creates new volunteer
     public Volunteer createVolunteer(Volunteer volunteer) {
         em.persist(volunteer);
         System.out.println(ctx.getCallerPrincipal().getName());
         return volunteer;
     }
 
-    //@Override
+    //deletes existing staff
     public void deleteStaff(Staff staff) {
         em.remove(em.merge(staff));
     }
 
-    //@Override
+    //deletes existing volunteer
     public void deleteVolunteer(Volunteer volunteer) {
         em.remove(em.merge(volunteer));
     }
 
-    //@Override
+    //edits existing staff
     public Staff updateStaff(Staff staff) {
         return em.merge(staff);
     }
 
-    //@Override
+    //edits existing volunteer
     public Volunteer updateVolunteer(Volunteer volunteer) {
         Volunteer vol = em.find(Volunteer.class, volunteer.getId());
         vol.setFirstName(volunteer.getFirstName());
@@ -91,14 +88,14 @@ public class UsersEJB{
         return em.merge(vol);
     }
 
-    //@Override
+    //returns staff based on email
     public Staff findStaffByEmail(String email) {
         TypedQuery<Staff> query = em.createNamedQuery("findStaffByEmail", Staff.class);
         query.setParameter("email", email);
         return query.getSingleResult();
     }
 
-    //@Override
+    //returns volunteers based on email
     public Volunteer findVolByEmail(String email) {
         TypedQuery<Volunteer> query = em.createNamedQuery("findVolByEmail", Volunteer.class);
         query.setParameter("email", email);

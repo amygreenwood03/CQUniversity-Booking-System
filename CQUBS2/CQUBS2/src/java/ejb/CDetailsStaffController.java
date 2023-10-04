@@ -16,37 +16,39 @@ import java.nio.file.Paths;
 
 /**
  * This class in charge of managing category details. 
- * Staffs can change the details of categories related to the departments they are associated with. 
+ * Staff can change the details of categories related to the departments they are associated with. 
  */
 
 @Named(value = "cDetailsStaffController")
 @SessionScoped
 public class CDetailsStaffController implements Serializable {
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //CategoryEJB instance
     
     @EJB
-    private RegistrationEJB regEJB;
+    private RegistrationEJB regEJB; //RegistrationEJB instance
     
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //ServiceEJB instance
     
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocationEJB instance
     
-    private Category category;
-    private Long categoryId = 0L;
+    private Category category; //stores category object
+    private Long categoryId = 0L; //stores category id passed from previous view
     
-    private String pageName, categoryName = "";
-    private String imageUrl;
+    private String pageName, categoryName = ""; //page title & current category name
+    private String imageUrl; //URL of image in string format for upload to database
     
-    private Part promoImg;
-    private File savedImg;
+    private Part promoImg; //stores image & related data uploaded through form
+    private File savedImg; //stores image file to be written
     
+    //default constructor
     public CDetailsStaffController() {
         
     }
     
+    //initialises page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -64,6 +66,7 @@ public class CDetailsStaffController implements Serializable {
         }
     }
     
+    //initialises page for edit upon load
     public void editInit() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -80,16 +83,19 @@ public class CDetailsStaffController implements Serializable {
         }
     }
     
+    //returns all registrations for a service
     public List<Registration> getTotalRegList(Service service) {
         List<Registration> totalRegList = regEJB.findRegistrationsByService(service);
         return totalRegList;
     }
     
+    //returns all services associated with a particular category
     public List<Service> getServiceList(Category cat) {
         List<Service> serviceList = serviceEJB.findServicesByCategory(cat);
         return serviceList;
     }
     
+    //edits existing category
     public String edit() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage editError = new FacesMessage("", "Please fill out all fields.");
@@ -111,6 +117,7 @@ public class CDetailsStaffController implements Serializable {
         return "category_details_staff.faces?faces-redirect=true";
     }
     
+    //deletes existing category (including all services & registrations if applicable)
     public String delete() {   
         List<Service> serviceList = getServiceList(category);
         
@@ -140,6 +147,7 @@ public class CDetailsStaffController implements Serializable {
         return "categories_staff.faces?faces-redirect=true";
     }
     
+    //saves uploaded image to dedicated images directory on server
     public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -159,42 +167,52 @@ public class CDetailsStaffController implements Serializable {
         }
     }
 
+    //category accessor
     public Category getCategory() {
         return category;
     }
 
+    //category mutator
     public void setCategory(Category category) {
         this.category = category;
     }
 
+    //categoryId accessor
     public Long getCategoryId() {
         return categoryId;
     }
 
+    //categoryId mutator
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
+    //pageName accessor
     public String getPageName() {
         return pageName;
     }
 
+    //pageName mutator
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }
 
+    //promoImg accessor
     public Part getPromoImg() {
         return promoImg;
     }
 
+    //promoImg mutator
     public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
     }
 
+    //categoryName accessor
     public String getCategoryName() {
         return categoryName;
     }
 
+    //categoryName mutator
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }

@@ -96,6 +96,7 @@ public class Location implements Serializable {
         return true;
     }
 
+    //returns representation of object as string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.Location[ id=" + locationId + " ]";

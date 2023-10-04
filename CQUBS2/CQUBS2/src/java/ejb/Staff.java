@@ -35,6 +35,7 @@ public class Staff extends Users {
         this.department = department;
     }
     
+    //returns representation of object as string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.NewEntity[ id=" + id + " ]";

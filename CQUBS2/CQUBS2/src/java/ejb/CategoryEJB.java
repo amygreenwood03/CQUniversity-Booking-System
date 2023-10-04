@@ -19,21 +19,23 @@ public class CategoryEJB{
     
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
-    private EntityManager em;
+    private EntityManager em; //entity manager instance
     
     @Resource
-    SessionContext ctx;
+    SessionContext ctx; //current session context of server
 
-    // Public methods
+    //returns all categories in database
     public List<Category> findCategories() {
         TypedQuery<Category> query = em.createNamedQuery("findAllCategories", Category.class);
         return query.getResultList();
     }
 
+    //returns category based on id
     public Category findCategoryById(Long id) {
         return em.find(Category.class, id);
     }
     
+    //returns categories based on associated department
     public List<Category> findCategoriesByDepartment(Department department)
     {
         TypedQuery<Category> query = em.createNamedQuery("findCategoriesByDepartment", Category.class);
@@ -41,30 +43,25 @@ public class CategoryEJB{
         return query.getResultList();
     }
 
-    //@Override
+    //creates a new category
     public Category createCategory(Category category) {
         em.persist(category);
         System.out.println(ctx.getCallerPrincipal().getName());
         return category;
     }
 
-    //@Override
+    //deletes existing category
     public void deleteCategory(Category category) {
         category = em.find(Category.class, category.getCat_id());
         category = em.merge(category);
         em.remove(category);
     }
 
-    //@Override
+    //updates existing category
     public Category updateCategory(Category category) {
         Category updatedCategory = em.find(Category.class, category.getCat_id());
         updatedCategory.setCategoryName(category.getCategoryName());
         updatedCategory.setImageUrl(category.getImageUrl());
         return em.merge(updatedCategory);
-    }
-
-    //@Override
-    public Category findCategoryByName(String catName) {
-        return em.find(Category.class, catName);
     }
 }

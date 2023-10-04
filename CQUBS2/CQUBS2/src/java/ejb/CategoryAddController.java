@@ -14,27 +14,29 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * This controller allows staffs to add a new category
+ * This controller allows staff to add a new category
  */
 
 @Named(value = "categoryAddController")
 @SessionScoped
 public class CategoryAddController implements Serializable {
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //CategoryEJB instance
     
-    private Category category = new Category();
+    private Category category = new Category(); //stores category object to be added
     
-    private final String PAGE_NAME = "Add Category";
-    private String imageUrl;
+    private final String PAGE_NAME = "Add Category"; //page title
+    private String imageUrl; //URL of image in string format for upload to database
     
-    private Part promoImg;
-    private File savedImg;
+    private Part promoImg; //stores image & related data uploaded through form
+    private File savedImg; //stores image file to be written
     
+    //default constructor
     public CategoryAddController() {
         
     }
     
+    //returns whether or not any form fields are empty
     public boolean checkFields() {
         if(category.getCategoryName().isBlank() || promoImg == null)
             return true;
@@ -42,6 +44,7 @@ public class CategoryAddController implements Serializable {
         return false;
     }
     
+    //creates new category
     public String create(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
@@ -61,6 +64,7 @@ public class CategoryAddController implements Serializable {
         return "categories_staff.faces?faces-redirect=true";
     }
     
+    //saves uploaded image to dedicated images directory on server
     public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -81,22 +85,27 @@ public class CategoryAddController implements Serializable {
         }
     }
 
+    //category accessor
     public Category getCategory() {
         return category;
     }
 
+    //category mutator
     public void setCategory(Category category) {
         this.category = category;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }
     
+    //promoImg accessor
     public Part getPromoImg() {
         return promoImg;
     }
 
+    //promoImg mutator
     public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
     }

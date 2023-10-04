@@ -16,32 +16,34 @@ import java.util.List;
 @SessionScoped
 public class ServicesStaffController implements Serializable {
     @EJB
-    private LocationEJB locationEJB;
+    private LocationEJB locationEJB; //LocationEJB instance
     
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //CategoryEJB instance
     
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //ServiceEJB instance
     
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocation instance
     
-    private List<Location> locationsList, selectedLocationsList = new ArrayList<>(); //to store all locations & locations selected in filter respectively
-    private List<Category> categoriesList, selectedCategoriesList = new ArrayList<>(); //to store all categories & categories selected in filter respectively
-    private List<Service> servicesList, selectedServicesList = new ArrayList<>(); //to store all services & services selected in filter respectively
-    private List<ServiceAtLocation> salList = new ArrayList<>(); //to store search results since we want them split by location
+    private List<Location> locationsList, selectedLocationsList = new ArrayList<>(); //stores all locations & locations selected in filter respectively
+    private List<Category> categoriesList, selectedCategoriesList = new ArrayList<>(); //stores all categories & categories selected in filter respectively
+    private List<Service> servicesList, selectedServicesList = new ArrayList<>(); //stores all services & services selected in filter respectively
+    private List<ServiceAtLocation> salList = new ArrayList<>(); //stores search results
     
-    private Long fromHomeId;
+    private Long fromHomeId; //stores service id passed from home page
     
-    private final String PAGE_NAME = "Services Search";
+    private final String PAGE_NAME = "Services Search"; //page title
     
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //decimal formatting for prices
     
+    //default constructor
     public ServicesStaffController() {
         
     }
     
+    //initialised page upon load
     public void init(Staff user) {
         locationsList = locationEJB.findLocations();
         categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
@@ -60,8 +62,8 @@ public class ServicesStaffController implements Serializable {
         }
     }
     
-    public String renderPrice(double price)
-    {
+    //returns representation of price as string
+    public String renderPrice(double price) {
         String priceAsString = "";
         
         if(price > 0.0)
@@ -72,11 +74,14 @@ public class ServicesStaffController implements Serializable {
         return priceAsString;
     }
     
+    //searches database for sals based upon selected filters if applicable
     public void search(Staff user) {
         salList = salEJB.findSALsByDepartment(user.getDepartment());
         List<ServiceAtLocation> results = new ArrayList<>();
         
+        //if any filters have been applied
         if(!selectedLocationsList.isEmpty() || !selectedCategoriesList.isEmpty() || !selectedServicesList.isEmpty()) {
+            //if location filters applied
             if(!selectedLocationsList.isEmpty()) {
                 for(int i = 0; i < selectedLocationsList.size(); i++)
                     results.addAll(salEJB.findSALsByLocation(selectedLocationsList.get(i)));
@@ -96,6 +101,7 @@ public class ServicesStaffController implements Serializable {
                 results = list;
             }
             
+            //if category filters applied
             if(!selectedCategoriesList.isEmpty()) {   
                 if(results.isEmpty()) {
                     for(int i = 0; i < selectedCategoriesList.size(); i++)
@@ -121,6 +127,7 @@ public class ServicesStaffController implements Serializable {
                 }
             }
             
+            //if service type filters applied
             if(!selectedServicesList.isEmpty())
             {
                 if(results.isEmpty())
@@ -156,86 +163,103 @@ public class ServicesStaffController implements Serializable {
         }
     }
 
+    //locationsList accessor
     public List<Location> getLocationsList() 
     {
         return locationsList;
     }
 
+    //locationsList mutator
     public void setLocationsList(List<Location> locationsList)
     {
         this.locationsList = locationsList;
     }
 
+    //selectedLocationsList accessor
     public List<Location> getSelectedLocationsList() 
     {
         return selectedLocationsList;
     }
 
+    //selectedLocationsList mutator
     public void setSelectedLocationsList(List<Location> selectedLocationsList)
     {
         this.selectedLocationsList = selectedLocationsList;
     }
 
+    //categoriesList accessor
     public List<Category> getCategoriesList() 
     {
         return categoriesList;
     }
 
+    //categoriesList mutator
     public void setCategoriesList(List<Category> categoriesList) 
     {
         this.categoriesList = categoriesList;
     }
 
+    //selectedCategoriesList accessor
     public List<Category> getSelectedCategoriesList()
     {
         return selectedCategoriesList;
     }
 
+    //selectedCategoriesList mutator
     public void setSelectedCategoriesList(List<Category> selectedCategoriesList) 
     {
         this.selectedCategoriesList = selectedCategoriesList;
     }
 
+    //servicesList accessor
     public List<Service> getServicesList()
     {
         return servicesList;
     }
 
+    //servicesList mutator
     public void setServicesList(List<Service> servicesList)
     {
         this.servicesList = servicesList;
     }
 
+    //selectedServicesList accessor
     public List<Service> getSelectedServicesList() 
     {
         return selectedServicesList;
     }
 
+    //selectedServicesList mutator
     public void setSelectedServicesList(List<Service> selectedServicesList) 
     {
         this.selectedServicesList = selectedServicesList;
     }
 
+    //salList accessor
     public List<ServiceAtLocation> getSalList() 
     {
         return salList;
     }
 
+    //salList mutator
     public void setSalList(List<ServiceAtLocation> salList)
     {
         this.salList = salList;
     }
 
+    //fromHomeId accessor
     public Long getFromHomeId() 
     {
         return fromHomeId;
     }
 
+    //fromHomeId mutator
     public void setFromHomeId(Long fromHomeId) 
     {
         this.fromHomeId = fromHomeId;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() 
     {
         return PAGE_NAME;

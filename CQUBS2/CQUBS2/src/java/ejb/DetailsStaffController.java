@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class controls Service Details page for users and guests.
+ * This class controls Service Details page for staff.
  * Page "service_details_staff.xhtml"
  */
 
@@ -25,42 +25,49 @@ import java.util.List;
 @SessionScoped
 public class DetailsStaffController implements Serializable {
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocationEJB instance
     
     @EJB
-    private RegistrationEJB regEJB;
+    private RegistrationEJB regEJB; //RegistrationEJB instance
     
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //ServiceEJB instance
     
     @EJB
-    private LocationEJB locationEJB;
+    private LocationEJB locationEJB; //LocationEJB instance
     
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //CategoryEJB instance
     
-    private ServiceAtLocation sal = new ServiceAtLocation();
-    private Long salId = 0L;
-    private String pageName = "";
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private ServiceAtLocation sal = new ServiceAtLocation(); //stores current sal
+    private Long salId = 0L; //stores sal id passed from previous view
+    private String pageName = ""; //page title
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //decimal formatting for prices
     
-    private Service service = new Service();
+    private Service service = new Service(); //stores service to be edited
     
-    private List<Location> selectedLocationsList = new ArrayList<>();
-    private List<Location> locationsList = new ArrayList<>();
+    private List<Location> selectedLocationsList = new ArrayList<>(); //stores locations selected by user
+    private List<Location> locationsList = new ArrayList<>(); //stores all locations in database
     
-    private Long selectedCategoryId = 0L;
-    private List<Category> categoriesList = new ArrayList<>();
+    private Long selectedCategoryId = 0L; //stores id of selected category
+    private List<Category> categoriesList = new ArrayList<>(); //stores all categories in database
     
-    private String selectedPrice, priceString, imageUrl, serviceName, serviceDescription;
+    private String 
+        selectedPrice, //price selected by user (ie. free or charge)
+        priceString, //cost entered by user if applicable
+        imageUrl, //URL of image in string format for upload to database
+        serviceName, //edited service name
+        serviceDescription; //edited service description
     
-    private Part promoImg;
-    private File savedImg;
+    private Part promoImg; //stores image & related data uploaded through form
+    private File savedImg; //stores image file to be written
     
+    //default constructor
     public DetailsStaffController() {
         
     }
     
+    //initialises page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -78,6 +85,7 @@ public class DetailsStaffController implements Serializable {
         }
     }
     
+    //initialises page for editing upon load
     public void editInit(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -120,6 +128,7 @@ public class DetailsStaffController implements Serializable {
         }
     }
     
+    //returns representation of price as a string
     public String renderPrice(double price) {
         String priceAsString = "";
         if(price > 0.0)
@@ -130,11 +139,13 @@ public class DetailsStaffController implements Serializable {
         return priceAsString;
     }
     
+    //returns all registrations for a sal
     public List<Registration> getRegList(ServiceAtLocation servAtLocation) {
         List<Registration> regList = regEJB.findRegistrationsBySAL(servAtLocation);
         return regList;
     }
     
+    //edits existing service
     public String serviceEdit() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage editError = new FacesMessage("", "Please fill out all fields.");
@@ -195,6 +206,7 @@ public class DetailsStaffController implements Serializable {
         return "service_details_staff.faces?faces-redirect=true";
     }
     
+    //deletes existing sal (& service if no sals remain)
     public String serviceDelete() {
         List<Registration> regList = getRegList(sal);
         
@@ -216,6 +228,7 @@ public class DetailsStaffController implements Serializable {
         return "services_staff.faces?faces-redirect=true";
     }
     
+    //saves uploaded image to dedicated images directory on server
     public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -233,115 +246,141 @@ public class DetailsStaffController implements Serializable {
         }
     }
 
+    //sal accessor
     public ServiceAtLocation getSal() {
         return sal;
     }
 
+    //sal mutator
     public void setSal(ServiceAtLocation sal) {
         this.sal = sal;
     }
 
+    //salId accessor
     public Long getSalId() {
         return salId;
     }
 
+    //salId mutator
     public void setSalId(Long salId) {
         this.salId = salId;
     }
 
+    //pageName accessor
     public String getPageName() {
         return pageName;
     }
 
+    //pageName mutator
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }
 
+    //service accessor
     public Service getService() {
         return service;
     }
 
+    //service mutator
     public void setService(Service service) {
         this.service = service;
     }
 
+    //selectedLocationsList accessor
     public List<Location> getSelectedLocationsList() {
         return selectedLocationsList;
     }
 
+    //selectedLocationsList mutator
     public void setSelectedLocationsList(List<Location> selectedLocationsList) {
         this.selectedLocationsList = selectedLocationsList;
     }
 
+    //locationsList accessor
     public List<Location> getLocationsList() {
         return locationsList;
     }
 
+    //locationsList mutator
     public void setLocationsList(List<Location> locationsList) {
         this.locationsList = locationsList;
     }
 
+    //selectedCategoryId accessor
     public Long getSelectedCategoryId() {
         return selectedCategoryId;
     }
 
+    //selectedCategoryId mutator
     public void setSelectedCategoryId(Long selectedCategoryId) 
     {
         this.selectedCategoryId = selectedCategoryId;
     }
 
+    //categoriesList accessor
     public List<Category> getCategoriesList()
     {
         return categoriesList;
     }
 
+    //categoriesList mutator
     public void setCategoriesList(List<Category> categoriesList) 
     {
         this.categoriesList = categoriesList;
     }
 
+    //selectedPrice accessor
     public String getSelectedPrice()
     {
         return selectedPrice;
     }
 
+    //selectedPrice mutator
     public void setSelectedPrice(String selectedPrice) 
     {
         this.selectedPrice = selectedPrice;
     }
 
+    //priceString accessor
     public String getPriceString() 
     {
         return priceString;
     }
 
+    //priceString mutator
     public void setPriceString(String priceString) 
     {
         this.priceString = priceString;
     }
     
+    //promoImg accessor
     public Part getPromoImg() 
     {
         return promoImg;
     }
 
+    //promoImg mutator
     public void setPromoImg(Part promoImg) 
     {
         this.promoImg = promoImg;
     }
 
+    //serviceName accessor
     public String getServiceName() {
         return serviceName;
     }
 
+    //serviceName mutator
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
+    //serviceDescription accessor
     public String getServiceDescription() {
         return serviceDescription;
     }
 
+    //serviceDescription mutator
     public void setServiceDescription(String serviceDescription) {
         this.serviceDescription = serviceDescription;
     }

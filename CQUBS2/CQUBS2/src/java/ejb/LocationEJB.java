@@ -18,7 +18,6 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-//@Remote(LocationRemote.class)
 public class LocationEJB{
     
     //Attributes 
@@ -28,38 +27,31 @@ public class LocationEJB{
     @Resource
     SessionContext ctx;
     
-    // Public methods
-    //@Override
+    //returns all locations 
     public List<Location> findLocations() {
         TypedQuery<Location> query = em.createNamedQuery("findAllLocations", Location.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns location based on id
     public Location findLocationById(Long id) {
         return em.find(Location.class, id);
     }
 
-    //@Override
+    //creates new location
     public Location createLocation(Location loc) {
         em.persist(loc);
         System.out.println(ctx.getCallerPrincipal().getName());
         return loc;
     }
 
-    //@Override
+    //deletes existing location
     public void deleteLocation(Location loc) {
         em.remove(em.merge(loc));
     }
 
-    //@Override
+    //edits existing location
     public Location updateLocation(Location loc) {
         return em.merge(loc);
     }
-
-    //@Override
-    public Location findLocationByName(String name) {
-        return em.find(Location.class, name);
-    }
-
 }

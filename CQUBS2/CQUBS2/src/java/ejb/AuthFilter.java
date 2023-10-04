@@ -14,12 +14,13 @@ import java.io.IOException;
 
 /**
  * Authentication Filter makes sure that specific user types can obtain access to certain pages only. 
- * The purpose of this class is to prevent guests or volunteers to access the staff only pages. 
+ * The purpose of this class is to prevent guests or volunteers to access the staff only pages and vice versa. 
  */
 
 public class AuthFilter implements Filter {
-    private FilterConfig config;
+    private FilterConfig config; //FilterConfig instance
     
+    //performs filtering of requests based on specified conditions
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
@@ -29,7 +30,7 @@ public class AuthFilter implements Filter {
         String url = request.getRequestURI();
         String context = request.getContextPath();
         
-        //Staff specialised links
+        //Links for staff-specific pages
         String staffHome = context + "/index_staff.faces";
         String staffDetails = context + "/service_details_staff.faces";
         String staffServices = context + "/services_staff.faces";
@@ -43,7 +44,7 @@ public class AuthFilter implements Filter {
         String staffCAdd = context + "/category_add_staff.faces";
         String staffCEdit = context + "/category_edit_staff.faces";
         
-        //Links for volunteers and guests
+        //Links for volunteer & guest-only pages
         String genHome = context + "/index.faces";
         String genDetails = context + "/service_details.faces";
         String genServices = context + "/services.faces";
@@ -122,11 +123,13 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
     }
     
+    //initialises config
     @Override
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
     }
     
+    //sets config to null
     @Override
     public void destroy() {
         config = null;

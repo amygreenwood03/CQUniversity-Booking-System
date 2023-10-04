@@ -12,9 +12,7 @@ import java.util.List;
  * * @author HeimannK
  */
 @Entity
-@NamedQuery(
-    name="findAllCategories",
-        query="SELECT c FROM Category c")
+@NamedQuery(name="findAllCategories", query="SELECT c FROM Category c")
 @NamedQuery(name = "findCategoriesByDepartment", query = "SELECT c FROM Category c WHERE c.dept.departmentId = :did")
 public class Category implements Serializable {
 
@@ -122,6 +120,7 @@ public class Category implements Serializable {
         return true;
     }
 
+    //returns representation of object as a string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.Category[ id=" + cat_id + " ]";

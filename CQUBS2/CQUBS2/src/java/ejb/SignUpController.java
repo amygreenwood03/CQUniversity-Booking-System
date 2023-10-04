@@ -21,16 +21,18 @@ import java.security.MessageDigest;
 @SessionScoped
 public class SignUpController implements Serializable {
     @EJB
-    private UsersEJB usersEJB;
+    private UsersEJB usersEJB; //UsersEJB instance
     
-    private Volunteer user;
-    private final String PAGE_NAME = "Volunteer Signup";
-    private String firstName, lastName, phoneNumber, emailAddress, password = ""; 
+    private Volunteer user; //stores volunteer account to be added
+    private final String PAGE_NAME = "Volunteer Signup"; //page title
+    private String firstName, lastName, phoneNumber, emailAddress, password = ""; //details & credentials entered by user
     
+    //default constructor
     public SignUpController() {
         
     }
     
+    //returns whether form fields are empty
     public boolean checkFields() {
         if(firstName.isBlank() || lastName.isBlank() || phoneNumber.isBlank() || emailAddress.isBlank() || password.isBlank())
             return true;
@@ -38,7 +40,7 @@ public class SignUpController implements Serializable {
         return false;
     }
     
-    //Important! - Currently not being activated by sign_up.xhtml, please check.
+    //attempts to create new volunteer account with supplied details
     public String signupVolunteer() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -101,10 +103,6 @@ public class SignUpController implements Serializable {
             }
             else {
                 // Entry problem!
-                /*firstName = "";
-                lastName = "";
-                phoneNumber = "";
-                emailAddress = "";*/
                 password = "";
                 
                 ctx.addMessage("signUpForm", signupError);
@@ -113,9 +111,6 @@ public class SignUpController implements Serializable {
         }
         // User already exists
         else {
-            /*firstName = "";
-            lastName = "";
-            phoneNumber = "";*/
             emailAddress = "";
             password = "";
             
@@ -148,46 +143,57 @@ public class SignUpController implements Serializable {
         return lastName.matches("[A-Z]+([a-zA-Z]+)*");
     }
     
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }
     
+    //firstName accessor
     public String getFirstName() {
         return firstName;
     }
     
+    //firstName mutator
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
     
+    //lastName accessor
     public String getLastName() {
         return lastName;
     }
     
+    //lastName mutator
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
     
+    //phoneNumber accessor
     public String getPhoneNumber(){
         return phoneNumber;
     }
     
+    //phoneNumber mutator
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     
+    //emailAddress accessor
     public String getEmailAddress() {
         return emailAddress;
     }
     
+    //emailAddress mutator
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
     
+    //password accessor
     public String getPassword() {
         return password;
     }
     
+    //password mutator
     public void setPassword(String password) {
         this.password = password;
     }

@@ -18,57 +18,55 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-//@Remote(ServiceRemote.class)
 public class ServiceEJB{
 
     //Attributes 
     @PersistenceContext(unitName = "CQUBSPU")
-    private EntityManager em;
+    private EntityManager em; //entity manager instance
 
     @Resource
-    SessionContext ctx;
+    SessionContext ctx; //current session context of server
     
-    // Public methods
-    //@Override
+    //returns all services
     public List<Service> findServices() {
         TypedQuery<Service> query = em.createNamedQuery("findAllServices", Service.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns service based on id
     public Service findServiceById(Long id) {
         return em.find(Service.class, id);
     }
     
-    public List<Service> findServicesByCategory(Category category)
-    {
+    //returns services based on category
+    public List<Service> findServicesByCategory(Category category) {
         TypedQuery<Service> query = em.createNamedQuery("findServicesByCategory", Service.class);
         query.setParameter("cid", category.getCat_id());
         return query.getResultList();
     }
     
-    public List<Service> findServicesByDepartment(Department department)
-    {
+    //returns services based on department
+    public List<Service> findServicesByDepartment(Department department) {
         TypedQuery<Service> query = em.createNamedQuery("findServicesByDepartment", Service.class);
         query.setParameter("did", department.getDepartmentId());
         return query.getResultList();
     }
 
-    //@Override
+    //creates new service
     public Service createService(Service service) {
         em.persist(service);
         System.out.println(ctx.getCallerPrincipal().getName());
         return service;
     }
 
-    //@Override
+    //deletes existing service
     public void deleteService(Service service) {
         service = em.find(Service.class, service.getServiceId());
         service = em.merge(service);
         em.remove(service);
     }
 
-    //@Override
+    //edits existing service
     public Service updateService(Service service) {
         Service updatedService = em.find(Service.class, service.getServiceId());
         updatedService.setServiceName(service.getServiceName());
@@ -79,10 +77,5 @@ public class ServiceEJB{
         updatedService.setServicePrice(service.getServicePrice());
         
         return em.merge(updatedService);
-    }
-
-    //@Override
-    public Service findServiceByName(String name) {
-        return em.find(Service.class, name);
     }
 }

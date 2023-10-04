@@ -17,42 +17,47 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * This controller allows staff to add a new service on a category.
+ * This controller allows staff to add a new service.
  */
 
 @Named(value = "serviceAddController")
 @SessionScoped
 public class ServiceAddController implements Serializable {
     @EJB
-    private LocationEJB locationEJB;
+    private LocationEJB locationEJB; //LocationEJB instance
     
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //CategoryEJB instance
     
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //ServiceEJB instance
     
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocationEJB instance
     
-    private final String PAGE_NAME = "Add Service";
-    private String selectedPrice, priceString, imageUrl;
+    private final String PAGE_NAME = "Add Service"; //page title
+    private String 
+        selectedPrice, //price selected by user (ie. free or charge)
+        priceString, //cost entered if applicable
+        imageUrl; //URL of image in string format for upload to database
     
-    private List<Location> selectedLocationsList = new ArrayList<>();
-    private List<Location> locationsList = new ArrayList<>();
+    private List<Location> selectedLocationsList = new ArrayList<>(); //stores locations selected by user
+    private List<Location> locationsList = new ArrayList<>(); //stores all locations in database
     
-    private Long selectedCategoryId = 0L;
-    private List<Category> categoriesList = new ArrayList<>();
+    private Long selectedCategoryId = 0L; //stores selected category id
+    private List<Category> categoriesList = new ArrayList<>(); //stores all categories in database
     
-    private Service service;
+    private Service service; //stores service to be added
     
-    private Part promoImg;
-    private File savedImg;
+    private Part promoImg; //stores image & related data uploaded through form
+    private File savedImg; //stores image file to be written
     
+    //default constructor
     public ServiceAddController() {
         
     }
     
+    //initialises page upon load
     @PostConstruct
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -68,6 +73,7 @@ public class ServiceAddController implements Serializable {
         service = new Service();
     }
     
+    //returns whether form fields are empty
     public boolean checkFields() {
         if(service.getServiceName().isBlank() || selectedLocationsList.isEmpty() || selectedPrice.isBlank() || selectedCategoryId == 0L || promoImg == null || service.getServiceDescription().isBlank())
             return true;
@@ -75,6 +81,7 @@ public class ServiceAddController implements Serializable {
         return false;
     }
     
+    //creates new service & associated sals
     public String create() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage createError = new FacesMessage("", "Please fill out all fields and upload a promotional image.");
@@ -120,6 +127,7 @@ public class ServiceAddController implements Serializable {
         return "services_staff.faces?faces-redirect=true";
     }
     
+    //saves uploaded image to dedicated images directory on server
     public void uploadImg() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -140,70 +148,87 @@ public class ServiceAddController implements Serializable {
         }
     }
 
+    //selectedPrice accessor
     public String getSelectedPrice() {
         return selectedPrice;
     }
 
+    //selectedPrice mutator
     public void setSelectedPrice(String selectedPrice) {
         this.selectedPrice = selectedPrice;
     }
 
+    //priceString accessor
     public String getPriceString() {
         return priceString;
     }
 
+    //priceString mutator
     public void setPriceString(String priceString) {
         this.priceString = priceString;
     }
 
+    //selectedLocationsList accessor
     public List<Location> getSelectedLocationsList() {
         return selectedLocationsList;
     }
 
+    //selectedLocationsList mutator
     public void setSelectedLocationsList(List<Location> selectedLocationsList) {
         this.selectedLocationsList = selectedLocationsList;
     }
 
+    //locationsList accessor
     public List<Location> getLocationsList() {
         return locationsList;
     }
 
+    //locationsList mutator
     public void setLocationsList(List<Location> locationsList) {
         this.locationsList = locationsList;
     }
 
+    //selectedCategoryId accessor
     public Long getSelectedCategoryId() {
         return selectedCategoryId;
     }
 
+    //selectedCategoryId mutator
     public void setSelectedCategoryId(Long selectedCategoryId) {
         this.selectedCategoryId = selectedCategoryId;
     }
 
+    //categoriesList accessor
     public List<Category> getCategoriesList() {
         return categoriesList;
     }
 
+    //categoriesList mutator
     public void setCategoriesList(List<Category> categoriesList) {
         this.categoriesList = categoriesList;
     }
 
+    //service accessor
     public Service getService() {
         return service;
     }
 
+    //service mutator
     public void setService(Service service) {
         this.service = service;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     } 
 
+    //promoImg accessor
     public Part getPromoImg() {
         return promoImg;
     }
 
+    //promoImg mutator
     public void setPromoImg(Part promoImg) {
         this.promoImg = promoImg;
     }

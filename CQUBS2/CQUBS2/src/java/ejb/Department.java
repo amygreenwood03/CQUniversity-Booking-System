@@ -12,9 +12,7 @@ import jakarta.persistence.*;
  * * @author HeimannK
  */
 @Entity
-@NamedQuery(
-    name="findAllDepartments",
-        query="SELECT d FROM Department d")
+@NamedQuery(name="findAllDepartments", query="SELECT d FROM Department d")
 public class Department implements Serializable {
 
     // Attributes
@@ -97,6 +95,7 @@ public class Department implements Serializable {
         return true;
     }
 
+    //returns representation of object as string
     @Override
     public String toString() {
         return "cquclientbookingsystem.ejb.Department[ id=" + departmentId + " ]";

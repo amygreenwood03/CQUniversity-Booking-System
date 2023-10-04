@@ -18,47 +18,40 @@ import java.util.List;
  * * @author HeimannK
  */
 @Stateless
-//@Remote(DepartmentRemote.class)
 public class DepartmentEJB{
     
     // Attributes
     @PersistenceContext(unitName = "CQUBSPU")
-    private EntityManager em;
+    private EntityManager em; //entity manager instance
     
     @Resource
-    SessionContext ctx;
+    SessionContext ctx; //current session context of server
     
-    // Public methods
-    //@Override
+    //returns all departments
     public List<Department> findDepartments() {
         TypedQuery<Department> query = em.createNamedQuery("findAllDepartments", Department.class);
         return query.getResultList();
     }
 
-    //@Override
+    //returns department based on id
     public Department findDeptById(Long id) {
         return em.find(Department.class, id);
     }
 
-    //@Override
+    //creates new department
     public Department createDept(Department dept) {
         em.persist(dept);
         System.out.println(ctx.getCallerPrincipal().getName());
         return dept;
     }
 
-    //@Override
+    //deletes existing department
     public void deleteDept(Department dept) {
         em.remove(em.merge(dept));
     }
 
-    //@Override
+    //updates existing department
     public Department updateDept(Department dept) {
         return em.merge(dept);
-    }
-
-    //@Override
-    public Department findDeptByName(String deptName) {
-        return em.find(Department.class, deptName);
     }
 }

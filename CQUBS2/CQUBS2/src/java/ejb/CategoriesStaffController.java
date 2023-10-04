@@ -17,17 +17,19 @@ import java.util.ArrayList;
 @SessionScoped
 public class CategoriesStaffController implements Serializable {
     @EJB
-    private CategoryEJB categoryEJB;
+    private CategoryEJB categoryEJB; //categoryEJB instance
     
     @EJB
-    private ServiceEJB serviceEJB;
+    private ServiceEJB serviceEJB; //serviceEJB instance
     
-    private List<Category> categoriesList = new ArrayList<>();
+    private List<Category> categoriesList = new ArrayList<>(); //stores all categories in database
     
+    //default constructor
     public CategoriesStaffController() {
         
     }
     
+    //initialises the page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Staff user = (Staff) ctx.getExternalContext().getSessionMap().get("user");
@@ -35,15 +37,18 @@ public class CategoriesStaffController implements Serializable {
         categoriesList = categoryEJB.findCategoriesByDepartment(user.getDepartment());
     }
     
+    //returns services associated with a certain category
     public List<Service> getServiceList(Category cat) {
         List<Service> serviceList = serviceEJB.findServicesByCategory(cat);
         return serviceList;
     }
 
+    //categoriesList accessor
     public List<Category> getCategoriesList() {
         return categoriesList;
     }
 
+    //categoriesList mutator
     public void setCategoriesList(List<Category> categoriesList) {
         this.categoriesList = categoriesList;
     }

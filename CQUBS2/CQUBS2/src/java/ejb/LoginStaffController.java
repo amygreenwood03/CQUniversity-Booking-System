@@ -21,21 +21,24 @@ import java.security.MessageDigest;
 @SessionScoped
 public class LoginStaffController implements Serializable {
     @EJB
-    private UsersEJB usersEJB;
-    private final String PAGE_NAME = "Staff Login";
-    private String username,password = "";
+    private UsersEJB usersEJB; //UsersEJB instance
+    private final String PAGE_NAME = "Staff Login"; //page title
+    private String username,password = ""; //credentials entered by user
+    
+    //default constructor
     public LoginStaffController() {
         
     }
     
-    public boolean checkFields()
-    {
+    //returns whether form fields are empty
+    public boolean checkFields() {
         if(username.isBlank() || password.isBlank())
             return true;
         
         return false;
     }
     
+    //attempts to login to staff account using supplied credentials
     public String login() throws NoSuchAlgorithmException {
         String navResult = "";
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -105,28 +108,34 @@ public class LoginStaffController implements Serializable {
         return navResult;
     }
     
+    //logs out of staff account and discards session
     public String logout() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().getSessionMap().clear();
         return "index.faces?faces-redirect=true";
     }
 
+    //username accessor
     public String getUsername() {
         return username;
     }
 
+    //username mutator
     public void setUsername(String username) {
         this.username = username;
     }
 
+    //password accessor
     public String getPassword() {
         return password;
     }
 
+    //password mutator
     public void setPassword(String password) {
         this.password = password;
     }
 
+    //PAGE_NAME accessor
     public String getPAGE_NAME() {
         return PAGE_NAME;
     }

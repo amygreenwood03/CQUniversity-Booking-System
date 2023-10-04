@@ -19,18 +19,20 @@ import java.util.List;
 @SessionScoped
 public class DetailsController implements Serializable {
     @EJB
-    private ServiceAtLocationEJB salEJB;
+    private ServiceAtLocationEJB salEJB; //ServiceAtLocationEJB instance
     @EJB
-    private RegistrationEJB regEJB;
-    private ServiceAtLocation sal = new ServiceAtLocation();
-    private Long salId = 0L;
-    private String pageName = "";
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private RegistrationEJB regEJB; //RegistrationEJB instance
+    private ServiceAtLocation sal = new ServiceAtLocation(); //stores current sal object
+    private Long salId = 0L; //stores salId passed from previous view
+    private String pageName = ""; //page title
+    private static final DecimalFormat df = new DecimalFormat("0.00"); //decimal formatting for prices
     
+    //default constructor
     public DetailsController() {
         
     }
     
+    //initialises page upon load
     public void init() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         
@@ -48,6 +50,7 @@ public class DetailsController implements Serializable {
         }
     }
     
+    //returns representation of price as a string
     public String renderPrice(double price) {
         String priceAsString = "";
         if(price > 0.0)
@@ -58,13 +61,8 @@ public class DetailsController implements Serializable {
         return priceAsString;
     }
     
+    //creates new registration for particular sal
     public String register(Volunteer user) {
-        /**
-         * volunteer registration implementation
-         * 1 : will register user to particular sal
-         * 2 : will refresh user session variable to account for new entry in regList
-         * 3 : will return user to refreshed details page
-         */
         Registration reg = new Registration();
         reg.setSAL(sal);
         
@@ -76,12 +74,8 @@ public class DetailsController implements Serializable {
         return "service_details.faces?salId=" + sal.getSalId();
     }
     
-    public boolean registrationStatus(Volunteer user) {
-        /**
-         * will be used to check if user is currently registered or not to a specific sal
-         * will return true if so, & UI won't display register button
-         * will return false if not, & UI will display register button
-         */        
+    //returns whether volunteer is currently registered to a specific sal
+    public boolean registrationStatus(Volunteer user) {    
         boolean isRegistered = false;
         List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
         
@@ -97,26 +91,32 @@ public class DetailsController implements Serializable {
         return isRegistered;
     }
 
+    //sal accessor
     public ServiceAtLocation getSal() {
         return sal;
     }
 
+    //sal mutator
     public void setSal(ServiceAtLocation sal) {
         this.sal = sal;
     }
 
+    //salId accessor
     public Long getSalId() {
         return salId;
     }
 
+    //salId mutator
     public void setSalId(Long salId) {
         this.salId = salId;
     }
 
+    //pageName accessor
     public String getPageName() {
         return pageName;
     }
 
+    //pageName mutator
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }    

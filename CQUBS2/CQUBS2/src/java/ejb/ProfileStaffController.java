@@ -16,21 +16,23 @@ import java.io.Serializable;
 @SessionScoped
 public class ProfileStaffController implements Serializable {
     @EJB
-    private RegistrationEJB regEJB;
+    private RegistrationEJB regEJB; //RegistrationEJB instance
     
     @EJB
-    private UsersEJB userEJB;
+    private UsersEJB userEJB; //UsersEJB instance
     
-    private Staff staff;
-    private final String PROFILE_NAME = "Your Profile";
-    private final String EDIT_NAME = "Edit Your Profile";
+    private Staff staff; //stores current staff object
+    private final String PROFILE_NAME = "Your Profile"; //profile page title
+    private final String EDIT_NAME = "Edit Your Profile"; //edit page title
     
-    private String firstName, lastName, email, phone;
+    private String firstName, lastName, email, phone; //form fields
     
+    //default constructor
     public ProfileStaffController() {
         
     }
   
+    //initialises page upon load
     public void init(Staff user) {
         staff = userEJB.findStaffById(user.getId());
         
@@ -40,8 +42,8 @@ public class ProfileStaffController implements Serializable {
         phone = staff.getPhone();
     }
     
-    public boolean checkFields()
-    {
+    //returns whether form fields are empty or invalid
+    public boolean checkFields() {
         if(firstName.isBlank() || lastName.isBlank() || email.isBlank() || phone.isBlank())
             return true;
         else if(!phone.matches("^[0-9]{10}$") || !email.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
@@ -53,6 +55,7 @@ public class ProfileStaffController implements Serializable {
         return false;
     }
     
+    //edits existing staff account
     public String edit(Staff user) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage editError = new FacesMessage("", "One or more fields are empty or filled incorrectly. Please check and try again.");
@@ -83,8 +86,7 @@ public class ProfileStaffController implements Serializable {
             vTest = null;
         }
         
-        if(sTest != null || vTest != null)
-        {
+        if(sTest != null || vTest != null) {
             ctx.addMessage("editForm", new FacesMessage("", "That email is already in use by another user."));
             return null;
         }
@@ -99,56 +101,63 @@ public class ProfileStaffController implements Serializable {
         ctx.getExternalContext().getSessionMap().put("user", staff);
         return "profile_staff.faces?faces-redirect=true";
     }
-    
-    public List<Registration> getRegList(Volunteer user) {
-        List<Registration> regList = regEJB.findRegistrationsByVolunteer(user);
-        return regList;
-    }
 
+    //PROFILE_NAME accessor
     public String getPROFILE_NAME() {
         return PROFILE_NAME;
     }
     
+    //EDIT_NAME accessor
     public String getEDIT_NAME() {
         return EDIT_NAME;
     }
 
+    //staff accessor
     public Staff getStaff() {
         return staff;
     }
 
+    //staff mutator
     public void setStaff(Staff staff) {
         this.staff = staff;
     }
 
+    //firstName accessor
     public String getFirstName() {
         return firstName;
     }
 
+    //firstName mutator
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    //lastName accessor
     public String getLastName() {
         return lastName;
     }
 
+    //lastName mutator
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    //email accessor
     public String getEmail() {
         return email;
     }
 
+    //email mutator
     public void setEmail(String email) {
         this.email = email;
     }
 
+    //phone accessor
     public String getPhone() {
         return phone;
     }
 
+    //phone mutator
     public void setPhone(String phone) {
         this.phone = phone;
     }
