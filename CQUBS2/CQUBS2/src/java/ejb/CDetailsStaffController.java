@@ -153,7 +153,8 @@ public class CDetailsStaffController implements Serializable {
         
         //Change the image path to your Glassfish docroot/images folder
         //String imagesPath = "/Users/Producer.P/glassfish7/glassfish/domains/domain1/docroot/images";
-        String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+	//String imagesPath = "/Users/Amy/glassfish7/glassfish/domains/domain1/docroot/images";
+        String imagesPath = "/Users/Petre/glassfish7/glassfish/domains/domain1/docroot/images";
         String filename = Paths.get(promoImg.getSubmittedFileName()).getFileName().toString();
         
         imageUrl = "/images/" + filename;
